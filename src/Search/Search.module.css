@@ -1,0 +1,36 @@
+.search-games-wrapper {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding-top: 20px;
+    padding-bottom: 20px;
+    background-color: #011627;
+    border-bottom: 1px solid #c8bfc7;
+  }
+  
+  .search-games-wrapper input {
+    width: 85%;
+    margin-right: 5px;
+    padding: 10px;
+    border: 1px solid gray;
+    border-radius: 15px;
+    font-size: 18px;
+    position: relative;
+    max-width: 550px;
+    margin-bottom: 10px;
+  }
+  
+  .search-games-wrapper button {
+    font-size: 14px;
+    border: 1px solid gray;
+    border-radius: 15px;
+    padding: 10px;
+  }
+  
+  .icon {
+    position: relative;
+    right: 10%;
+  }
+  

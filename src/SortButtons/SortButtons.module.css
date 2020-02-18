@@ -1,0 +1,33 @@
+.sort-buttons-wrapper {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #011627;;
+    padding-top: 10px;
+    padding-bottom: 10px;
+}
+
+.sort-buttons-inner-wrapper {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.sort-buttons-inner-wrapper button {
+    font-size: 16px;
+    padding: 8px;
+    border-radius: 0;
+    background-color: #011627;
+    color: white;
+    border: 1px solid white;
+    cursor: pointer
+}
+
+.sort-buttons-inner-wrapper button:hover {
+    color: #011627;
+    background-color: white;
+
+}
+
+

@@ -1,0 +1,151 @@
+.navbar {
+  width: 100%;
+  border-bottom: 1px solid #c8bfc7;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #011627;
+  color: #fdfffc;
+}
+
+.inner-nav {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0;
+  margin: 5px 10px;
+  max-width: 800px;
+}
+
+.logo {
+  text-decoration: none;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin: 10px 0;
+}
+
+.logo-wrapper {
+  width: 33%;
+  color: white;
+  font-size: 20px;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+}
+
+.logo-wrapper:hover {
+  color: lightgray
+}
+
+.players-icon {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.logo-pin {
+  font-size: 45px;
+}
+
+.logo-ball-in-pin {
+  font-size: 12px;
+  color: #fdfffc;
+  position: absolute;
+  top: 23.5%;
+}
+
+.logo h1 {  
+  margin: 0;
+  margin-left: 10px;
+}
+
+.nav-links-wrapper {
+  width: 60%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 14px;
+  margin-right: 10px;
+}
+
+.hamburger {
+  cursor: pointer;
+}
+
+.hamburger div {
+  width: 35px;
+  height: 4px;
+  background-color: white;
+  margin: 5px;
+}
+
+.nav-links-wrapper {
+  display: none;
+}
+
+.sign-out-link {
+  display: none;
+}
+
+.no-auth-nav-links-wrapper {
+  display: none;
+}
+
+@media (min-width: 768px) {
+  .hamburger {
+    display: none;
+  }
+
+  .logo {
+    width: 33%;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    padding-left: 20px;
+  }
+
+  .no-auth-nav-links-wrapper {
+    width: 65%;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+  }
+
+  .no-auth-nav-links-wrapper .nav-link {
+    margin-right: 20px;
+  }
+
+  .nav-links-wrapper {
+    width: 33%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-right: 0;
+  }
+
+  .nav-link {
+    font-size: 18px;
+    color: white;
+    text-decoration: none;
+  }
+
+  .nav-link:hover {
+    color: lightgray;
+  }
+
+  .sign-out-link {
+    font-size: 20px;
+    width: 33%;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+  }
+
+  .sign-out-link .nav-link {
+    padding-right: 20px;
+  }
+}

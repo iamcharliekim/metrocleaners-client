@@ -1,0 +1,132 @@
+.home-wrapper {
+    color: #011627;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    position: relative;
+    width: 100%;
+    height: 80%;
+}
+
+.home-wrapper h2 {
+    color: #011627;
+}
+
+.home-wrapper header {
+    margin-bottom: 20px;
+}
+
+.orders-list-wrapper {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+}
+
+.orders-list-wrapper header h2 {
+    margin-bottom: 5px;
+}
+
+.orders-list-wrapper header h3 {
+    font-size: 16px;
+    margin-top: 10px;
+    margin-bottom: 30px;
+}
+
+
+.orders-card {
+    width: 80%;
+    margin-right:0;
+    border: 1px solid black;
+    padding: 10px;    
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: flex-start;
+    margin-bottom: 20px;
+}
+
+.orders-card header {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+}
+
+header .order-picked-up-btn {
+    width: 5%;    
+    border: 1px solid black;
+    border-radius: 20%;
+    color: green;
+    background-color: green
+}
+
+header .order-not-picked-up-btn {
+    width: 5%;    
+    border: 1px solid black;
+    border-radius: 20%;
+    color: red;
+    background-color: red
+}
+
+
+.orders-card .order-customer-details {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: center;
+    margin-bottom: 10px
+    
+}
+
+.orders-card .order-customer-details h4 {
+    margin-top: 0;
+    font-size: 20px;
+    margin-bottom: 5px;
+}
+
+.orders-card .order-customer-details .order-link{
+    text-decoration: none;
+}
+
+.order-row {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    margin-bottom: 10px;
+}
+
+.order-label {
+    font-size: 16px;
+    margin-top: 5px;
+    margin-bottom: 5px;
+}
+
+.order-info {
+    font-size: 22px
+}
+
+.checkbox-wrapper {
+    border: 1px solid gray;
+    display: flex;
+    justify-content: center;
+    align-items: center;    
+    margin-right: 10px;
+}
+
+.checkbox {
+    
+    
+}
+
+.order-price {
+    font-size: 30px;
+    margin-bottom: 10px;
+    width: 100%;
+    text-align: left;
+}

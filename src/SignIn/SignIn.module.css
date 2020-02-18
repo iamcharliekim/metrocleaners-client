@@ -1,0 +1,74 @@
+.sign-in-wrapper {
+    width: 100%;
+    height: 40vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  h2 {
+    color: #fb8b24;
+    text-align: center;
+    margin: 20px;
+  }
+  
+  form {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin-top: 50px;
+    color: #fdfffc;
+  }
+  
+  fieldset {
+    padding: 30px;
+  }
+  
+  legend {
+    font-size: 20px;
+    font-weight: bold;
+  }
+  
+  form label {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: space-between;
+    margin: 10px auto;
+  }
+  
+  form label input {
+    margin-left: 5px;
+  }
+  
+  .btns-div {
+    width: 100%;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+  }
+  
+  .sign-in-btn {
+    font-size: 18px;
+    cursor: pointer;
+  }
+  
+  button {
+    padding: 10px;
+    margin-right: 5px;
+    font-size: 16px;
+    border-radius: 20px;
+    margin-top: 5px;
+    color: #011627;
+    background-color: white;
+    border: 1px solid #011627
+  }
+  
+  button:hover {
+    background-color: #011627;
+    color: white;
+    border: 1px solid white;
+  }
+  
