@@ -16,9 +16,8 @@ export default class Search extends React.Component {
             onChange={this.context.onSearchGames}
             value={this.context.searchString}
           />
-        
-        <SortButtons/>
 
+          <SortButtons />
         </div>
       </React.Fragment>
     );

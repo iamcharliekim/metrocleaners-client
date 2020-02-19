@@ -1,132 +1,148 @@
 .create-game-wrapper {
-    width: 100%;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: flex-start;
-    font-size: 18px;
-    max-width: 500px;
-    padding-bottom: 160px;
-  }
-  
-  header {
-    padding: 0;
-  }
-  
-  h4 {
-    margin-bottom: 0;
-  }
-  
-  form {
-    font-size: 18px;
-    width: 90%;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: flex-start;
-    padding: 15px;
-    font-size: 18px;
-    margin-top: 0;
-    color: white;
-    padding-top: 0;
-  }
-  
-  .form-row {
-    font-size: 18px;
-    width: 100%;
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-    justify-content: flex-start;
-    margin-top: 5px;
-  }
-  
-  .form-row label {
-    margin-top: 10px;
-    font-size: 20px;
-  }
-  
-  .form-row input {
-    margin-top: 5px;
-    width: 95%;
-    font-size: 18px;
-    padding: 5px;
-  }
-  
-  .date-input {
-    font-family: 'Pathway Gothic One', sans-serif;
-    font-size: 18px;
-  }
-  
-  .form-row select {
-    margin-top: 5px;
-  }
-  
-  .map-row {
-    font-size: 18px;
-    width: 100%;
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-    justify-content: flex-start;
-    padding: 15px;
-    font-size: 14px;
-    margin-top: 10px;
-    color: white;
-  }
-  
-  .map {
-    width: 100%;
-    height: 250px;
-    padding-top: 40px;
-    position: relative;
-    font-size: 18px;
-  }
-  
-  .map-search {
-    width: 100%;
-    position: absolute;
-    top: 0;
-    background-color: white;
-    color: black;
-    display: flex;
-    justify-content: flex-start;
-    align-items: flex-start;
-  }
-  
-  .icon-wrapper {
-    width: 30px;
-    height: 40px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-  }
-  
-  .icon {
-    z-index: 5;
-  }
-  
-  .address-manual {
-    width: 100%;
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-    justify-content: flex-start;
-  }
-  
-  .btns-panel {
-    margin-top: 20px;
-    width: 100%;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-  }
-  
-  .btns-panel button {
-    width: 100%;
-  }
-  
-  button {
-    cursor: pointer;
-  }
-  
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-size: 18px;
+  max-width: 500px;
+  padding-bottom: 160px;
+}
+
+header {
+  padding: 0;
+}
+
+h4 {
+  margin-bottom: 0;
+}
+
+form {
+  font-size: 18px;
+  width: 90%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  padding: 15px;
+  font-size: 18px;
+  margin-top: 0;
+  color: white;
+  padding-top: 0;
+}
+
+form h1 {
+  color: #011627;
+}
+
+.form-row {
+  font-size: 18px;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: flex-start;
+  margin-top: 5px;
+}
+
+.form-row label {
+  margin-top: 10px;
+  font-size: 14px;
+}
+
+.form-row input {
+  margin-top: 5px;
+  width: 95%;
+  font-size: 18px;
+  padding: 5px;
+}
+
+.date-input {
+  font-family: 'Pathway Gothic One', sans-serif;
+  font-size: 18px;
+}
+
+.form-row select {
+  margin-top: 5px;
+}
+
+.map-row {
+  font-size: 18px;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: flex-start;
+  padding: 15px;
+  font-size: 14px;
+  margin-top: 10px;
+  color: white;
+}
+
+.map {
+  width: 100%;
+  height: 250px;
+  padding-top: 40px;
+  position: relative;
+  font-size: 18px;
+}
+
+.map-search {
+  width: 100%;
+  position: absolute;
+  top: 0;
+  background-color: white;
+  color: black;
+  display: flex;
+  justify-content: flex-start;
+  align-items: flex-start;
+}
+
+.icon-wrapper {
+  width: 30px;
+  height: 40px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.icon {
+  z-index: 5;
+}
+
+.address-manual {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: flex-start;
+}
+
+.btns-panel {
+  margin-top: 20px;
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.btns-panel button {
+  width: 100%;
+}
+
+button {
+  cursor: pointer;
+}
+
+.form-row .date-time-inputs-wrapper {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.form-row .date-time-inputs-wrapper input {
+  width: 100%;
+  padding-right: 0;
+}

@@ -1,8 +1,9 @@
 import React from 'react';
 
 const Context = React.createContext({
-    onOpenNav: ()=> {},
-    openNav: '',
+  onOpenNav: () => {},
+  openNav: '',
+  customers: ''
 });
 
 export default Context;

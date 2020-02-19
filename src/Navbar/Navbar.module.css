@@ -36,7 +36,7 @@
 }
 
 .logo-wrapper:hover {
-  color: lightgray
+  color: lightgray;
 }
 
 .players-icon {
@@ -58,7 +58,7 @@
   top: 23.5%;
 }
 
-.logo h1 {  
+.logo h1 {
   margin: 0;
   margin-left: 10px;
 }

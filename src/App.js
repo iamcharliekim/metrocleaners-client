@@ -3,26 +3,31 @@ import { BrowserRouter, Redirect } from 'react-router-dom';
 import { Link, Route } from 'react-router-dom';
 import styles from './App.module.css';
 import SignUp from './SignUp/SignUp';
-import Home from './Home/Home'
+import Home from './Home/Home';
 import SignIn from './SignIn/SignIn';
-import Navbar from './Navbar/Navbar'
+import Navbar from './Navbar/Navbar';
 import TokenService from './Services/TokenService';
-import Context from './Context/Context'
+import Context from './Context/Context';
 import CreateOrder from './CreateOrder/CreateOrder';
-import Footer from './Footer/Footer'
-import Search from './Search/Search';
-import SortButtons from './SortButtons/SortButtons';
+import Footer from './Footer/Footer';
 import OrderDetails from './OrderDetails/OrderDetails';
+import CustomersService from './Services/CustomersService';
 
 export default class App extends React.Component {
   static contextType = Context;
 
   state = {
     openNav: false,
+    customers: ''
+  };
+
+  componentDidMount() {
+    CustomersService.getCustomers().then(customers => {
+      this.setState({ customers });
+    });
   }
 
   onOpenNav = () => {
-    console.log('onOpeNnav()')
     this.setState({ openNav: !this.state.openNav });
   };
 
@@ -32,7 +37,6 @@ export default class App extends React.Component {
   };
 
   render() {
-
     let navLinks;
 
     if (!TokenService.hasAuthToken()) {
@@ -60,39 +64,36 @@ export default class App extends React.Component {
 
     const contextVal = {
       openNav: this.state.openNav,
-      onOpenNav: this.onOpenNav
-    } 
+      onOpenNav: this.onOpenNav,
+      customers: this.state.customers
+    };
 
     return (
       <BrowserRouter>
         <Context.Provider value={contextVal}>
           <div className={styles.App}>
-            <Navbar/>            
+            <Navbar />
             {this.state.openNav ? (
-                <div className={styles['nav-links-wrapper']}>
-                  {navLinks.map(link => {
-                    return link;
-                  })}
-                </div>
-              ) : null}
+              <div className={styles['nav-links-wrapper']}>
+                {navLinks.map(link => {
+                  return link;
+                })}
+              </div>
+            ) : null}
 
-              { TokenService.hasAuthToken() ? <Redirect to='/home'/> : <Redirect to='/landing'/>}
+            {TokenService.hasAuthToken() ? <Redirect to="/home" /> : <Redirect to="/landing" />}
 
-
-              <Route path="/sign-up" exact component={SignUp} />
-              <Route path="/sign-in" exact component={SignIn} />
-              {/* <Route path="/sign-in" exact component={SignIn} />
+            <Route path="/sign-up" exact component={SignUp} />
+            <Route path="/sign-in" exact component={SignIn} />
+            {/* <Route path="/sign-in" exact component={SignIn} />
               <Route path="/demo" exact component={SignIn} /> */}
-              <Route path="/" exact component={SignUp} />
-              <Route path="/home" exact component={Home} />
-              <Route path="/new-order" exact component={CreateOrder} />
-              <Route path="/orders/:order_id" exact component={OrderDetails} />
-
+            <Route path="/" exact component={SignUp} />
+            <Route path="/home" exact component={Home} />
+            <Route path="/new-order" exact component={CreateOrder} />
+            <Route path="/orders/:order_id" exact component={OrderDetails} />
           </div>
-          <Footer/>
-
-
-          </Context.Provider>
+          <Footer />
+        </Context.Provider>
       </BrowserRouter>
     );
   }

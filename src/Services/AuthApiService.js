@@ -1,14 +1,13 @@
 import config from '../config';
 
 const AuthApiService = {
-  postUserSignUp(user) {
-      console.log(config.API_ENDPOINT)
-    return fetch(`${config.API_ENDPOINT}/customers`, {
+  postAdminSignup(admin) {
+    return fetch(`${config.API_ENDPOINT}/admins`, {
       method: 'POST',
       headers: {
         'content-type': 'application/json'
       },
-      body: JSON.stringify(user)
+      body: JSON.stringify(admin)
     }).then(res => (!res.ok ? res.json().then(e => Promise.reject(e)) : res));
   },
 

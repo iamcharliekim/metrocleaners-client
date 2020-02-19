@@ -3,10 +3,10 @@ import { Link } from 'react-router-dom';
 import { withRouter } from 'react-router-dom';
 import TokenService from '../Services/TokenService';
 import styles from './Navbar.module.css';
-import Context from '../Context/Context'
+import Context from '../Context/Context';
 
 class Navbar extends React.Component {
-  static contextType = Context
+  static contextType = Context;
 
   onSignOut = e => {
     TokenService.clearAuthToken();
@@ -52,8 +52,8 @@ class Navbar extends React.Component {
         <div className={styles['inner-nav']}>
           <Link to="/landing" className={styles['logo']} onClick={this.onClickLogo}>
             <div className={styles['logo-wrapper']}>
-                <span>Metro</span>
-                <span>Cleaners</span>
+              <span>Metro</span>
+              <span>Cleaners</span>
             </div>
           </Link>
 

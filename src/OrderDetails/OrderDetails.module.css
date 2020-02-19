@@ -1,39 +1,50 @@
 .order-details-wrapper {
-    width: 100%;
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-start;
-    align-items: center;
-    margin-right: 0;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+  margin-right: 0;
 }
 
 .order-details-inner-wrapper {
-    width: 80%;
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-start;
-    align-items: flex-start;
+  width: 80%;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: flex-start;
 }
 
 .order-details-inner-wrapper h2 {
-    margin: 0;
-    margin-top: 20px;
-    color: black
+  margin: 0;
+  margin-top: 20px;
+  color: black;
 }
 
 .customer-details-wrapper {
-    width: 100%;
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-start;
-    align-items: flex-start;
-    margin-bottom: 30px;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: flex-start;
+  margin-bottom: 30px;
+}
+
+.customer-details-wrapper h1 {
+  margin-bottom: 5px;
+}
+
+.customer-details-wrapper button {
+  font-size: 14px;
 }
 
 .order-dates-wrapper {
-    width: 100%;
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-start;
-    align-items: flex-start;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: flex-start;
+}
+
+.order-invoice-wrapper {
 }

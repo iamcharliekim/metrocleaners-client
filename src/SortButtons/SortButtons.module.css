@@ -1,33 +1,61 @@
 .sort-buttons-wrapper {
-    width: 100%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    background-color: #011627;;
-    padding-top: 10px;
-    padding-bottom: 10px;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding-top: 10px;
+  padding-bottom: 10px;
 }
 
 .sort-buttons-inner-wrapper {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
+  width: 80%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
 
 .sort-buttons-inner-wrapper button {
-    font-size: 16px;
-    padding: 8px;
-    border-radius: 0;
-    background-color: #011627;
-    color: white;
-    border: 1px solid white;
-    cursor: pointer
+  font-size: 14px;
+  padding: 8px;
+  border-radius: 0;
+  border: 1px solid #011627;
+  cursor: pointer;
+  color: #011627;
+  background-color: white;
 }
 
 .sort-buttons-inner-wrapper button:hover {
-    color: #011627;
-    background-color: white;
-
+  background-color: #011627;
+  color: white;
 }
 
-
+.tg {
+  border-collapse: collapse;
+  border-spacing: 0;
+}
+.tg td {
+  font-family: Arial, sans-serif;
+  font-size: 14px;
+  padding: 10px 5px;
+  border-style: solid;
+  border-width: 1px;
+  overflow: hidden;
+  word-break: normal;
+  border-color: black;
+}
+.tg th {
+  font-family: Arial, sans-serif;
+  font-size: 14px;
+  font-weight: normal;
+  padding: 10px 5px;
+  border-style: solid;
+  border-width: 1px;
+  overflow: hidden;
+  word-break: normal;
+  border-color: black;
+}
+.tg .tg-0pky {
+  border-color: inherit;
+  text-align: left;
+  vertical-align: top;
+}
