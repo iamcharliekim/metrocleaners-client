@@ -1,0 +1,135 @@
+.orders-card {
+  width: 80%;
+  margin-right: 0;
+  border: 1px solid black;
+  padding: 10px;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: flex-start;
+  margin-bottom: 20px;
+  padding-bottom: 0;
+}
+
+.orders-card header {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: flex-start;
+  margin-bottom: 0;
+}
+
+.order-details {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: flex-start;
+  margin-bottom: 10px;
+  font-size: 14px;
+}
+
+header .order-picked-up-btn {
+  width: 5%;
+  border: 1px solid black;
+  border-radius: 20%;
+  color: green;
+  background-color: green;
+}
+
+header .order-not-picked-up-btn {
+  width: 5%;
+  border: 1px solid black;
+  border-radius: 20%;
+  color: red;
+  background-color: red;
+}
+
+.orders-card .order-customer-details {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: center;
+  margin-bottom: 10px;
+}
+
+.orders-card .order-customer-details h4 {
+  margin-top: 0;
+  font-size: 20px;
+  margin-bottom: 0px;
+}
+
+.orders-card .order-customer-details .order-link {
+  text-decoration: none;
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+
+.order-row {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  margin-bottom: 10px;
+}
+
+.order-label {
+  font-size: 14px;
+  margin-top: 5px;
+  margin-bottom: 5px;
+}
+
+.order-label strong {
+  border-bottom: 1px solid black;
+}
+
+.order-info {
+  font-size: 22px;
+}
+
+.checkbox-wrapper {
+  border: 1px solid gray;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-right: 10px;
+}
+
+.checkbox {
+}
+
+.order-ready-wrapper {
+  margin-top: 20px;
+}
+
+.order-price {
+  font-size: 30px;
+  margin-bottom: 20px;
+  width: 100%;
+  text-align: left;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+}
+
+.quantity {
+  font-size: 16px;
+  margin-left: 5px;
+}
+
+.ready-by-date-wrapper {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: flex-start;
+  margin-bottom: 10px;
+}
+
+.phone_number,
+.order_date,
+.clerk {
+  font-size: 14px;
+}

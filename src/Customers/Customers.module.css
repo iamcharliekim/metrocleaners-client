@@ -1,0 +1,22 @@
+.customers-wrapper {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: flex-start;
+}
+
+.customers-headers {
+  width: 100%;
+  display: flex;
+  justify-content: space-around;
+  align-items: flex-start;
+}
+
+.customers-wrapper .th {
+  width: 33%;
+  border-bottom: 1px solid black;
+  border-right: 1px solid black;
+  padding: 5px;
+  font-size: 14px;
+}

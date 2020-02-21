@@ -12,20 +12,60 @@ import CreateOrder from './CreateOrder/CreateOrder';
 import Footer from './Footer/Footer';
 import OrderDetails from './OrderDetails/OrderDetails';
 import CustomersService from './Services/CustomersService';
+import OrdersService from './Services/OrdersService';
+import ClerksService from './Services/ClerksService';
+import Customers from './Customers/Customers';
 
 export default class App extends React.Component {
   static contextType = Context;
 
   state = {
     openNav: false,
-    customers: ''
+    customers: '',
+    clerks: '',
+    orders: ''
   };
 
   componentDidMount() {
-    CustomersService.getCustomers().then(customers => {
-      this.setState({ customers });
+    OrdersService.getOrders().then(orders => {
+      if (orders) {
+        CustomersService.getCustomers().then(customers => {
+          if (customers) {
+            ClerksService.getClerks().then(clerks => {
+              if (clerks) {
+                this.setState({ customers, orders, clerks });
+              }
+            });
+          }
+        });
+      }
     });
   }
+
+  updateCustomers = customers => {
+    const customersCopy = [...this.state.customers];
+    customersCopy.push(customers);
+    this.setState({ customers: customersCopy });
+  };
+
+  updateClerks = clerks => {
+    const clerksCopy = [...this.state.clerks];
+    clerksCopy.push(clerks);
+    this.setState({ clerks: clerksCopy });
+  };
+
+  updateOrders = orders => {
+    const ordersCopy = [...this.state.orders];
+    ordersCopy.push(orders);
+    this.setState({ orders: ordersCopy });
+  };
+
+  editOrders = editedOrder => {
+    const ordersCopy = [...this.state.orders];
+    const index = ordersCopy.findIndex(order => order.id === editedOrder.id);
+    ordersCopy[index] = editedOrder;
+    this.setState({ orders: ordersCopy });
+  };
 
   onOpenNav = () => {
     this.setState({ openNav: !this.state.openNav });
@@ -37,6 +77,18 @@ export default class App extends React.Component {
   };
 
   render() {
+    const contextVal = {
+      openNav: this.state.openNav,
+      onOpenNav: this.onOpenNav,
+      customers: this.state.customers,
+      orders: this.state.orders,
+      clerks: this.state.clerks,
+      updateCustomers: this.updateCustomers,
+      updateClerks: this.updateClerks,
+      updateOrders: this.updateOrders,
+      editOrders: this.editOrders
+    };
+
     let navLinks;
 
     if (!TokenService.hasAuthToken()) {
@@ -56,17 +108,14 @@ export default class App extends React.Component {
         <Link to="/new-order" key="3" className={styles['nav-link']} onClick={this.onOpenNav}>
           + New Order
         </Link>,
+        <Link to="/customers" key="4" className={styles['nav-link']} onClick={this.onOpenNav}>
+          Customers
+        </Link>,
         <Link to="/sign-in" key="5" className={styles['nav-link']} onClick={this.signout}>
           Sign-Out
         </Link>
       ];
     }
-
-    const contextVal = {
-      openNav: this.state.openNav,
-      onOpenNav: this.onOpenNav,
-      customers: this.state.customers
-    };
 
     return (
       <BrowserRouter>
@@ -85,11 +134,9 @@ export default class App extends React.Component {
 
             <Route path="/sign-up" exact component={SignUp} />
             <Route path="/sign-in" exact component={SignIn} />
-            {/* <Route path="/sign-in" exact component={SignIn} />
-              <Route path="/demo" exact component={SignIn} /> */}
-            <Route path="/" exact component={SignUp} />
             <Route path="/home" exact component={Home} />
             <Route path="/new-order" exact component={CreateOrder} />
+            <Route path="/customers" exact component={Customers} />
             <Route path="/orders/:order_id" exact component={OrderDetails} />
           </div>
           <Footer />

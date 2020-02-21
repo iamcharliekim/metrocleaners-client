@@ -3,6 +3,7 @@ import styles from './CreateOrder.module.css';
 import OrdersService from '../Services/OrdersService';
 import CustomersService from '../Services/CustomersService';
 import Context from '../Context/Context';
+import Autocomplete from 'react-autocomplete';
 
 export default class CreateOrder extends React.Component {
   static contextType = Context;
@@ -30,12 +31,34 @@ export default class CreateOrder extends React.Component {
     this.setState({ clerk: e.target.value });
   };
 
+  onSelectClerk = clerk => {
+    this.setState({ clerk });
+  };
+
   customerNameHandler = e => {
     this.setState({ customer_name: e.target.value });
   };
 
+  onSelectCustomerName = customer_name => {
+    let selectedCustomer = this.context.customers.find(
+      customer => customer.full_name === customer_name
+    );
+    let phone_number = selectedCustomer.phone_number;
+
+    this.setState({ customer_name, phone_number });
+  };
+
   phoneNumberHandler = e => {
     this.setState({ phone_number: e.target.value });
+  };
+
+  onSelectPhoneNumber = phone_number => {
+    let selectedCustomer = this.context.customers.find(
+      customer => customer.phone_number === phone_number
+    );
+    let customer_name = selectedCustomer.full_name;
+
+    this.setState({ phone_number, customer_name });
   };
 
   orderDateHandler = e => {
@@ -92,15 +115,18 @@ export default class CreateOrder extends React.Component {
         full_name: this.state.customer_name,
         phone_number: this.state.phone_number
       };
-      CustomersService.postNewCustomer(newCustomer).then(res => {
-        OrdersService.postNewOrder(newOrder).then(orders => {
+      CustomersService.postNewCustomer(newCustomer).then(customer => {
+        OrdersService.postNewOrder(newOrder).then(order => {
+          this.context.updateCustomers(customer);
+          this.context.updateOrders(order);
           this.resetState();
           this.props.history.push('/home');
         });
       });
     } else {
       // IF CUSTOMER EXISTS: THEN postNewOrder()
-      OrdersService.postNewOrder(newOrder).then(orders => {
+      OrdersService.postNewOrder(newOrder).then(order => {
+        this.context.updateOrders(order);
         this.resetState();
         this.props.history.push('/home');
       });
@@ -142,36 +168,83 @@ export default class CreateOrder extends React.Component {
 
               <div className={styles['form-row']}>
                 <label htmlFor="clerk">Clerk:</label>
-                <input
-                  type="text"
-                  id="clerk"
-                  required
-                  onChange={this.clerkHandler}
+                <Autocomplete
+                  inputProps={{ id: 'clerk', required: true }}
+                  wrapperStyle={{ width: '100%' }}
+                  getItemValue={item => item.full_name}
+                  items={this.context.clerks}
+                  renderItem={(item, isHighlighted) => (
+                    <div
+                      key={item.id}
+                      style={{ background: isHighlighted ? 'lightgray' : 'white', color: 'black' }}
+                    >
+                      {item.full_name}
+                    </div>
+                  )}
                   value={this.state.clerk}
+                  onChange={this.clerkHandler}
+                  onSelect={this.onSelectClerk}
+                  shouldItemRender={(item, value) => {
+                    return item ? item.full_name.toLowerCase().includes(value.toLowerCase()) : null;
+                  }}
+                  selectOnBlur={true}
                 />
               </div>
 
               <div className={styles['form-row']}>
                 <label htmlFor="customer_name">Customer Name:</label>
-                <input
-                  type="text"
-                  id="customer_name"
-                  required
-                  onChange={this.customerNameHandler}
+                <Autocomplete
+                  inputProps={{ id: 'customer_name', required: true }}
+                  wrapperStyle={{ width: '100%' }}
+                  getItemValue={item => item.full_name}
+                  autoHighlight={true}
+                  items={this.context.customers}
+                  renderItem={(item, isHighlighted) => (
+                    <div
+                      key={item.id}
+                      style={{ background: isHighlighted ? 'lightgray' : 'white', color: 'black' }}
+                    >
+                      {item.full_name}
+                    </div>
+                  )}
                   value={this.state.customer_name}
+                  onChange={this.customerNameHandler}
+                  onSelect={this.onSelectCustomerName}
+                  shouldItemRender={(item, value) => {
+                    return item ? item.full_name.toLowerCase().includes(value.toLowerCase()) : null;
+                  }}
+                  selectOnBlur={true}
                 />
               </div>
 
               <div className={styles['form-row']}>
                 <label htmlFor="phone_number"> Phone #:</label>
-                <input
-                  type="tel"
-                  id="phone_number"
-                  name="phone"
-                  pattern="[0-9]{3}[0-9]{3}[0-9]{4}"
-                  required
-                  onChange={this.phoneNumberHandler}
+                <Autocomplete
+                  inputProps={{
+                    id: 'phone_number',
+                    pattern: '[0-9]{3}[0-9]{3}[0-9]{4}',
+                    type: 'tel',
+                    required: true
+                  }}
+                  wrapperStyle={{ width: '100%' }}
+                  getItemValue={item => item.phone_number}
+                  autoHighlight={true}
+                  items={this.context.customers}
+                  renderItem={(item, isHighlighted) => (
+                    <div
+                      key={item.id}
+                      style={{ background: isHighlighted ? 'lightgray' : 'white', color: 'black' }}
+                    >
+                      {item.phone_number}
+                    </div>
+                  )}
                   value={this.state.phone_number}
+                  onChange={this.phoneNumberHandler}
+                  onSelect={this.onSelectPhoneNumber}
+                  shouldItemRender={(item, value) => {
+                    return item ? item.phone_number.includes(value) : null;
+                  }}
+                  selectOnBlur={true}
                 />
               </div>
 

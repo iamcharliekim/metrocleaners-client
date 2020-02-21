@@ -1,9 +1,9 @@
 import config from '../config';
 import TokenService from './TokenService';
 
-const CustomersService = {
-  getCustomers() {
-    return fetch(`${config.API_ENDPOINT}/customers`, {
+const ClerksService = {
+  getClerks() {
+    return fetch(`${config.API_ENDPOINT}/clerks`, {
       method: 'GET',
       headers: {
         'content-type': 'application/json',
@@ -12,16 +12,16 @@ const CustomersService = {
     }).then(res => (!res.ok ? res.json().then(e => Promise.reject(e)) : res.json()));
   },
 
-  postNewCustomer(customer) {
-    return fetch(`${config.API_ENDPOINT}/customers`, {
+  postNewClerk(clerk) {
+    return fetch(`${config.API_ENDPOINT}/clerks`, {
       method: 'POST',
       headers: {
         'content-type': 'application/json',
         authorization: `bearer ${TokenService.getAuthToken()}`
       },
-      body: JSON.stringify(customer)
+      body: JSON.stringify(clerk)
     }).then(res => (!res.ok ? res.json().then(e => Promise.reject(e)) : res.json()));
   }
 };
 
-export default CustomersService;
+export default ClerksService;

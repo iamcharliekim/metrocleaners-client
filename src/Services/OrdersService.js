@@ -9,7 +9,7 @@ const OrdersService = {
         'content-type': 'application/json',
         authorization: `bearer ${TokenService.getAuthToken()}`
       }
-    }).then(res => (!res.ok ? res.json().then(e => Promise.reject(e)) : res));
+    }).then(res => (!res.ok ? res.json().then(e => Promise.reject(e)) : res.json()));
   },
 
   postNewOrder(order) {
@@ -20,7 +20,18 @@ const OrdersService = {
         authorization: `bearer ${TokenService.getAuthToken()}`
       },
       body: JSON.stringify(order)
-    }).then(res => (!res.ok ? res.json().then(e => Promise.reject(e)) : res));
+    }).then(res => (!res.ok ? res.json().then(e => Promise.reject(e)) : res.json()));
+  },
+
+  putUpdateOrder(order, id) {
+    return fetch(`${config.API_ENDPOINT}/orders/${id}`, {
+      method: 'PUT',
+      headers: {
+        'content-type': 'application/json',
+        authorization: `bearer ${TokenService.getAuthToken()}`
+      },
+      body: JSON.stringify(order)
+    }).then(res => (!res.ok ? res.json().then(e => Promise.reject(e)) : res.json()));
   }
 };
 

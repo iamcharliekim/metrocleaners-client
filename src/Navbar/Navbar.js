@@ -35,7 +35,10 @@ class Navbar extends React.Component {
         <Link to="/home" key="0" className={styles['nav-link']}>
           Home
         </Link>,
-        <Link to="/create-games" key="3" className={styles['nav-link']}>
+        <Link to="/new-order" key="3" className={styles['nav-link']}>
+          + New Order
+        </Link>,
+        <Link to="/customers" key="4" className={styles['nav-link']}>
           + New Order
         </Link>
       ];

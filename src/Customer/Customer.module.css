@@ -1,0 +1,24 @@
+.customer-wrapper {
+  width: 100%;
+  display: flex;
+  justify-content: space-around;
+  align-items: flex-start;
+  /* border-bottom: 1px solid black; */
+}
+
+.customer-wrapper .th {
+  width: 33%;
+  /* border-right: 1px solid black; */
+  padding: 5px;
+  font-size: 14px;
+}
+
+.orders {
+  display: flex;
+  flex-direction: column;
+  width: 33%;
+  /* border-bottom: 1px solid black;
+  border-right: 1px solid black; */
+  padding: 5px;
+  font-size: 14px;
+}
