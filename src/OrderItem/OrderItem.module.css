@@ -133,3 +133,8 @@ header .order-not-picked-up-btn {
 .clerk {
   font-size: 14px;
 }
+
+.notification-sent-date {
+  margin-left: 5px;
+  font-size: 14px;
+}

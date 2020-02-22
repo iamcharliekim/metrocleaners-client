@@ -4,6 +4,7 @@ import OrdersService from '../Services/OrdersService';
 import CustomersService from '../Services/CustomersService';
 import Context from '../Context/Context';
 import Autocomplete from 'react-autocomplete';
+import moment from 'moment';
 
 export default class CreateOrder extends React.Component {
   static contextType = Context;
@@ -13,7 +14,9 @@ export default class CreateOrder extends React.Component {
     clerk: '',
     customer_name: '',
     phone_number: '',
-    order_date: '',
+    order_date: moment()
+      .tz('America/New_York')
+      .format('YYYY-MM-DD'),
     order_time: '',
     ready_by_date: '',
     ready_by_time: '',
@@ -21,7 +24,14 @@ export default class CreateOrder extends React.Component {
     price: ''
   };
 
-  componentDidMount() {}
+  componentDidMount() {
+    let time = new Date()
+      .toString()
+      .split(' ')[4]
+      .split(':');
+    time = `${time[0]}:${time[1]}`;
+    this.setState({ order_time: time });
+  }
 
   orderNumberHandler = e => {
     this.setState({ order_number: e.target.value });
@@ -88,10 +98,9 @@ export default class CreateOrder extends React.Component {
   onSubmitHandler = e => {
     e.preventDefault();
 
-    let order_date = new Date(`${this.state.order_date}T${this.state.order_time}`).toISOString();
-    let ready_by_date = new Date(
-      `${this.state.ready_by_date}T${this.state.ready_by_time}`
-    ).toISOString();
+    let order_date = moment(`${this.state.order_date} ${this.state.order_time}`).utc(true);
+
+    let ready_by_date = moment(`${this.state.ready_by_date} ${this.state.ready_by_time}`).utc(true);
 
     const newOrder = {
       order_number: this.state.order_number,
@@ -266,6 +275,8 @@ export default class CreateOrder extends React.Component {
                     className={styles['time-input']}
                     onChange={this.orderTimeHandler}
                     value={this.state.order_time}
+                    min="07:00"
+                    max="19:00"
                   />
                 </div>
               </div>
@@ -288,6 +299,8 @@ export default class CreateOrder extends React.Component {
                     className={styles['time-input']}
                     onChange={this.readyByTimeHandler}
                     value={this.state.ready_by_time}
+                    // min="07:00"
+                    // max="19:00"
                   />
                 </div>
               </div>

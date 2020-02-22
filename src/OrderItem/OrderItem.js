@@ -14,7 +14,9 @@ export default class OrderItem extends React.Component {
     clerk: '',
     formattedOrderDateTime: '',
     formattedReadyDateTime: '',
-    formattedPhoneNumber: ''
+    formattedPhoneNumber: '',
+    notificationSent: this.props.orderItem.notification_sent ? true : false,
+    notification_date_time: ''
   };
 
   componentDidMount() {
@@ -27,30 +29,30 @@ export default class OrderItem extends React.Component {
     let phone = order.phone_number;
     let formattedPhoneNumber = `(${phone[0]}${phone[1]}${phone[2]}) ${phone[3]}${phone[4]}${phone[5]}-${phone[6]}${phone[7]}${phone[8]}${phone[9]}`;
 
-    let formattedOrderDate = moment(order.order_date.split('T')[0]).format('M/D/YY');
-    let formattedOrderTime = moment(order.order_date.split('T')[1], 'HH:mm:ss').format('h:mm A');
+    let formattedOrderDateTime = moment(order.order_date)
+      .local(true)
+      .format('M/D/YY h:mm A');
 
-    let formattedReadyByDate = moment(order.ready_by_date.split('T')[0]).format('MMMM Do ');
-    let formattedReadyByTime = moment(order.ready_by_date.split('T')[1], 'HH:mm:ss').format(
-      'h:mm A'
-    );
+    let formattedReadyDateTime = moment(order.ready_by_date)
+      .local(true)
+      .format('M/D/YY h:mm A');
 
-    let formattedOrderDateTime = `${formattedOrderDate} ${formattedOrderTime}`;
-    let formattedReadyDateTime = `${formattedReadyByDate}@ ${formattedReadyByTime}`;
+    let notification_date_time;
+
+    if (order.notification_sent) {
+      notification_date_time = moment(order.notification_sent)
+        .local(true)
+        .format('M/D/YY h:mm A');
+    }
 
     this.setState({
       customer,
       formattedOrderDateTime,
       formattedReadyDateTime,
-      formattedPhoneNumber
+      formattedPhoneNumber,
+      notification_date_time
     });
   }
-
-  //   componentDidUpdate(prevProps) {
-  //     if (this.props.orderItem !== prevProps.orderItem) {
-  //       this.setState({ order: this.props.orderItem });
-  //     }
-  //   }
 
   onPickedUp = () => {
     const orderCopy = { ...this.state.order };
@@ -128,9 +130,18 @@ export default class OrderItem extends React.Component {
 
           <div className={styles['order-row']}>
             <div className={styles['checkbox-wrapper']}>
-              <input type="checkbox" className={styles['checkbox']} />
+              <input
+                type="checkbox"
+                className={styles['checkbox']}
+                checked={this.state.notificationSent}
+              />
             </div>
             <span className={styles['order-label']}>Notification Sent</span>
+            {this.state.notificationSent ? (
+              <span className={styles['notification-sent-date']}>
+                ({this.state.notification_date_time})
+              </span>
+            ) : null}
             <span className={styles['order-label']}></span>
           </div>
         </div>

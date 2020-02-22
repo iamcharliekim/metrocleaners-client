@@ -1,60 +1,59 @@
 footer {
-    color: white;
-    font-size: 14px;
-    width: 100%;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    margin: 10px auto;
-    position: relative;
-    bottom: 0;
-    background-color: #011627;
-    padding-top: 10px;
-    margin-bottom: 0;
-  }
-  
-  .inner-footer {
-    margin-top: 10px;
-    width: 100%;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    align-items: center;
-    background-color: #011627
-  }
-  
-  .created-by {
-    text-align: center;
-    width: 30%;
-    margin-bottom: 10px;
-  }
-  
-  .footer-links {
-    width: 50%;
-    margin-left: 0;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    list-style: none;
-    margin-bottom: 10px;
-  }
-  
-  .footer-links span img {
-    width: 30px;
-    margin: 10px;
-  }
-  
-  .footer-copyright {
-    width: 100%;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 10px;
-  }
-  
-  .footer-copyright span {
-    margin-bottom: 10px;
-  }
-  
+  color: white;
+  font-size: 14px;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin: 10px auto;
+  position: relative;
+  bottom: 0;
+  background-color: #011627;
+  padding-top: 10px;
+  margin-bottom: 0;
+}
+
+.inner-footer {
+  margin-top: 10px;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #011627;
+}
+
+.created-by {
+  text-align: center;
+  width: 30%;
+  margin-bottom: 10px;
+}
+
+.footer-links {
+  width: 50%;
+  margin-left: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  list-style: none;
+  margin-bottom: 10px;
+}
+
+.footer-links span img {
+  width: 30px;
+  margin: 10px;
+}
+
+.footer-copyright {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+.footer-copyright span {
+  margin-bottom: 10px;
+}

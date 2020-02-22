@@ -2,6 +2,7 @@ import React from 'react';
 import styles from './OrderDetails.module.css';
 import Context from '../Context/Context';
 import moment from 'moment';
+import Messanger from '../Messanger/Messanger';
 
 export default class OrderDetails extends React.Component {
   static contextType = Context;
@@ -24,16 +25,12 @@ export default class OrderDetails extends React.Component {
     let phone = order.phone_number;
     let formattedPhoneNumber = `(${phone[0]}${phone[1]}${phone[2]}) ${phone[3]}${phone[4]}${phone[5]}-${phone[6]}${phone[7]}${phone[8]}${phone[9]}`;
 
-    let formattedOrderDate = moment(order.order_date.split('T')[0]).format('M/D/YY');
-    let formattedOrderTime = moment(order.order_date.split('T')[1], 'HH:mm:ss').format('h:mm A');
-
-    let formattedReadyByDate = moment(order.ready_by_date.split('T')[0]).format('MMMM Do ');
-    let formattedReadyByTime = moment(order.ready_by_date.split('T')[1], 'HH:mm:ss').format(
-      'h:mm A'
-    );
-
-    let formattedOrderDateTime = `${formattedOrderDate} ${formattedOrderTime}`;
-    let formattedReadyDateTime = `${formattedReadyByDate}@ ${formattedReadyByTime}`;
+    let formattedOrderDateTime = moment(order.order_date)
+      .local(true)
+      .format('M/D/YY h:mm A');
+    let formattedReadyDateTime = moment(order.ready_by_date)
+      .local(true)
+      .format('M/D/YY h:mm A');
 
     this.setState({
       order,
@@ -98,15 +95,7 @@ export default class OrderDetails extends React.Component {
             </div>
           </div>
 
-          <div className={styles['send-sms-wrapper']}>
-            <h3>Send {this.state.customer.full_name} a text-message:</h3>
-            <div className={styles['textarea-wrapper']}>
-              <textarea />
-            </div>
-            <div className={styles['button-wrapper']}>
-              <button>Send</button>
-            </div>
-          </div>
+          <Messanger state={this.state} />
         </div>
       </div>
     );
