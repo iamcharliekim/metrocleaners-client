@@ -9,7 +9,9 @@ const Context = React.createContext({
   updateCustomers: () => {},
   updateClerks: () => {},
   updateOrders: () => {},
-  editOrders: () => {}
+  editOrders: () => {},
+  onSearchOrders: () => {},
+  onSortOrders: () => {}
 });
 
 export default Context;

@@ -1,9 +1,9 @@
-import React from 'react';
-import styles from './OrderItem.module.css';
-import Context from '../Context/Context';
-import { Link } from 'react-router-dom';
 import moment from 'moment';
+import React from 'react';
+import { Link } from 'react-router-dom';
+import Context from '../Context/Context';
 import OrdersService from '../Services/OrdersService';
+import styles from './OrderItem.module.css';
 
 export default class OrderItem extends React.Component {
   static contextType = Context;
@@ -134,6 +134,7 @@ export default class OrderItem extends React.Component {
                 type="checkbox"
                 className={styles['checkbox']}
                 checked={this.state.notificationSent}
+                readOnly
               />
             </div>
             <span className={styles['order-label']}>Notification Sent</span>
@@ -142,7 +143,7 @@ export default class OrderItem extends React.Component {
                 ({this.state.notification_date_time})
               </span>
             ) : null}
-            <span className={styles['order-label']}></span>
+            <span className={styles['order-label']} />
           </div>
         </div>
       </div>

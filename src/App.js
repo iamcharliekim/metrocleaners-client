@@ -2,19 +2,19 @@ import React from 'react';
 import { BrowserRouter, Redirect } from 'react-router-dom';
 import { Link, Route } from 'react-router-dom';
 import styles from './App.module.css';
-import SignUp from './SignUp/SignUp';
-import Home from './Home/Home';
-import SignIn from './SignIn/SignIn';
-import Navbar from './Navbar/Navbar';
-import TokenService from './Services/TokenService';
 import Context from './Context/Context';
 import CreateOrder from './CreateOrder/CreateOrder';
+import Customers from './Customers/Customers';
 import Footer from './Footer/Footer';
+import Home from './Home/Home';
+import Navbar from './Navbar/Navbar';
 import OrderDetails from './OrderDetails/OrderDetails';
+import ClerksService from './Services/ClerksService';
 import CustomersService from './Services/CustomersService';
 import OrdersService from './Services/OrdersService';
-import ClerksService from './Services/ClerksService';
-import Customers from './Customers/Customers';
+import TokenService from './Services/TokenService';
+import SignIn from './SignIn/SignIn';
+import SignUp from './SignUp/SignUp';
 
 export default class App extends React.Component {
   static contextType = Context;
@@ -23,7 +23,9 @@ export default class App extends React.Component {
     openNav: false,
     customers: '',
     clerks: '',
-    orders: ''
+
+    orders: [],
+    filteredOrders: []
   };
 
   componentDidMount() {
@@ -33,7 +35,12 @@ export default class App extends React.Component {
           if (customers) {
             ClerksService.getClerks().then(clerks => {
               if (clerks) {
-                this.setState({ customers, orders, clerks });
+                this.setState({
+                  customers,
+                  orders,
+                  filteredOrders: orders,
+                  clerks
+                });
               }
             });
           }
@@ -76,6 +83,76 @@ export default class App extends React.Component {
     this.onOpenNav();
   };
 
+  onSearchOrders = (e, searchBy) => {
+    const searchString = e.target.value;
+
+    let ordersCopy = [...this.state.orders];
+    let filteredOrders;
+
+    // let customersCopy = [...this.state.customers];
+
+    // MANIPULATE ordersCopy.customer = customer.full_name
+
+    if (searchBy === 'all') {
+      filteredOrders = ordersCopy.filter(order => {
+        return (
+          order['order_number'].toLowerCase().includes(searchString.toLowerCase()) ||
+          order['clerk'].toLowerCase().includes(searchString.toLowerCase()) ||
+          // order["customer"]
+          //   .toLowerCase()
+          //   .includes(searchString.toLowerCase()) ||
+          order['phone_number'].toLowerCase().includes(searchString.toLowerCase()) ||
+          order['price'].toLowerCase().includes(searchString.toLowerCase())
+        );
+      });
+    } else {
+      filteredOrders = ordersCopy.filter(order => {
+        return order[searchBy].toLowerCase().includes(searchString.toLowerCase());
+      });
+    }
+
+    this.setState({
+      filteredOrders,
+      searchString
+    });
+  };
+
+  onSortOrders = sortBy => {
+    const today = new Date().getTime();
+    const ordersCopy = [...this.state.orders];
+    let filteredOrders;
+
+    if (sortBy === 'all') {
+      filteredOrders = ordersCopy;
+    }
+    if (sortBy === 'past') {
+      filteredOrders = ordersCopy.filter(order => new Date(order.order_date).getTime() < today);
+    }
+    if (sortBy === 'upcoming') {
+      filteredOrders = ordersCopy.filter(order => new Date(order.order_date).getTime() > today);
+    }
+
+    // DescendingOrder
+    filteredOrders = filteredOrders.sort(
+      (a, b) =>
+        +(b['order_date'] === null) - +(a['order_date'] === null) ||
+        +(b['order_date'] > a['order_date']) ||
+        -(b['order_date'] < a['order_date'])
+    );
+
+    // AscendingOrder
+    // filteredOrders = filteredOrders.sort(
+    //   (a, b) =>
+    //     +(b["order_date"] === null) - +(a["order_date"] === null) ||
+    //     +(a["order_date"] > b["order_date"]) ||
+    //     -(a["order_date"] < b["order_date"])
+    // );
+
+    this.setState({
+      filteredOrders
+    });
+  };
+
   render() {
     const contextVal = {
       openNav: this.state.openNav,
@@ -86,7 +163,10 @@ export default class App extends React.Component {
       updateCustomers: this.updateCustomers,
       updateClerks: this.updateClerks,
       updateOrders: this.updateOrders,
-      editOrders: this.editOrders
+      editOrders: this.editOrders,
+      filteredOrders: this.state.filteredOrders,
+      onSearchOrders: this.onSearchOrders,
+      onSortOrders: this.onSortOrders
     };
 
     let navLinks;

@@ -1,7 +1,7 @@
 import React from 'react';
-import styles from './Customer.module.css';
+import { withRouter } from 'react-router-dom';
 import Context from '../Context/Context';
-import { Link, withRouter } from 'react-router-dom';
+import styles from './Customer.module.css';
 
 class Customer extends React.Component {
   static contextType = Context;

@@ -9,6 +9,14 @@
   border-bottom: 1px solid #011627;
 }
 
+.search-input-wrapper {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
 .search-games-wrapper input {
   width: 85%;
   margin-right: 5px;
@@ -18,7 +26,7 @@
   font-size: 18px;
   position: relative;
   max-width: 550px;
-  margin-bottom: 10px;
+  /* margin-bottom: 10px; */
 }
 
 .search-games-wrapper button {
@@ -31,4 +39,82 @@
 .icon {
   position: relative;
   right: 10%;
+}
+
+.search-by-panel {
+  width: 85%;
+  margin-right: 5px;
+  padding: 0px;
+  border: 1px solid gray;
+  border-top: none;
+  border-bottom: none;
+  border-radius: 0px;
+  font-size: 16px;
+  position: relative;
+  max-width: 550px;
+  margin-bottom: 10px;
+  display: flex;
+  flex-direction: column;
+  z-index: 5;
+}
+
+.search-by-div {
+  padding-left: 5px;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  cursor: pointer;
+  border-bottom: 1px solid black;
+}
+
+.search-by-div:hover {
+  background-color: #011627;
+  color: white;
+  font-weight: bold;
+}
+
+.search-by-div-selected {
+  background-color: #011627;
+  color: white;
+  padding-left: 5px;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  cursor: pointer;
+  border-bottom: 1px solid black;
+}
+
+.search-by-badge-wrapper {
+  /* width             : 85%;
+  margin-right         : 5px; */
+  border-radius: 15px;
+  padding: 10px;
+  position: relative;
+  max-width: 550px;
+  display: flex;
+  align-items: flex-start;
+  justify-content: flex-start;
+  font-size: 14px;
+  /* border            : 1px solid black; */
+  margin-top: 10px;
+}
+
+.search-by-label {
+  font-size: 14px;
+
+  border: 1px solid black;
+  border-radius: 15px;
+  border-top-right-radius: 0;
+  border-bottom-right-radius: 0;
+  padding: 8px;
+  background-color: #011627;
+  color: white;
+}
+
+.search-by-badge {
+  font-size: 14px;
+  padding: 8px;
+  border: 1px solid black;
+  border-left: none;
+  border-radius: 15px;
+  border-top-left-radius: 0;
+  border-bottom-left-radius: 0;
 }

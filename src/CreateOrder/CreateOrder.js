@@ -1,10 +1,10 @@
-import React from 'react';
-import styles from './CreateOrder.module.css';
-import OrdersService from '../Services/OrdersService';
-import CustomersService from '../Services/CustomersService';
-import Context from '../Context/Context';
-import Autocomplete from 'react-autocomplete';
 import moment from 'moment';
+import React from 'react';
+import Autocomplete from 'react-autocomplete';
+import Context from '../Context/Context';
+import CustomersService from '../Services/CustomersService';
+import OrdersService from '../Services/OrdersService';
+import styles from './CreateOrder.module.css';
 
 export default class CreateOrder extends React.Component {
   static contextType = Context;
@@ -14,9 +14,7 @@ export default class CreateOrder extends React.Component {
     clerk: '',
     customer_name: '',
     phone_number: '',
-    order_date: moment()
-      .tz('America/New_York')
-      .format('YYYY-MM-DD'),
+    order_date: moment().format('YYYY-MM-DD'),
     order_time: '',
     ready_by_date: '',
     ready_by_time: '',
@@ -185,7 +183,10 @@ export default class CreateOrder extends React.Component {
                   renderItem={(item, isHighlighted) => (
                     <div
                       key={item.id}
-                      style={{ background: isHighlighted ? 'lightgray' : 'white', color: 'black' }}
+                      style={{
+                        background: isHighlighted ? 'lightgray' : 'white',
+                        color: 'black'
+                      }}
                     >
                       {item.full_name}
                     </div>
@@ -211,7 +212,10 @@ export default class CreateOrder extends React.Component {
                   renderItem={(item, isHighlighted) => (
                     <div
                       key={item.id}
-                      style={{ background: isHighlighted ? 'lightgray' : 'white', color: 'black' }}
+                      style={{
+                        background: isHighlighted ? 'lightgray' : 'white',
+                        color: 'black'
+                      }}
                     >
                       {item.full_name}
                     </div>
@@ -242,7 +246,10 @@ export default class CreateOrder extends React.Component {
                   renderItem={(item, isHighlighted) => (
                     <div
                       key={item.id}
-                      style={{ background: isHighlighted ? 'lightgray' : 'white', color: 'black' }}
+                      style={{
+                        background: isHighlighted ? 'lightgray' : 'white',
+                        color: 'black'
+                      }}
                     >
                       {item.phone_number}
                     </div>
