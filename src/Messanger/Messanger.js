@@ -16,7 +16,7 @@ class Messanger extends React.Component {
   componentDidUpdate(prevProps) {
     if (this.props.state !== prevProps.state) {
       this.setState({
-        messageBody: `Hi ${this.props.state.customer.full_name}, your drycleaning is ready for pick-up!`
+        messageBody: `Hi ${this.props.state.order.customer}, your drycleaning is ready for pick-up!`
       });
     }
   }
@@ -43,7 +43,7 @@ class Messanger extends React.Component {
   render() {
     return (
       <div className={styles['send-sms-wrapper']}>
-        <h3>Send {this.props.state.customer.full_name} a text-message:</h3>
+        <h3>Send {this.props.state.order.customer} a text-message:</h3>
         <div className={styles['textarea-wrapper']}>
           <textarea onChange={this.messageBodyHandler} value={this.state.messageBody} />
         </div>

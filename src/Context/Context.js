@@ -11,7 +11,8 @@ const Context = React.createContext({
   updateOrders: () => {},
   editOrders: () => {},
   onSearchOrders: () => {},
-  onSortOrders: () => {}
+  onSortOrders: () => {},
+  onSortByDropdown: () => {}
 });
 
 export default Context;

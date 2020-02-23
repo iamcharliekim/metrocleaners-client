@@ -15,6 +15,7 @@ import OrdersService from './Services/OrdersService';
 import TokenService from './Services/TokenService';
 import SignIn from './SignIn/SignIn';
 import SignUp from './SignUp/SignUp';
+import moment from 'moment';
 
 export default class App extends React.Component {
   static contextType = Context;
@@ -29,15 +30,24 @@ export default class App extends React.Component {
   };
 
   componentDidMount() {
+    let parsedOrders;
+
     OrdersService.getOrders().then(orders => {
       if (orders) {
         CustomersService.getCustomers().then(customers => {
           if (customers) {
+            parsedOrders = orders.map(order => {
+              return {
+                ...order,
+                customer: customers.find(customer => customer.id === order.customer).full_name
+              };
+            });
+
             ClerksService.getClerks().then(clerks => {
               if (clerks) {
                 this.setState({
                   customers,
-                  orders,
+                  orders: parsedOrders,
                   filteredOrders: orders,
                   clerks
                 });
@@ -64,14 +74,14 @@ export default class App extends React.Component {
   updateOrders = orders => {
     const ordersCopy = [...this.state.orders];
     ordersCopy.push(orders);
-    this.setState({ orders: ordersCopy });
+    this.setState({ filteredOrders: ordersCopy });
   };
 
   editOrders = editedOrder => {
     const ordersCopy = [...this.state.orders];
     const index = ordersCopy.findIndex(order => order.id === editedOrder.id);
     ordersCopy[index] = editedOrder;
-    this.setState({ orders: ordersCopy });
+    this.setState({ filteredOrders: ordersCopy });
   };
 
   onOpenNav = () => {
@@ -89,18 +99,12 @@ export default class App extends React.Component {
     let ordersCopy = [...this.state.orders];
     let filteredOrders;
 
-    // let customersCopy = [...this.state.customers];
-
-    // MANIPULATE ordersCopy.customer = customer.full_name
-
     if (searchBy === 'all') {
       filteredOrders = ordersCopy.filter(order => {
         return (
           order['order_number'].toLowerCase().includes(searchString.toLowerCase()) ||
           order['clerk'].toLowerCase().includes(searchString.toLowerCase()) ||
-          // order["customer"]
-          //   .toLowerCase()
-          //   .includes(searchString.toLowerCase()) ||
+          order['customer'].toLowerCase().includes(searchString.toLowerCase()) ||
           order['phone_number'].toLowerCase().includes(searchString.toLowerCase()) ||
           order['price'].toLowerCase().includes(searchString.toLowerCase())
         );
@@ -126,31 +130,81 @@ export default class App extends React.Component {
       filteredOrders = ordersCopy;
     }
     if (sortBy === 'past') {
-      filteredOrders = ordersCopy.filter(order => new Date(order.order_date).getTime() < today);
+      filteredOrders = ordersCopy.filter(
+        order =>
+          moment(order.order_date)
+            .local(true)
+            .valueOf() < today
+      );
     }
     if (sortBy === 'upcoming') {
-      filteredOrders = ordersCopy.filter(order => new Date(order.order_date).getTime() > today);
+      filteredOrders = ordersCopy.filter(
+        order =>
+          moment(order.order_date)
+            .local(true)
+            .valueOf() > today
+      );
     }
-
-    // DescendingOrder
-    filteredOrders = filteredOrders.sort(
-      (a, b) =>
-        +(b['order_date'] === null) - +(a['order_date'] === null) ||
-        +(b['order_date'] > a['order_date']) ||
-        -(b['order_date'] < a['order_date'])
-    );
-
-    // AscendingOrder
-    // filteredOrders = filteredOrders.sort(
-    //   (a, b) =>
-    //     +(b["order_date"] === null) - +(a["order_date"] === null) ||
-    //     +(a["order_date"] > b["order_date"]) ||
-    //     -(a["order_date"] < b["order_date"])
-    // );
 
     this.setState({
       filteredOrders
     });
+  };
+
+  onSortByDropdown = (sortBy, sortOrder) => {
+    const ordersCopy = [...this.state.orders];
+    let sortedOrders;
+
+    if (sortBy === 'price' && sortOrder === 'Highest') {
+      sortedOrders = ordersCopy.sort((a, b) => {
+        if (Number(a[sortBy]) > Number(b[sortBy])) {
+          return -1;
+        } else if (Number(a[sortBy]) < Number(b[sortBy])) {
+          return 1;
+        } else {
+          return 0;
+        }
+      });
+    }
+
+    if (sortBy === 'price' && sortOrder === 'Lowest') {
+      sortedOrders = ordersCopy.sort((a, b) => {
+        if (Number(a[sortBy]) > Number(b[sortBy])) {
+          return 1;
+        } else if (Number(a[sortBy]) < Number(b[sortBy])) {
+          return -1;
+        } else {
+          return 0;
+        }
+      });
+    }
+
+    // DATES NEED TO SORT PROPERLY IN BOTH IF-BLOCKS BELOW!
+    if ((sortBy === 'ready_by_date' || sortBy === 'order_date') && sortOrder === 'Newest') {
+      sortedOrders = ordersCopy.sort((a, b) => {
+        if (moment(a[sortBy]).valueOf() > moment(b[sortBy]).valueOf()) {
+          return -1;
+        } else if (moment(a[sortBy]).valueOf() < moment(b[sortBy]).valueOf()) {
+          return 1;
+        } else {
+          return 0;
+        }
+      });
+    }
+
+    if ((sortBy === 'ready_by_date' || sortBy === 'order_date') && sortOrder === 'Oldest') {
+      sortedOrders = ordersCopy.sort((a, b) => {
+        if (new Date(a[sortBy]).getTime() > new Date(b[sortBy]).getTime()) {
+          return 1;
+        } else if (new Date(a[sortBy]) < new Date(b[sortBy])) {
+          return -1;
+        } else {
+          return 0;
+        }
+      });
+    }
+
+    this.setState({ filteredOrders: sortedOrders });
   };
 
   render() {
@@ -166,7 +220,8 @@ export default class App extends React.Component {
       editOrders: this.editOrders,
       filteredOrders: this.state.filteredOrders,
       onSearchOrders: this.onSearchOrders,
-      onSortOrders: this.onSortOrders
+      onSortOrders: this.onSortOrders,
+      onSortByDropdown: this.onSortByDropdown
     };
 
     let navLinks;

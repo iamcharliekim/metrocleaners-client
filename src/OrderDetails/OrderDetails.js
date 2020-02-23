@@ -47,7 +47,7 @@ export default class OrderDetails extends React.Component {
         <div className={styles['order-details-inner-wrapper']}>
           <div className={styles['customer-details-wrapper']}>
             <h1>
-              {this.state.customer.full_name} (#{this.state.order.order_number})
+              {this.state.order.customer} (#{this.state.order.order_number})
             </h1>
             <span>{this.state.formattedPhoneNumber}</span>
           </div>

@@ -14,7 +14,7 @@ export default class Customers extends React.Component {
     let customersArr = this.context.customers.map(customer => {
       return {
         customer: customer,
-        orders: this.context.orders.filter(order => order.customer === customer.id)
+        orders: this.context.orders.filter(order => order.customer === customer.full_name)
       };
     });
 

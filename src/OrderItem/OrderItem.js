@@ -23,7 +23,7 @@ export default class OrderItem extends React.Component {
     const order = this.props.orderItem;
 
     const customer = this.context.customers.find(
-      customer => customer.id === this.state.order.customer
+      customer => customer.phone_number === this.state.order.phone_number
     );
 
     let phone = order.phone_number;
