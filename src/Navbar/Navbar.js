@@ -53,7 +53,7 @@ class Navbar extends React.Component {
     return (
       <nav className={styles['navbar']}>
         <div className={styles['inner-nav']}>
-          <Link to="/landing" className={styles['logo']} onClick={this.onClickLogo}>
+          <Link to="/home" className={styles['logo']} onClick={this.onClickLogo}>
             <div className={styles['logo-wrapper']}>
               <span>Metro</span>
               <span>Cleaners</span>

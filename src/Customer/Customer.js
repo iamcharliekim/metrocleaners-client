@@ -8,13 +8,11 @@ class Customer extends React.Component {
 
   state = {
     customer: this.props.customer.customer,
-    // order_id: this.props.customer.orders[0].order_number,
+    order_id: this.props.customer.orders[0].order_number,
     orders: this.props.customer.orders
   };
 
-  componentDidMount() {
-    console.log(this.props);
-  }
+  componentDidMount() {}
 
   onSelectOrders = e => {
     this.setState({ order_id: e.target.value });

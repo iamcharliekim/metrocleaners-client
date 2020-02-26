@@ -29,6 +29,8 @@ export default class CreateOrder extends React.Component {
       .split(':');
     time = `${time[0]}:${time[1]}`;
     this.setState({ order_time: time });
+
+    this.orderInput.focus();
   }
 
   orderNumberHandler = e => {
@@ -54,6 +56,8 @@ export default class CreateOrder extends React.Component {
     let phone_number = selectedCustomer.phone_number;
 
     this.setState({ customer_name, phone_number });
+
+    this.readyByInput.focus();
   };
 
   phoneNumberHandler = e => {
@@ -170,6 +174,9 @@ export default class CreateOrder extends React.Component {
                   required
                   onChange={this.orderNumberHandler}
                   value={this.state.order_number}
+                  ref={input => {
+                    this.orderInput = input;
+                  }}
                 />
               </div>
 
@@ -298,6 +305,9 @@ export default class CreateOrder extends React.Component {
                     className={styles['date-input']}
                     onChange={this.readyByDateHandler}
                     value={this.state.ready_by_date}
+                    ref={input => {
+                      this.readyByInput = input;
+                    }}
                   />
                   <input
                     type="time"
@@ -306,6 +316,7 @@ export default class CreateOrder extends React.Component {
                     className={styles['time-input']}
                     onChange={this.readyByTimeHandler}
                     value={this.state.ready_by_time}
+
                     // min="07:00"
                     // max="19:00"
                   />

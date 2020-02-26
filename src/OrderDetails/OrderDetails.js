@@ -20,7 +20,7 @@ export default class OrderDetails extends React.Component {
       order => order.order_number === this.props.match.params.order_id
     );
 
-    const customer = this.context.customers.find(customer => customer.id === order.customer);
+    const customer = this.context.customers.find(customer => customer.full_name === order.customer);
 
     let phone = order.phone_number;
     let formattedPhoneNumber = `(${phone[0]}${phone[1]}${phone[2]}) ${phone[3]}${phone[4]}${phone[5]}-${phone[6]}${phone[7]}${phone[8]}${phone[9]}`;
@@ -81,17 +81,28 @@ export default class OrderDetails extends React.Component {
             <div className={styles['order-row']}>
               <input
                 type="checkbox"
+                readOnly
                 className={styles['checkbox']}
-                onChange={this.onPickedUp}
-                checked={this.state.order.picked_up}
+                checked={!!this.state.order.picked_up}
               />
               <span className={styles['order-label']}>Picked Up</span>
             </div>
 
             <div className={styles['order-row']}>
-              <input type="checkbox" className={styles['checkbox']} />
+              <input
+                type="checkbox"
+                readOnly
+                className={styles['checkbox']}
+                checked={!!this.state.order.notification_sent}
+              />
               <span className={styles['order-label']}>Notification Sent</span>
-              <span className={styles['order-label']}></span>
+              <span className={styles['notification-sent-date']}>
+                {this.state.order.notification_sent
+                  ? moment(this.state.order.notification_sent)
+                      .local(true)
+                      .format('M/D/YY h:mm A')
+                  : null}
+              </span>
             </div>
           </div>
 

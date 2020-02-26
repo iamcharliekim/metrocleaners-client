@@ -6,14 +6,13 @@ import styles from './Home.module.css';
 
 export default class Home extends React.Component {
   static contextType = Context;
-
   render() {
     return (
       <div className={styles['home-wrapper']}>
         <Search />
 
         <header className={styles['home-wrapper-header']}>
-          <h3>February 22, 2020</h3>
+          <h3> </h3>
         </header>
 
         <div className={styles['orders-list-wrapper']}>

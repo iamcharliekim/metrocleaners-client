@@ -10,21 +10,16 @@ export default class OrderItem extends React.Component {
 
   state = {
     order: this.props.orderItem,
-    customer: '',
-    clerk: '',
     formattedOrderDateTime: '',
     formattedReadyDateTime: '',
     formattedPhoneNumber: '',
     notificationSent: this.props.orderItem.notification_sent ? true : false,
-    notification_date_time: ''
+    notification_date_time: '',
+    formatted_picked_up_date: ''
   };
 
   componentDidMount() {
     const order = this.props.orderItem;
-
-    const customer = this.context.customers.find(
-      customer => customer.phone_number === this.state.order.phone_number
-    );
 
     let phone = order.phone_number;
     let formattedPhoneNumber = `(${phone[0]}${phone[1]}${phone[2]}) ${phone[3]}${phone[4]}${phone[5]}-${phone[6]}${phone[7]}${phone[8]}${phone[9]}`;
@@ -37,43 +32,70 @@ export default class OrderItem extends React.Component {
       .local(true)
       .format('M/D/YY h:mm A');
 
-    let notification_date_time;
+    let notification_date_time, notificationSent;
 
     if (order.notification_sent) {
       notification_date_time = moment(order.notification_sent)
         .local(true)
         .format('M/D/YY h:mm A');
+
+      notificationSent = true;
+    }
+
+    let formatted_picked_up_date;
+
+    if (order.picked_up) {
+      formatted_picked_up_date = moment(order.picked_up_date)
+        .local(true)
+        .format('M/D/YY h:mm A');
     }
 
     this.setState({
-      customer,
+      order,
       formattedOrderDateTime,
       formattedReadyDateTime,
       formattedPhoneNumber,
-      notification_date_time
+      notification_date_time,
+      notificationSent,
+      formatted_picked_up_date
     });
   }
 
+  componentDidUpdate(prevProps, prevState) {
+    if (this.props.orderItem.notification_sent !== prevProps.orderItem.notification_sent) {
+      let notification_date_time = moment(this.props.orderItem.notification_sent)
+        .local(true)
+        .format('M/D/YY h:mm A');
+      this.setState({
+        order: this.props.orderItem,
+        notification_date_time,
+        notificationSent: true
+      });
+    }
+
+    if (
+      this.props.orderItem.picked_up !== prevProps.orderItem.picked_up &&
+      this.props.orderItem.picked_up_date !== prevProps.orderItem.picked_up_date
+    ) {
+      let formatted_picked_up_date = moment(this.props.orderItem.picked_up_date)
+        .local(true)
+        .format('M/D/YY h:mm A');
+
+      this.setState({ order: this.props.orderItem, formatted_picked_up_date });
+    }
+  }
+
   onPickedUp = () => {
-    const orderCopy = { ...this.state.order };
+    let orderCopy = { ...this.state.order };
+
     orderCopy.picked_up = !orderCopy.picked_up;
+    orderCopy.picked_up_date = orderCopy.picked_up
+      ? moment()
+          .utc(true)
+          .format()
+      : null;
 
-    this.setState({ order: orderCopy });
-
-    this.updateOrder();
-  };
-
-  updateOrder = () => {
-    const picked_up_prev = this.state.order.picked_up;
-
-    const updatedOrder = {
-      ...this.state.order,
-      customer: this.state.customer.id,
-      clerk: this.state.clerk.id,
-      picked_up: !picked_up_prev
-    };
-
-    OrdersService.putUpdateOrder(updatedOrder, this.state.order.id).then(newOrder => {
+    OrdersService.putUpdateOrder(orderCopy, orderCopy.id).then(newOrder => {
       this.context.editOrders(newOrder);
     });
   };
@@ -86,7 +108,7 @@ export default class OrderItem extends React.Component {
             <Link to={`orders/${this.state.order.order_number}`} className={styles['order-link']}>
               {`#${this.state.order.order_number}`}
             </Link>
-            <h4>{this.state.customer.full_name}</h4>
+            <h4>{this.state.order.customer}</h4>
             <span className={styles['phone_number']}>{this.state.formattedPhoneNumber}</span>
           </div>
 
@@ -126,19 +148,26 @@ export default class OrderItem extends React.Component {
               />
             </div>
             <span className={styles['order-label']}>Picked Up</span>
+
+            {this.state.order.picked_up ? (
+              <span className={styles['order-picked-up-date']}>
+                ({this.state.formatted_picked_up_date})
+              </span>
+            ) : null}
           </div>
 
           <div className={styles['order-row']}>
             <div className={styles['checkbox-wrapper']}>
               <input
                 type="checkbox"
-                className={styles['checkbox']}
-                checked={this.state.notificationSent}
                 readOnly
+                className={styles['checkbox']}
+                checked={this.state.notificationSent ? true : null}
+                disabled={!this.state.notificationSent}
               />
             </div>
-            <span className={styles['order-label']}>Notification Sent</span>
-            {this.state.notificationSent ? (
+            <span className={styles['order-label']}>Notification </span>
+            {this.state.order.notification_sent ? (
               <span className={styles['notification-sent-date']}>
                 ({this.state.notification_date_time})
               </span>

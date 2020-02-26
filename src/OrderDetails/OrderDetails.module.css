@@ -133,3 +133,8 @@
   align-items: center;
   margin-top: 20px;
 }
+
+.notification-sent-date {
+  margin-left: 5px;
+  font-size: 14px;
+}

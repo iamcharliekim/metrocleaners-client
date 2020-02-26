@@ -7,6 +7,7 @@
   padding-top: 20px;
   padding-bottom: 20px;
   border-bottom: 1px solid #011627;
+  position: relative;
 }
 
 .search-input-wrapper {
@@ -62,12 +63,15 @@
   flex-direction: column;
   align-items: flex-end;
   justify-content: flex-start;
+  z-index: 100;
+  position: absolute;
+  bottom: -120px;
 }
 
 .search-by-panel {
   margin-right: 5px;
   padding: 0px;
-  border: 1px solid gray;
+  border: 1px solid lightgray;
   border-top: none;
   border-bottom: none;
   border-radius: 0px;
@@ -78,6 +82,8 @@
   display: flex;
   flex-direction: column;
   z-index: 5;
+  background-color: white;
+  box-shadow: 0px 5px 10px #888;
 }
 
 .search-by-div {
@@ -86,7 +92,7 @@
   padding-top: 10px;
   padding-bottom: 10px;
   cursor: pointer;
-  border-bottom: 1px solid black;
+  border-bottom: 1px solid lightgray;
   font-size: 14px;
 }
 

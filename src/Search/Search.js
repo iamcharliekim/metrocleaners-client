@@ -3,7 +3,6 @@ import Context from '../Context/Context';
 import SortButtons from '../SortButtons/SortButtons';
 import styles from './Search.module.css';
 import { faCaretDown } from '@fortawesome/free-solid-svg-icons';
-
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 export default class Search extends React.Component {
@@ -17,41 +16,7 @@ export default class Search extends React.Component {
       { label: 'Customer', value: 'customer' },
       { label: 'Phone #', value: 'phone_number' },
       { label: 'Price', value: 'price' }
-    ],
-    placeholder: '',
-    openSearchByPanel: false,
-    selectedOptionIndex: 0,
-    selectedOptionValue: '',
-    searchBy: 'all'
-  };
-
-  openSearchByPanel = () => {
-    this.setState({ openSearchByPanel: !this.state.openSearchByPanel });
-  };
-
-  onSearchFocus = e => {
-    this.setState({});
-  };
-
-  onSearchBlur = e => {
-    this.setState({
-      placeholder: ''
-    });
-  };
-
-  onClickSearchByBtn = (e, btnIndex) => {
-    this.setState({
-      selectedOptionIndex: btnIndex,
-      selectedOptionValue: e.target.textContent,
-      searchBy: e.target.id
-    });
-    setTimeout(() => {
-      this.setState({ openSearchByPanel: false });
-    }, 110);
-  };
-
-  onSearchByDivBlur = () => {
-    // this.setState({ selectedOptionIndex: null });
+    ]
   };
 
   render() {
@@ -61,33 +26,24 @@ export default class Search extends React.Component {
           <input
             type="text"
             placeholder="Search orders by...."
-            onChange={e => this.context.onSearchOrders(e, this.state.searchBy)}
-            onFocus={this.onSearchFocus}
-            onBlur={this.onSearchBlur}
+            onChange={this.context.onSearchOrders}
             value={this.context.searchString}
           />
-          <div className={styles['search-by-dropdown']} onClick={this.openSearchByPanel}>
-            <span className={styles['dropdown-label']}>{this.state.selectedOptionValue}</span>
+          <div className={styles['search-by-dropdown']} onClick={this.context.onOpenSearchByPanel}>
+            <span className={styles['dropdown-label']}>{this.context.selectedOptionValue}</span>
             <div className={styles['icon-wrapper']}>
               <FontAwesomeIcon icon={faCaretDown} className={styles['icon']} />
             </div>
           </div>
-
-          {/* {this.state.selectedOptionValue !== '' ? (
-            <div className={styles['search-by-badge-wrapper']}>
-              <span className={styles['search-by-label']}>Searching:</span>
-              <span className={styles['search-by-badge']}>{this.state.selectedOptionValue}</span>
-            </div>
-          ) : null} */}
         </div>
 
-        {this.state.openSearchByPanel ? (
+        {this.context.openSearchByPanel ? (
           <div className={styles['search-by-panel-wrapper']}>
             <div className={styles['search-by-panel']}>
               {this.state.sortOptions.map((sortOption, i) => (
                 <div
                   className={
-                    this.state.selectedOptionIndex === i
+                    this.context.selectedSearchOptionIndex === i
                       ? styles['search-by-div-selected']
                       : styles['search-by-div']
                   }
@@ -95,7 +51,7 @@ export default class Search extends React.Component {
                   key={i}
                   value={sortOption.value}
                   id={sortOption.value}
-                  onClick={e => this.onClickSearchByBtn(e, i)}
+                  onClick={e => this.context.onClickSearchByBtn(e.target.id)}
                 >
                   {sortOption.label}
                 </div>

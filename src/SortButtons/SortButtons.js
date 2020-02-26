@@ -2,16 +2,12 @@ import React from 'react';
 import Context from '../Context/Context';
 import styles from './SortButtons.module.css';
 import { faCaretDown } from '@fortawesome/free-solid-svg-icons';
-
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 export default class SortButtons extends React.Component {
   static contextType = Context;
 
   state = {
-    openPriceSortPanel: false,
-    openReadyByDateSortPanel: false,
-    openOrderDateSortPanel: false,
     sortPriceOptions: [
       { label: 'Price', value: 'price', order: 'Highest' },
       { label: 'Price', value: 'price', order: 'Lowest' }
@@ -23,18 +19,15 @@ export default class SortButtons extends React.Component {
     sortReadyByDateOptions: [
       { label: 'Ready-By-Date', value: 'ready_by_date', order: 'Newest' },
       { label: 'Ready-By-Date', value: 'ready_by_date', order: 'Oldest' }
-    ],
-    selectedPriceOptionIndex: 0,
-    selectedReadyDateOptionIndex: 0,
-    selectedOrderDateOptionIndex: 0,
-    selectedOptionValue: ''
+    ]
   };
 
   onOpenSortPanel = panel => {
-    console.log(panel);
     if (panel === 'price') {
       this.setState((prevState, props) => {
-        return { openPriceSortPanel: !prevState.openPriceSortPanel };
+        return {
+          openPriceSortPanel: !prevState.openPriceSortPanel
+        };
       });
     }
 
@@ -62,6 +55,7 @@ export default class SortButtons extends React.Component {
     });
 
     this.context.onSortByDropdown(option.value, option.order);
+    this.context.sortByPriceBtnActive(btnIndex);
   };
 
   onSelectSortByReadyDateBtn = (option, btnIndex) => {
@@ -75,6 +69,7 @@ export default class SortButtons extends React.Component {
     });
 
     this.context.onSortByDropdown(option.value, option.order);
+    this.context.sortByReadyDateBtnActive(btnIndex);
   };
 
   onSelectOrderDateBtn = (option, btnIndex) => {
@@ -86,34 +81,75 @@ export default class SortButtons extends React.Component {
         order: option.order
       };
     });
+
     this.context.onSortByDropdown(option.value, option.order);
+    this.context.sortByOrderDateBtnActive(btnIndex);
+  };
+
+  onSortOrders = sortBy => {
+    if (sortBy === 'past') {
+      this.context.onSortOrders('past');
+      this.context.sortByPastBtnActive();
+    }
+    if (sortBy === 'upcoming') {
+      this.context.onSortOrders('upcoming');
+      this.context.sortByUpcomingBtnActive();
+    }
+    if (sortBy === 'all') {
+      this.context.onSortOrders('all');
+      this.context.sortByAllBtnActive();
+    }
   };
 
   render() {
     return (
       <div className={styles['sort-buttons-wrapper']}>
         <div className={styles['sort-buttons-inner-wrapper']}>
-          <button onClick={() => this.context.onSortOrders('past')}>Past</button>
-          <button onClick={() => this.context.onSortOrders('upcoming')}>Upcoming</button>
-          <button onClick={() => this.context.onSortOrders('all')}>All</button>
+          <button
+            className={this.context.pastActive ? styles['active'] : styles['sort-button']}
+            onClick={() => this.onSortOrders('past')}
+            active={this.state.pastActive}
+          >
+            Past
+          </button>
+          <button
+            className={this.context.upcomingActive ? styles['active'] : styles['sort-button']}
+            onClick={() => this.onSortOrders('upcoming')}
+            active={this.state.upcomingActive}
+          >
+            Upcoming
+          </button>
+          <button
+            className={this.context.allActive ? styles['active'] : styles['sort-button']}
+            onClick={() => this.onSortOrders('all')}
+            active={this.state.allActive}
+          >
+            All
+          </button>
         </div>
 
         <div className={styles['sort-by-dropdown-wrapper']}>
-          <div className={styles['sort-by-dropdown']} onClick={() => this.onOpenSortPanel('price')}>
-            <div className={styles['select-dropdown']}>
+          <div
+            className={styles['sort-by-dropdown']}
+            onClick={() => this.context.onOpenSortDropdown('price')}
+          >
+            <div
+              className={
+                this.context.priceActive ? styles['select-active'] : styles['select-dropdown']
+              }
+            >
               <span className={styles['dropdown-label']}>Price</span>
               <div className={styles['icon-wrapper']}>
                 <FontAwesomeIcon icon={faCaretDown} className={styles['icon']} />
               </div>
             </div>
-
-            {this.state.openPriceSortPanel
+            {this.context.openPriceSortPanel
               ? this.state.sortPriceOptions.map((option, i) => {
                   return (
                     <div className={styles['sort-by-panel']} key={i}>
                       <div
                         className={
-                          this.state.selectedPriceOptionIndex === i
+                          this.context.selectedPriceOptionIndex === i
                             ? styles['sort-by-div-selected']
                             : styles['sort-by-div']
                         }
@@ -127,25 +163,28 @@ export default class SortButtons extends React.Component {
                 })
               : null}
           </div>
-
           <div
             className={styles['sort-by-dropdown']}
-            onClick={() => this.onOpenSortPanel('ready_by_date')}
+            onClick={() => this.context.onOpenSortDropdown('ready_by_date')}
           >
-            <div className={styles['select-dropdown']}>
-              <span className={styles['dropdown-label']}>Ready-Date</span>
+            <div
+              className={
+                this.context.readyByActive ? styles['select-active'] : styles['select-dropdown']
+              }
+            >
+              <span className={styles['dropdown-label']}>Ready-By</span>
               <div className={styles['icon-wrapper']}>
                 <FontAwesomeIcon icon={faCaretDown} className={styles['icon']} />
               </div>
             </div>
 
-            {this.state.openReadyByDateSortPanel
+            {this.context.openReadyByDateSortPanel
               ? this.state.sortReadyByDateOptions.map((option, i) => {
                   return (
-                    <div className={styles['sort-by-panel']}>
+                    <div className={styles['sort-by-panel']} key={i}>
                       <div
                         className={
-                          this.state.selectedReadyDateOptionIndex === i
+                          this.context.selectedReadyDateOptionIndex === i
                             ? styles['sort-by-div-selected']
                             : styles['sort-by-div']
                         }
@@ -162,22 +201,26 @@ export default class SortButtons extends React.Component {
 
           <div
             className={styles['sort-by-dropdown']}
-            onClick={() => this.onOpenSortPanel('order_date')}
+            onClick={() => this.context.onOpenSortDropdown('order_date')}
           >
-            <div className={styles['select-dropdown']}>
-              <span className={styles['dropdown-label']}>Order-Date</span>
+            <div
+              className={
+                this.context.orderedActive ? styles['select-active'] : styles['select-dropdown']
+              }
+            >
+              <span className={styles['dropdown-label']}>Ordered</span>
               <div className={styles['icon-wrapper']}>
                 <FontAwesomeIcon icon={faCaretDown} className={styles['icon']} />
               </div>
             </div>
 
-            {this.state.openOrderDateSortPanel
+            {this.context.openOrderDateSortPanel
               ? this.state.sortReadyByDateOptions.map((option, i) => {
                   return (
-                    <div className={styles['sort-by-panel']}>
+                    <div className={styles['sort-by-panel']} key={i}>
                       <div
                         className={
-                          this.state.selectedOrderDateOptionIndex === i
+                          this.context.selectedOrderDateOptionIndex === i
                             ? styles['sort-by-div-selected']
                             : styles['sort-by-div']
                         }
@@ -195,23 +238,4 @@ export default class SortButtons extends React.Component {
       </div>
     );
   }
-}
-
-{
-  /* <div className={styles['search-by-panel']}>
-{this.state.sortOptions.map((sortOption, i) => (
-  <div
-    className={
-      this.state.selectedOptionIndex === i
-        ? styles['search-by-div-selected']
-        : styles['search-by-div']
-    }
-    onMouseOver={this.onSearchByDivBlur}
-    key={i}
-    value={sortOption.value}
-    id={sortOption.value}
-    onClick={e => this.onClickSearchByBtn(e, i)}
-  >
-    {sortOption.label}
-  </div> */
 }
