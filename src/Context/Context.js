@@ -5,16 +5,16 @@ const Context = React.createContext({
   openNav: '',
 
   updateCustomers: () => {},
-  customers: '',
+  customers: [],
 
-  orders: '',
-  filteredOrders: '',
+  orders: [],
+  filteredOrders: [],
   updateOrders: () => {},
   editOrders: () => {},
   clearOrders: () => {},
   checkForOrderUpdates: () => {},
 
-  clerks: '',
+  clerks: [],
   updateClerks: () => {},
 
   onSearchOrders: () => {},

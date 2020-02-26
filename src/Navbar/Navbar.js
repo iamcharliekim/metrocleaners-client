@@ -39,7 +39,7 @@ class Navbar extends React.Component {
           + New Order
         </Link>,
         <Link to="/customers" key="4" className={styles['nav-link']}>
-          + New Order
+          Customers
         </Link>
       ];
 

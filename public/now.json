@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "alias": "[iamcharliekim]-metrocleaners-app",
+  "alias": "iamcharliekim-metrocleaners-app",
   "name": "metrocleaners-app",
   "routes": [{ "handle": "filesystem" }, { "src": "/.*", "dest": "/index.html" }]
 }

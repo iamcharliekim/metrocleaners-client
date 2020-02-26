@@ -22,12 +22,12 @@ export default class App extends React.Component {
 
   state = {
     openNav: false,
-    customers: '',
+    customers: [],
 
     orders: [],
     filteredOrders: [],
 
-    clerks: '',
+    clerks: [],
 
     pastActive: false,
     upcomingActive: false,
