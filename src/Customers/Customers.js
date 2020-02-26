@@ -23,17 +23,21 @@ export default class Customers extends React.Component {
 
   render() {
     return (
-      <div className={styles['customers-wrapper']}>
-        <div className={styles['customers-headers']}>
-          <div className={styles['th']}>Name</div>
-          <div className={styles['th']}>Phone #</div>
-          <div className={styles['th']}>Orders</div>
-        </div>
+      <React.Fragment>
+        {!this.context.openNav ? (
+          <div className={styles['customers-wrapper']}>
+            <div className={styles['customers-headers']}>
+              <div className={styles['th']}>Name</div>
+              <div className={styles['th']}>Phone #</div>
+              <div className={styles['th']}>Orders</div>
+            </div>
 
-        {this.state.customers.map((customer, i) => {
-          return <Customer key={i} customer={customer} />;
-        })}
-      </div>
+            {this.state.customers.map((customer, i) => {
+              return <Customer key={i} customer={customer} />;
+            })}
+          </div>
+        ) : null}
+      </React.Fragment>
     );
   }
 }

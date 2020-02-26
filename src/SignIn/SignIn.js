@@ -32,9 +32,9 @@ export default class SignIn extends React.Component {
       })
       .then(res => {
         TokenService.saveAuthToken(res.authToken);
-        this.props.history.push('/home');
+        // this.props.history.push('/home');
 
-        // window.location.assign('https://iamcharliekim-post-up-app.now.sh/home');
+        window.location.assign('https://metrocleaners-app.iamcharliekim.now.sh/home');
       })
       .catch(res => {
         this.setState({ error: res.error });

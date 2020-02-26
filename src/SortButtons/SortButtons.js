@@ -45,43 +45,16 @@ export default class SortButtons extends React.Component {
   };
 
   onSelectSortByPriceBtn = (option, btnIndex) => {
-    this.setState((prevState, props) => {
-      return {
-        openPriceSortPanel: !!prevState.openPriceSortPanel,
-        selectedPriceOptionIndex: btnIndex,
-        searchBy: 'price',
-        order: option.order
-      };
-    });
-
     this.context.onSortByDropdown(option.value, option.order);
     this.context.sortByPriceBtnActive(btnIndex);
   };
 
   onSelectSortByReadyDateBtn = (option, btnIndex) => {
-    this.setState((prevState, props) => {
-      return {
-        openReadyByDateSortPanel: !!prevState.openReadyByDateSortPanel,
-        selectedReadyDateOptionIndex: btnIndex,
-        searchBy: 'price',
-        order: option.order
-      };
-    });
-
     this.context.onSortByDropdown(option.value, option.order);
     this.context.sortByReadyDateBtnActive(btnIndex);
   };
 
   onSelectOrderDateBtn = (option, btnIndex) => {
-    this.setState((prevState, props) => {
-      return {
-        openOrderDateSortPanel: !!prevState.openOrderDateSortPanel,
-        selectedOrderDateOptionIndex: btnIndex,
-        searchBy: 'price',
-        order: option.order
-      };
-    });
-
     this.context.onSortByDropdown(option.value, option.order);
     this.context.sortByOrderDateBtnActive(btnIndex);
   };
@@ -215,7 +188,7 @@ export default class SortButtons extends React.Component {
             </div>
 
             {this.context.openOrderDateSortPanel
-              ? this.state.sortReadyByDateOptions.map((option, i) => {
+              ? this.state.sortOrderDateOptions.map((option, i) => {
                   return (
                     <div className={styles['sort-by-panel']} key={i}>
                       <div

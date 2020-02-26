@@ -97,6 +97,7 @@ export default class OrderItem extends React.Component {
 
     OrdersService.putUpdateOrder(orderCopy, orderCopy.id).then(newOrder => {
       this.context.editOrders(newOrder);
+      this.context.boxIsChecked();
     });
   };
 

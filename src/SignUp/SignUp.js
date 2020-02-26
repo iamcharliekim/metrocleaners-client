@@ -58,8 +58,6 @@ export default class SignUp extends React.Component {
         {this.state.error ? <h1 className={styles['error']}> {this.state.error}</h1> : null}
         <form onSubmit={this.onSubmitHandler}>
           <fieldset>
-            <legend>Sign-Up</legend>
-
             <label htmlFor="firstname">
               First Name:
               <input

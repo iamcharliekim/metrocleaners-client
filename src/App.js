@@ -59,12 +59,16 @@ export default class App extends React.Component {
             if (customers) {
               ClerksService.getClerks().then(clerks => {
                 if (clerks) {
+                  this.sortByAllBtnActive();
+
                   this.setState({
                     orders,
-                    filteredOrders: orders,
+                    // filteredOrders: orders,
                     customers,
                     clerks
                   });
+
+                  this.onSortOrders('all');
                 }
               });
             }
@@ -86,6 +90,7 @@ export default class App extends React.Component {
         let order = this.state.orders.find(o => o.id === newOrder.id);
         if (newOrder.notification_sent !== order.notification_sent) {
           this.editOrders(newOrder);
+          this.boxIsChecked();
         }
       });
     });
@@ -103,14 +108,28 @@ export default class App extends React.Component {
     this.setState({ clerks: clerksCopy });
   };
 
+  persistSortOptions = () => {
+    if (this.state.allActive) {
+      this.onSortOrders('all');
+    }
+
+    if (this.state.upcomingActive) {
+      this.onSortOrders('upcoming');
+    }
+
+    if (this.state.pastActive) {
+      this.onSortOrders('past');
+    }
+  };
+
   updateOrders = orders => {
     const ordersCopy = [...this.state.orders];
     ordersCopy.push(orders);
-    this.setState({ filteredOrders: ordersCopy, orders: ordersCopy });
-  };
+    this.sortByAllBtnActive();
 
-  clearOrders = () => {
-    this.setState({ filteredOrders: [], orders: [] });
+    this.setState({ filteredOrders: ordersCopy, orders: ordersCopy });
+
+    this.persistSortOptions();
   };
 
   editOrders = editedOrder => {
@@ -119,6 +138,8 @@ export default class App extends React.Component {
     ordersCopy[index] = editedOrder;
 
     this.setState({ filteredOrders: ordersCopy, orders: ordersCopy });
+
+    this.persistSortOptions();
   };
 
   // SEARCH-ORDERS ---------------------------------------------------
@@ -126,12 +147,25 @@ export default class App extends React.Component {
   // search-orders filter-function
   onSearchOrders = e => {
     const searchString = e.target.value;
+    const pastActive = this.state.pastActive;
+    const upcomingActive = this.state.upcomingActive;
+    const allActive = this.state.allActive;
+    let filteredOrders, searchResults;
 
-    let ordersCopy = [...this.state.orders];
-    let filteredOrders;
+    if (pastActive) {
+      filteredOrders = this.onSortOrders('past', true);
+    }
+
+    if (upcomingActive) {
+      filteredOrders = this.onSortOrders('upcoming', true);
+    }
+
+    if (allActive) {
+      filteredOrders = this.onSortOrders('all', true);
+    }
 
     if (this.state.searchBy === 'all') {
-      filteredOrders = ordersCopy.filter(order => {
+      searchResults = filteredOrders.filter(order => {
         return (
           order['order_number'].toLowerCase().includes(searchString.toLowerCase()) ||
           order['clerk'].toLowerCase().includes(searchString.toLowerCase()) ||
@@ -141,13 +175,13 @@ export default class App extends React.Component {
         );
       });
     } else {
-      filteredOrders = ordersCopy.filter(order => {
+      searchResults = filteredOrders.filter(order => {
         return order[this.state.searchBy].toLowerCase().includes(searchString.toLowerCase());
       });
     }
 
     this.setState({
-      filteredOrders,
+      filteredOrders: searchResults,
       searchString
     });
   };
@@ -159,16 +193,7 @@ export default class App extends React.Component {
         searchBy: 'all',
         selectedSearchOptionIndex: 0,
         selectedOptionValue: '',
-        openSearchByPanel: false,
-        pastActive: false,
-        upcomingActive: false,
-        allActive: false,
-        priceActive: false,
-        readyByActive: false,
-        orderedActive: false,
-        selectedPriceOptionIndex: false,
-        selectedReadyDateOptionIndex: false,
-        selectedOrderDateOptionIndex: false
+        openSearchByPanel: false
       });
     }
 
@@ -177,16 +202,7 @@ export default class App extends React.Component {
         searchBy: 'order_number',
         selectedSearchOptionIndex: 1,
         selectedOptionValue: 'Order #',
-        openSearchByPanel: false,
-        pastActive: false,
-        upcomingActive: false,
-        allActive: false,
-        priceActive: false,
-        readyByActive: false,
-        orderedActive: false,
-        selectedPriceOptionIndex: false,
-        selectedReadyDateOptionIndex: false,
-        selectedOrderDateOptionIndex: false
+        openSearchByPanel: false
       });
     }
 
@@ -195,16 +211,7 @@ export default class App extends React.Component {
         searchBy: 'clerk',
         selectedSearchOptionIndex: 2,
         selectedOptionValue: 'Clerk',
-        openSearchByPanel: false,
-        pastActive: false,
-        upcomingActive: false,
-        allActive: false,
-        priceActive: false,
-        readyByActive: false,
-        orderedActive: false,
-        selectedPriceOptionIndex: false,
-        selectedReadyDateOptionIndex: false,
-        selectedOrderDateOptionIndex: false
+        openSearchByPanel: false
       });
     }
 
@@ -213,16 +220,7 @@ export default class App extends React.Component {
         searchBy: 'customer',
         selectedSearchOptionIndex: 3,
         selectedOptionValue: 'Customer',
-        openSearchByPanel: false,
-        pastActive: false,
-        upcomingActive: false,
-        allActive: false,
-        priceActive: false,
-        readyByActive: false,
-        orderedActive: false,
-        selectedPriceOptionIndex: false,
-        selectedReadyDateOptionIndex: false,
-        selectedOrderDateOptionIndex: false
+        openSearchByPanel: false
       });
     }
 
@@ -231,16 +229,7 @@ export default class App extends React.Component {
         searchBy: 'phone_number',
         selectedSearchOptionIndex: 4,
         selectedOptionValue: 'Phone #',
-        openSearchByPanel: false,
-        pastActive: false,
-        upcomingActive: false,
-        allActive: false,
-        priceActive: false,
-        readyByActive: false,
-        orderedActive: false,
-        selectedPriceOptionIndex: false,
-        selectedReadyDateOptionIndex: false,
-        selectedOrderDateOptionIndex: false
+        openSearchByPanel: false
       });
     }
 
@@ -249,16 +238,7 @@ export default class App extends React.Component {
         searchBy: 'price',
         selectedSearchOptionIndex: 5,
         selectedOptionValue: 'Price',
-        openSearchByPanel: false,
-        pastActive: false,
-        upcomingActive: false,
-        allActive: false,
-        priceActive: false,
-        readyByActive: false,
-        orderedActive: false,
-        selectedPriceOptionIndex: false,
-        selectedReadyDateOptionIndex: false,
-        selectedOrderDateOptionIndex: false
+        openSearchByPanel: false
       });
     }
   };
@@ -274,16 +254,23 @@ export default class App extends React.Component {
   };
 
   // SORT-BUTTONS ---------------------------------------------------
-
   // sort-buttons sorting-functions
-  onSortOrders = sortBy => {
+  onSortOrders = (sortBy, returnOrders = false) => {
     const today = new Date().getTime();
     const ordersCopy = [...this.state.orders];
     let filteredOrders;
 
+    const priceActive = this.state.priceActive;
+    const readyByActive = this.state.readyByActive;
+    const orderedActive = this.state.orderedActive;
+    const selectedPriceOptionIndex = this.state.selectedPriceOptionIndex;
+    const selectedReadyDateOptionIndex = this.state.selectedReadyDateOptionIndex;
+    const selectedOrderDateOptionIndex = this.state.selectedOrderDateOptionIndex;
+
     if (sortBy === 'all') {
       filteredOrders = ordersCopy;
     }
+
     if (sortBy === 'past') {
       filteredOrders = ordersCopy.filter(
         order =>
@@ -292,6 +279,7 @@ export default class App extends React.Component {
             .valueOf() < today
       );
     }
+
     if (sortBy === 'upcoming') {
       filteredOrders = ordersCopy.filter(
         order =>
@@ -299,6 +287,100 @@ export default class App extends React.Component {
             .local(true)
             .valueOf() > today
       );
+    }
+
+    if (priceActive && selectedPriceOptionIndex === 0) {
+      // sort by Highest Price first
+      filteredOrders = filteredOrders.sort((a, b) => {
+        if (Number(a['price']) > Number(b['price'])) {
+          return -1;
+        } else if (Number(a['price']) < Number(b['price'])) {
+          return 1;
+        } else {
+          return 0;
+        }
+      });
+    }
+
+    if (priceActive && selectedPriceOptionIndex === 1) {
+      // sort by Lowest Price first
+      filteredOrders = filteredOrders.sort((a, b) => {
+        if (Number(a['price']) > Number(b['price'])) {
+          return 1;
+        } else if (Number(a['price']) < Number(b['price'])) {
+          return -1;
+        } else {
+          return 0;
+        }
+      });
+    }
+
+    if (readyByActive && selectedReadyDateOptionIndex === 0) {
+      // sort by Newest ReadyByDate first
+      filteredOrders = filteredOrders.sort((a, b) => {
+        if (moment(a['ready_by_date']).valueOf() > moment(b['ready_by_date']).valueOf()) {
+          return -1;
+        } else if (moment(a['ready_by_date']).valueOf() < moment(b['ready_by_date']).valueOf()) {
+          return 1;
+        } else {
+          return 0;
+        }
+      });
+    }
+
+    if (readyByActive && selectedReadyDateOptionIndex === 1) {
+      // sort by Oldest ReadyByDate first
+      filteredOrders = filteredOrders.sort((a, b) => {
+        if (new Date(a['ready_by_date']).getTime() > new Date(b['ready_by_date']).getTime()) {
+          return 1;
+        } else if (new Date(a['ready_by_date']) < new Date(b['ready_by_date'])) {
+          return -1;
+        } else {
+          return 0;
+        }
+      });
+    }
+
+    if (orderedActive && selectedOrderDateOptionIndex === 0) {
+      // sort by Newest OrderDate first
+      filteredOrders = filteredOrders.sort((a, b) => {
+        if (moment(a['order_date']).valueOf() > moment(b['order_date']).valueOf()) {
+          return -1;
+        } else if (moment(a['order_date']).valueOf() < moment(b['order_date']).valueOf()) {
+          return 1;
+        } else {
+          return 0;
+        }
+      });
+    }
+
+    if (orderedActive && selectedOrderDateOptionIndex === 1) {
+      // sort by Oldest OrderDate first
+      filteredOrders = filteredOrders.sort((a, b) => {
+        if (new Date(a['order_date']).getTime() > new Date(b['order_date']).getTime()) {
+          return 1;
+        } else if (new Date(a['order_date']) < new Date(b['order_date'])) {
+          return -1;
+        } else {
+          return 0;
+        }
+      });
+    }
+
+    if (!this.state.priceActive && !this.state.readyByActive && !this.state.orderedActive) {
+      filteredOrders = filteredOrders.sort((a, b) => {
+        if (moment(a['order_date']).valueOf() > moment(b['order_date']).valueOf()) {
+          return -1;
+        } else if (moment(a['order_date']).valueOf() < moment(b['order_date']).valueOf()) {
+          return 1;
+        } else {
+          return 0;
+        }
+      });
+    }
+
+    if (returnOrders) {
+      return filteredOrders;
     }
 
     this.setState({
@@ -309,18 +391,9 @@ export default class App extends React.Component {
   // sort-buttons active/inactive-class functions
   sortByPastBtnActive = () => {
     this.setState({
-      searchBy: 'all',
       pastActive: true,
       upcomingActive: false,
       allActive: false,
-      priceActive: false,
-      readyByActive: false,
-      orderedActive: false,
-      selectedPriceOptionIndex: false,
-      selectedReadyDateOptionIndex: false,
-      selectedOrderDateOptionIndex: false,
-      selectedSearchOptionIndex: 0,
-      selectedOptionValue: '',
       openPriceSortPanel: false,
       openReadyByDateSortPanel: false,
       openOrderDateSortPanel: false
@@ -329,19 +402,9 @@ export default class App extends React.Component {
 
   sortByUpcomingBtnActive = () => {
     this.setState({
-      searchBy: 'all',
-
       pastActive: false,
       upcomingActive: true,
       allActive: false,
-      priceActive: false,
-      readyByActive: false,
-      orderedActive: false,
-      selectedPriceOptionIndex: false,
-      selectedReadyDateOptionIndex: false,
-      selectedOrderDateOptionIndex: false,
-      selectedSearchOptionIndex: 0,
-      selectedOptionValue: '',
       openPriceSortPanel: false,
       openReadyByDateSortPanel: false,
       openOrderDateSortPanel: false
@@ -350,19 +413,9 @@ export default class App extends React.Component {
 
   sortByAllBtnActive = () => {
     this.setState({
-      searchBy: 'all',
-
       pastActive: false,
       upcomingActive: false,
       allActive: true,
-      priceActive: false,
-      readyByActive: false,
-      orderedActive: false,
-      selectedPriceOptionIndex: false,
-      selectedReadyDateOptionIndex: false,
-      selectedOrderDateOptionIndex: false,
-      selectedSearchOptionIndex: 0,
-      selectedOptionValue: '',
       openPriceSortPanel: false,
       openReadyByDateSortPanel: false,
       openOrderDateSortPanel: false
@@ -373,7 +426,7 @@ export default class App extends React.Component {
 
   // sort-dropdowns sorting-functions
   onSortByDropdown = (sortBy, sortOrder) => {
-    const ordersCopy = [...this.state.orders];
+    const ordersCopy = [...this.state.filteredOrders];
     let sortedOrders;
 
     if (sortBy === 'price' && sortOrder === 'Highest') {
@@ -467,9 +520,6 @@ export default class App extends React.Component {
   sortByPriceBtnActive = index => {
     this.setState({
       searchBy: 'all',
-      pastActive: false,
-      upcomingActive: false,
-      allActive: false,
       priceActive: true,
       readyByActive: false,
       orderedActive: false,
@@ -484,9 +534,6 @@ export default class App extends React.Component {
   sortByReadyDateBtnActive = index => {
     this.setState({
       searchBy: 'all',
-      pastActive: false,
-      upcomingActive: false,
-      allActive: false,
       priceActive: false,
       readyByActive: true,
       orderedActive: false,
@@ -501,9 +548,6 @@ export default class App extends React.Component {
   sortByOrderDateBtnActive = index => {
     this.setState({
       searchBy: 'all',
-      pastActive: false,
-      upcomingActive: false,
-      allActive: false,
       priceActive: false,
       readyByActive: false,
       orderedActive: true,
@@ -537,7 +581,6 @@ export default class App extends React.Component {
       filteredOrders: this.state.filteredOrders,
       updateOrders: this.updateOrders,
       editOrders: this.editOrders,
-      clearOrders: this.clearOrders,
       checkForOrderUpdates: this.checkForOrderUpdates,
 
       clerks: this.state.clerks,

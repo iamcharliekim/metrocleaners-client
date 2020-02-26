@@ -59,11 +59,11 @@ button {
   padding: 10px;
   margin-right: 5px;
   font-size: 16px;
-  border-radius: 20px;
+  border-radius: none;
   margin-top: 5px;
   color: #011627;
   background-color: white;
-  border: 1px solid #011627;
+  border: 1px solid lightgray;
 }
 
 button:hover {

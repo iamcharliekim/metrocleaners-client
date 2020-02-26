@@ -48,7 +48,9 @@ class Messanger extends React.Component {
           <textarea onChange={this.messageBodyHandler} value={this.state.messageBody} />
         </div>
         <div className={styles['button-wrapper']}>
-          <button onClick={this.onSendMessage}>Send</button>
+          <button className={styles['send-msg-btn']} onClick={this.onSendMessage}>
+            Send
+          </button>
         </div>
       </div>
     );

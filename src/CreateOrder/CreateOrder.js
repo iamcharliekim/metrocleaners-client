@@ -100,9 +100,13 @@ export default class CreateOrder extends React.Component {
   onSubmitHandler = e => {
     e.preventDefault();
 
-    let order_date = moment(`${this.state.order_date} ${this.state.order_time}`).utc(true);
+    let order_date = moment(`${this.state.order_date} ${this.state.order_time}`)
+      .utc(true)
+      .format();
 
-    let ready_by_date = moment(`${this.state.ready_by_date} ${this.state.ready_by_time}`).utc(true);
+    let ready_by_date = moment(`${this.state.ready_by_date} ${this.state.ready_by_time}`)
+      .utc(true)
+      .format();
 
     const newOrder = {
       order_number: this.state.order_number,
