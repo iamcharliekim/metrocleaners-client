@@ -34,7 +34,7 @@ export default class SignIn extends React.Component {
         TokenService.saveAuthToken(res.authToken);
         // this.props.history.push('/home');
 
-        window.location.assign('https://metrocleaners-app.iamcharliekim.now.sh/home');
+        window.location.assign('https://metrocleaners-app.now.sh/home');
       })
       .catch(res => {
         this.setState({ error: res.error });

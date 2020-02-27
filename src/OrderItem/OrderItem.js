@@ -89,15 +89,12 @@ export default class OrderItem extends React.Component {
     let orderCopy = { ...this.state.order };
 
     orderCopy.picked_up = !orderCopy.picked_up;
-    orderCopy.picked_up_date = orderCopy.picked_up
-      ? moment()
-          .utc(true)
-          .format()
-      : null;
+    orderCopy.picked_up_date = orderCopy.picked_up ? new Date() : null;
+
+    this.context.onCheckBox();
 
     OrdersService.putUpdateOrder(orderCopy, orderCopy.id).then(newOrder => {
       this.context.editOrders(newOrder);
-      this.context.boxIsChecked();
     });
   };
 

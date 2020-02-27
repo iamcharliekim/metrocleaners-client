@@ -48,7 +48,8 @@ export default class App extends React.Component {
     selectedReadyDateOptionIndex: false,
     selectedOrderDateOptionIndex: false,
     selectedSearchOptionIndex: 0,
-    selectedOptionValue: ''
+    selectedOptionValue: '',
+    boxIsChecked: []
   };
 
   componentDidMount() {
@@ -83,6 +84,13 @@ export default class App extends React.Component {
   componentWillUnmount() {
     clearInterval(this.ordersInterval);
   }
+
+  onCheckBox = () => {
+    const boxIsChecked = [...this.state.boxIsChecked];
+
+    boxIsChecked.push('checked');
+    this.setState({ boxIsChecked });
+  };
 
   checkForOrderUpdates = () => {
     OrdersService.getOrders().then(orders => {
@@ -617,7 +625,10 @@ export default class App extends React.Component {
       selectedReadyDateOptionIndex: this.state.selectedReadyDateOptionIndex,
       selectedOrderDateOptionIndex: this.state.selectedOrderDateOptionIndex,
       selectedSearchOptionIndex: this.state.selectedSearchOptionIndex,
-      selectedOptionValue: this.state.selectedOptionValue
+      selectedOptionValue: this.state.selectedOptionValue,
+
+      onCheckBox: this.onCheckBox,
+      boxIsChecked: this.state.boxIsChecked
     };
 
     let navLinks;
@@ -665,7 +676,13 @@ export default class App extends React.Component {
 
             <Route path="/sign-up" exact component={SignUp} />
             <Route path="/sign-in" exact component={SignIn} />
-            <Route path="/home" exact component={Home} />
+            {/* <Route path="/home" exact component={Home} /> */}
+
+            <Route
+              path="/home"
+              exact
+              render={props => <Home boxIsChecked={this.state.boxIsChecked} {...props} />}
+            />
             <Route path="/new-order" exact component={CreateOrder} />
             <Route path="/customers" exact component={Customers} />
             <Route path="/orders/:order_id" exact component={OrderDetails} />
