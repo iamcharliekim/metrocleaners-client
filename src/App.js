@@ -16,6 +16,7 @@ import TokenService from './Services/TokenService';
 import SignIn from './SignIn/SignIn';
 import SignUp from './SignUp/SignUp';
 import moment from 'moment';
+import Landing from './Landing/Landing';
 
 export default class App extends React.Component {
   static contextType = Context;
@@ -48,8 +49,7 @@ export default class App extends React.Component {
     selectedReadyDateOptionIndex: false,
     selectedOrderDateOptionIndex: false,
     selectedSearchOptionIndex: 0,
-    selectedOptionValue: '',
-    boxIsChecked: []
+    selectedOptionValue: ''
   };
 
   componentDidMount() {
@@ -85,20 +85,12 @@ export default class App extends React.Component {
     clearInterval(this.ordersInterval);
   }
 
-  onCheckBox = () => {
-    const boxIsChecked = [...this.state.boxIsChecked];
-
-    boxIsChecked.push('checked');
-    this.setState({ boxIsChecked });
-  };
-
   checkForOrderUpdates = () => {
     OrdersService.getOrders().then(orders => {
       orders.forEach(newOrder => {
         let order = this.state.orders.find(o => o.id === newOrder.id);
         if (newOrder.notification_sent !== order.notification_sent) {
           this.editOrders(newOrder);
-          this.boxIsChecked();
         }
       });
     });
@@ -625,10 +617,7 @@ export default class App extends React.Component {
       selectedReadyDateOptionIndex: this.state.selectedReadyDateOptionIndex,
       selectedOrderDateOptionIndex: this.state.selectedOrderDateOptionIndex,
       selectedSearchOptionIndex: this.state.selectedSearchOptionIndex,
-      selectedOptionValue: this.state.selectedOptionValue,
-
-      onCheckBox: this.onCheckBox,
-      boxIsChecked: this.state.boxIsChecked
+      selectedOptionValue: this.state.selectedOptionValue
     };
 
     let navLinks;
@@ -676,13 +665,14 @@ export default class App extends React.Component {
 
             <Route path="/sign-up" exact component={SignUp} />
             <Route path="/sign-in" exact component={SignIn} />
-            {/* <Route path="/home" exact component={Home} /> */}
+            <Route path="/landing" exact component={Landing} />
+            <Route path="/home" exact component={Home} />
 
-            <Route
+            {/* <Route
               path="/home"
               exact
               render={props => <Home boxIsChecked={this.state.boxIsChecked} {...props} />}
-            />
+            /> */}
             <Route path="/new-order" exact component={CreateOrder} />
             <Route path="/customers" exact component={Customers} />
             <Route path="/orders/:order_id" exact component={OrderDetails} />

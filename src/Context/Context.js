@@ -47,10 +47,7 @@ const Context = React.createContext({
   selectedReadyDateOptionIndex: '',
   selectedOrderDateOptionIndex: '',
   selectedSearchOptionIndex: '',
-  selectedOptionValue: '',
-
-  onCheckBox: () => {},
-  boxIsChecked: []
+  selectedOptionValue: ''
 });
 
 export default Context;

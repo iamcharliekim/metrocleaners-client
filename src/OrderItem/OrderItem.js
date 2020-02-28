@@ -91,14 +91,17 @@ export default class OrderItem extends React.Component {
     orderCopy.picked_up = !orderCopy.picked_up;
     orderCopy.picked_up_date = orderCopy.picked_up ? new Date() : null;
 
-    this.context.onCheckBox();
-
     OrdersService.putUpdateOrder(orderCopy, orderCopy.id).then(newOrder => {
-      this.context.editOrders(newOrder);
+      let formatted_picked_up_date = moment(orderCopy.picked_up_date)
+        .local(true)
+        .format('M/D/YY h:mm A');
+
+      this.setState({ order: newOrder, formatted_picked_up_date });
     });
   };
 
   render() {
+    const order = this.context.orders.find(order => order.id === this.props.order_id);
     return (
       <div className={styles['orders-card']}>
         <header className={styles['orders-card-header']}>
