@@ -4,6 +4,8 @@
   flex-direction: column;
   justify-content: flex-start;
   align-items: flex-start;
+  max-width: 800px;
+  padding-bottom: 150px;
 }
 
 .customers-headers {
@@ -19,4 +21,18 @@
   border-right: 1px solid black;
   padding: 5px;
   font-size: 14px;
+}
+
+.customers-wrapper .th-orders {
+  width: 33%;
+  border-bottom: 1px solid black;
+  padding: 5px;
+  font-size: 14px;
+}
+
+@media (min-width: 650px) {
+  .customers-headers {
+    border-left: 1px solid black;
+    border-right: 1px solid black;
+  }
 }

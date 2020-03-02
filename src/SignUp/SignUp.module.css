@@ -1,11 +1,15 @@
 .sign-up-wrapper {
   width: 100%;
-  height: 40vh;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
   color: black;
+  padding-bottom: 120px;
+}
+
+.sign-up-wrapper h1 {
+  font-size: 40px;
 }
 
 .error {
@@ -13,15 +17,17 @@
 }
 
 form {
+  width: 100%;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
   margin-top: 50px;
+  padding: 0;
 }
 
 fieldset {
-  padding: 30px;
+  padding: 15px;
 }
 
 legend {

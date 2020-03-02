@@ -12,8 +12,6 @@ class Customer extends React.Component {
     orders: this.props.customer.orders
   };
 
-  componentDidMount() {}
-
   onSelectOrders = e => {
     this.setState({ order_id: e.target.value });
   };

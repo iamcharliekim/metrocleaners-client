@@ -661,23 +661,17 @@ export default class App extends React.Component {
               </div>
             ) : null}
 
-            {TokenService.hasAuthToken() ? <Redirect to="/home" /> : <Redirect to="/sign-in" />}
+            {TokenService.hasAuthToken() ? <Redirect to="/landing" /> : <Redirect to="/sign-in" />}
 
             <Route path="/sign-up" exact component={SignUp} />
             <Route path="/sign-in" exact component={SignIn} />
             <Route path="/landing" exact component={Landing} />
             <Route path="/home" exact component={Home} />
-
-            {/* <Route
-              path="/home"
-              exact
-              render={props => <Home boxIsChecked={this.state.boxIsChecked} {...props} />}
-            /> */}
             <Route path="/new-order" exact component={CreateOrder} />
             <Route path="/customers" exact component={Customers} />
             <Route path="/orders/:order_id" exact component={OrderDetails} />
+            <Footer />
           </div>
-          <Footer />
         </Context.Provider>
       </BrowserRouter>
     );

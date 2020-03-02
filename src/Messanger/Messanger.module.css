@@ -4,6 +4,7 @@
   flex-direction: column;
   justify-content: flex-start;
   align-items: flex-start;
+  padding-bottom: 150px;
 }
 
 .textarea-wrapper {
@@ -14,6 +15,7 @@
 .textarea-wrapper textarea {
   width: 100%;
   height: 100%;
+  font-size: 14px;
 }
 
 .button-wrapper {

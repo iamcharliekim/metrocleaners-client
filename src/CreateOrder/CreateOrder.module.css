@@ -1,12 +1,12 @@
 .create-game-wrapper {
-  width: 100%;
+  width: 90%;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
   font-size: 18px;
   max-width: 500px;
-  padding-bottom: 160px;
+  padding-bottom: 150px;
 }
 
 header {
@@ -19,7 +19,7 @@ h4 {
 
 form {
   font-size: 18px;
-  width: 90%;
+  width: 100%;
   display: flex;
   flex-direction: column;
   align-items: center;

@@ -1,11 +1,11 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import App from './App';
+import SortButtons from './SortButtons';
 
-describe('App component', () => {
+describe('SortButtons component', () => {
   it('renders without crashing', () => {
     const div = document.createElement('div');
-    ReactDOM.render(<App />, div);
+    ReactDOM.render(<SortButtons />, div);
     ReactDOM.unmountComponentAtNode(div);
   });
 });

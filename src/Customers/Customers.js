@@ -29,7 +29,7 @@ export default class Customers extends React.Component {
             <div className={styles['customers-headers']}>
               <div className={styles['th']}>Name</div>
               <div className={styles['th']}>Phone #</div>
-              <div className={styles['th']}>Orders</div>
+              <div className={styles['th-orders']}>Orders</div>
             </div>
 
             {this.state.customers.map((customer, i) => {

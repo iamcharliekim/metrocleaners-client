@@ -1,11 +1,11 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import App from './App';
+import CreateOrder from './CreateOrder';
 
-describe('App component', () => {
+describe('Navbar component', () => {
   it('renders without crashing', () => {
     const div = document.createElement('div');
-    ReactDOM.render(<App />, div);
+    ReactDOM.render(<CreateOrder />, div);
     ReactDOM.unmountComponentAtNode(div);
   });
 });

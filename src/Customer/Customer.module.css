@@ -10,7 +10,7 @@
   width: 33%;
   /* border-right: 1px solid black; */
   padding: 5px;
-  font-size: 12px;
+  font-size: 14px;
 }
 
 .orders {
@@ -30,7 +30,7 @@
 
 .select-btn {
   background-color: lightgray;
-  color: black;
+  color: #011627;
   border-radius: 0;
   padding: 0;
   margin: 0;

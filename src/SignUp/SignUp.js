@@ -48,14 +48,25 @@ export default class SignUp extends React.Component {
         this.props.history.push('/sign-in');
       })
       .catch(res => {
-        // this.setState({ error: res.error });
+        this.setState({ error: res.error });
       });
+  };
+
+  onInputFocus = () => {
+    if (this.state.error) {
+      this.setState({ error: null });
+    }
   };
 
   render() {
     return (
       <div className={styles['sign-up-wrapper']}>
-        {this.state.error ? <h1 className={styles['error']}> {this.state.error}</h1> : null}
+        {this.state.error ? (
+          <h1 className={styles['error']}> {this.state.error}</h1>
+        ) : (
+          <h1>SIGN-UP </h1>
+        )}
+
         <form onSubmit={this.onSubmitHandler}>
           <fieldset>
             <label htmlFor="firstname">
@@ -65,6 +76,7 @@ export default class SignUp extends React.Component {
                 id="firstname"
                 onChange={this.firstNameHandler}
                 value={this.state.first_name}
+                onFocus={this.onInputFocus}
               />
             </label>
 
@@ -75,6 +87,7 @@ export default class SignUp extends React.Component {
                 id="lastname"
                 onChange={this.lastNameHandler}
                 value={this.state.last_name}
+                onFocus={this.onInputFocus}
               />
             </label>
 
@@ -85,6 +98,7 @@ export default class SignUp extends React.Component {
                 id="username"
                 onChange={this.userNameHandler}
                 value={this.state.user_name}
+                onFocus={this.onInputFocus}
               />
             </label>
 
@@ -95,6 +109,7 @@ export default class SignUp extends React.Component {
                 id="password"
                 onChange={this.passwordHandler}
                 value={this.state.password}
+                onFocus={this.onInputFocus}
               />
             </label>
 

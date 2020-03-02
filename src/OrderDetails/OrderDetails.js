@@ -44,70 +44,83 @@ export default class OrderDetails extends React.Component {
   render() {
     return (
       <div className={styles['order-details-wrapper']}>
-        <div className={styles['order-details-inner-wrapper']}>
-          <div className={styles['customer-details-wrapper']}>
-            <h1>
-              {this.state.order.customer} (#{this.state.order.order_number})
-            </h1>
-            <span>{this.state.formattedPhoneNumber}</span>
-          </div>
-
-          <div className={styles['order-info-wrapper']}>
-            <span>
-              <strong>Ordered:</strong> {this.state.formattedOrderDateTime}
-            </span>
-            <span>
-              <strong>Clerk:</strong> {this.state.order.clerk}
-            </span>
-          </div>
-
-          <div className={styles['order-ready-wrapper']}>
-            <div className={styles['order-price']}>
-              {`$${this.state.order.price}`}
-              <span className={styles['quantity']}>{`(${this.state.order.quantity} pieces)`}</span>
+        {!this.context.openNav ? (
+          <div className={styles['order-details-inner-wrapper']}>
+            <div className={styles['customer-details-wrapper']}>
+              <h1>
+                {this.state.order.customer} (#{this.state.order.order_number})
+              </h1>
+              <span>{this.state.formattedPhoneNumber}</span>
             </div>
 
-            <div className={styles['order-row']}>
-              <div className={styles['ready-by-date-wrapper']}>
-                <span className={styles['order-label']}>
-                  <strong>Ready By:</strong>
-                </span>
-                <span className={styles['order-ready-date']}>
-                  {this.state.formattedReadyDateTime}
+            <div className={styles['order-info-wrapper']}>
+              <span>
+                <strong>Ordered:</strong> {this.state.formattedOrderDateTime}
+              </span>
+              <span>
+                <strong>Clerk:</strong> {this.state.order.clerk}
+              </span>
+            </div>
+
+            <div className={styles['order-ready-wrapper']}>
+              <div className={styles['order-price']}>
+                {`$${this.state.order.price}`}
+                <span
+                  className={styles['quantity']}
+                >{`(${this.state.order.quantity} pieces)`}</span>
+              </div>
+
+              <div className={styles['order-row']}>
+                <div className={styles['ready-by-date-wrapper']}>
+                  <span className={styles['order-label']}>
+                    <strong>Ready By:</strong>
+                  </span>
+                  <span className={styles['order-ready-date']}>
+                    {this.state.formattedReadyDateTime}
+                  </span>
+                </div>
+              </div>
+
+              <div className={styles['order-row']}>
+                <input
+                  type="checkbox"
+                  readOnly
+                  className={styles['checkbox']}
+                  checked={!!this.state.order.picked_up}
+                />
+                <span className={styles['order-label']}>Picked Up</span>
+                {this.state.order.picked_up ? (
+                  <span className={styles['order-picked-up-date']}>
+                    (
+                    {moment(this.state.picked_up_date)
+                      .local(true)
+                      .format('M/D/YY h:mm A')}
+                    )
+                  </span>
+                ) : null}
+              </div>
+
+              <div className={styles['order-row']}>
+                <input
+                  type="checkbox"
+                  readOnly
+                  className={styles['checkbox']}
+                  checked={!!this.state.order.notification_sent}
+                />
+                <span className={styles['order-label']}>Notification Sent</span>
+                <span className={styles['notification-sent-date']}>
+                  {this.state.order.notification_sent
+                    ? `(${moment(this.state.order.notification_sent)
+                        .local(true)
+                        .format('M/D/YY h:mm A')})`
+                    : null}
                 </span>
               </div>
             </div>
 
-            <div className={styles['order-row']}>
-              <input
-                type="checkbox"
-                readOnly
-                className={styles['checkbox']}
-                checked={!!this.state.order.picked_up}
-              />
-              <span className={styles['order-label']}>Picked Up</span>
-            </div>
-
-            <div className={styles['order-row']}>
-              <input
-                type="checkbox"
-                readOnly
-                className={styles['checkbox']}
-                checked={!!this.state.order.notification_sent}
-              />
-              <span className={styles['order-label']}>Notification Sent</span>
-              <span className={styles['notification-sent-date']}>
-                {this.state.order.notification_sent
-                  ? moment(this.state.order.notification_sent)
-                      .local(true)
-                      .format('M/D/YY h:mm A')
-                  : null}
-              </span>
-            </div>
+            <Messanger state={this.state} />
           </div>
-
-          <Messanger state={this.state} />
-        </div>
+        ) : null}
       </div>
     );
   }

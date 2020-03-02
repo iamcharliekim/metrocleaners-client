@@ -2,7 +2,14 @@ import React from 'react';
 import Context from '../Context/Context';
 import SignUp from '../SignUp/SignUp';
 import styles from './Landing.module.css';
-import { faUser, faBasketballBall, faMapMarkerAlt } from '@fortawesome/free-solid-svg-icons';
+import {
+  faUser,
+  faBasketballBall,
+  faMapMarkerAlt,
+  faSms,
+  faUsers,
+  faMoneyBill
+} from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 export default class Landing extends React.Component {
@@ -31,8 +38,8 @@ export default class Landing extends React.Component {
                 <div className={styles['section-1-hero-text']}>
                   <h1>YOUR DRYCLEANING IS READY</h1>
                   <span>
-                    Keep track of your customers drycleaning while automating the process of
-                    notifying them when their order is ready for pickup!
+                    Keep track of your customers and their orders while using automated SMS
+                    notifications to keep them in the loop
                   </span>
                   <button className={styles['explore-btn']} onClick={this.toDemo}>
                     EXPLORE METROCLEANERS
@@ -45,7 +52,7 @@ export default class Landing extends React.Component {
               <div className={styles['cards-wrapper']}>
                 <div className={styles['section-2-card']}>
                   <div className={styles['players-icon']}>
-                    <FontAwesomeIcon icon={faUser} className={styles['icon']} />
+                    <FontAwesomeIcon icon={faSms} className={styles['icon']} />
                   </div>
                   <div className={styles['card-text-wrapper']}>
                     <p className={styles['card-text-main']}>Automate Notifications</p>
@@ -58,8 +65,7 @@ export default class Landing extends React.Component {
 
                 <div className={styles['section-2-card']}>
                   <div className={styles['players-icon']}>
-                    <FontAwesomeIcon icon={faMapMarkerAlt} className={styles['ball-icon']} />
-                    <FontAwesomeIcon icon={faBasketballBall} className={styles['ball-pin']} />
+                    <FontAwesomeIcon icon={faUsers} className={styles['ball-icon']} />
                   </div>
                   <div className={styles['card-text-wrapper']}>
                     <p className={styles['card-text-main']}>Keep Track of Your Customers</p>
@@ -72,7 +78,7 @@ export default class Landing extends React.Component {
 
                 <div className={styles['section-2-card']}>
                   <div className={styles['players-icon']}>
-                    <FontAwesomeIcon icon={faBasketballBall} className={styles['ball-icon']} />
+                    <FontAwesomeIcon icon={faMoneyBill} className={styles['ball-icon']} />
                   </div>
                   <div className={styles['card-text-wrapper']}>
                     <p className={styles['card-text-main']}>Maximize Receivables Turnover</p>
@@ -92,8 +98,6 @@ export default class Landing extends React.Component {
             </section>
 
             <section className={styles['section-4']}>
-              <h1>SIGN-UP TODAY</h1>
-
               <SignUp toSignIn={this.toSignIn} />
             </section>
           </main>

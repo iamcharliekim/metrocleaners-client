@@ -41,12 +41,22 @@ export default class SignIn extends React.Component {
       });
   };
 
+  onInputFocus = () => {
+    if (this.state.error) {
+      this.setState({ error: null });
+    }
+  };
+
   render() {
     return (
       <div className={styles['sign-in-wrapper']}>
         {/* {this.props.match.path === '/demo' ? (
               <h2>Sign in with the login below to try Post-Up for free!</h2>
             ) : null} */}
+
+        <div className={styles['error-msg-wrapper']}>
+          {this.state.error ? <h1>{this.state.error}</h1> : <h1>Sign In</h1>}
+        </div>
 
         <form onSubmit={this.onSubmitHandler}>
           <fieldset>
@@ -55,6 +65,7 @@ export default class SignIn extends React.Component {
               <input
                 type="text"
                 id="username"
+                onFocus={this.onInputFocus}
                 onChange={this.userNameHandler}
                 value={this.state.username}
               />
@@ -65,6 +76,7 @@ export default class SignIn extends React.Component {
               <input
                 type="password"
                 id="password"
+                onFocus={this.onInputFocus}
                 onChange={this.passwordHandler}
                 value={this.state.password}
               />

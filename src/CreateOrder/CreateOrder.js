@@ -100,15 +100,7 @@ export default class CreateOrder extends React.Component {
   onSubmitHandler = e => {
     e.preventDefault();
 
-    // let order_date = moment(`${this.state.order_date} ${this.state.order_time}`)
-    //   .utc(true)
-    //   .format();
     let order_date = new Date(`${this.state.order_date} ${this.state.order_time}`);
-
-    // let ready_by_date = moment(`${this.state.ready_by_date} ${this.state.ready_by_time}`)
-    //   .utc(true)
-    //   .format();
-
     let ready_by_date = new Date(`${this.state.ready_by_date} ${this.state.ready_by_time}`);
 
     const newOrder = {
@@ -118,7 +110,7 @@ export default class CreateOrder extends React.Component {
       phone_number: this.state.phone_number,
       order_date,
       ready_by_date,
-      price: this.state.price,
+      price: this.state.price.toString(),
       quantity: this.state.quantity
     };
 
@@ -134,12 +126,16 @@ export default class CreateOrder extends React.Component {
         phone_number: this.state.phone_number
       };
       CustomersService.postNewCustomer(newCustomer).then(customer => {
-        OrdersService.postNewOrder(newOrder).then(order => {
-          this.context.updateCustomers(customer);
-          this.context.updateOrders(order);
-          this.resetState();
-          this.props.history.push('/home');
-        });
+        OrdersService.postNewOrder(newOrder)
+          .then(order => {
+            this.context.updateCustomers(customer);
+            this.context.updateOrders(order);
+            this.resetState();
+            this.props.history.push('/home');
+          })
+          .catch(error => {
+            // console.log(error);
+          });
       });
     } else {
       // IF CUSTOMER EXISTS: THEN postNewOrder()
@@ -172,7 +168,7 @@ export default class CreateOrder extends React.Component {
         {!this.context.openNav ? (
           <div className={styles['create-game-wrapper']}>
             <form onSubmit={this.onSubmitHandler}>
-              <h1>+ New Order</h1>
+              {/* <h1>+ New Order</h1> */}
               <div className={styles['form-row']}>
                 <label htmlFor="order_num">Order #:</label>
                 <input
@@ -345,7 +341,7 @@ export default class CreateOrder extends React.Component {
               <div className={styles['form-row']}>
                 <label htmlFor="price">Price ($)</label>
                 <input
-                  type="text"
+                  type="number"
                   id="price"
                   required
                   className={styles['date-input']}
