@@ -92,7 +92,7 @@ export default class OrderDetails extends React.Component {
                 {this.state.order.picked_up ? (
                   <span className={styles['order-picked-up-date']}>
                     (
-                    {moment(this.state.picked_up_date)
+                    {moment(this.state.order.picked_up_date)
                       .local(true)
                       .format('M/D/YY h:mm A')}
                     )

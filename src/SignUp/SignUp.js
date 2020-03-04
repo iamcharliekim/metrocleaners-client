@@ -61,11 +61,13 @@ export default class SignUp extends React.Component {
   render() {
     return (
       <div className={styles['sign-up-wrapper']}>
-        {this.state.error ? (
-          <h1 className={styles['error']}> {this.state.error}</h1>
-        ) : (
-          <h1>SIGN-UP </h1>
-        )}
+        <header>
+          {this.state.error ? (
+            <h1 className={styles['error']}> {this.state.error}</h1>
+          ) : (
+            <h1 className={styles['h1-success']}>Sign Up</h1>
+          )}
+        </header>
 
         <form onSubmit={this.onSubmitHandler}>
           <fieldset>

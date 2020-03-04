@@ -90,3 +90,26 @@ button {
 .form-row .date-time-inputs-wrapper input {
   width: 95%;
 }
+
+.form-validator {
+  color: red;
+  font-size: 14px;
+  margin-top: 5px;
+  margin-left: 2px;
+}
+
+.error-border {
+  border: 1px solid red;
+}
+
+.disabled {
+  color: gray;
+  background-color: lightgray;
+  border: none;
+}
+
+.disabled:hover {
+  color: gray;
+  background-color: lightgray;
+  border: none;
+}

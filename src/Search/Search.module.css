@@ -18,6 +18,7 @@
   justify-content: center;
   align-items: center;
   max-width: 600px;
+  position: relative;
 }
 
 .search-games-wrapper input {
@@ -25,7 +26,6 @@
   padding: 10px;
   border: 1px solid gray;
   font-size: 18px;
-  position: relative;
   /* margin-bottom: 10px; */
 }
 
@@ -66,6 +66,7 @@
   z-index: 100;
   position: absolute;
   bottom: -120px;
+  max-width: 600px;
 }
 
 .search-by-panel {

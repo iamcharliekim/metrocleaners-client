@@ -5,9 +5,9 @@ const Context = React.createContext({
   openNav: '',
 
   updateCustomers: () => {},
-  customers: [],
+  customers: [{ full_name: 'Test Customer', phone_number: '1234567890' }],
 
-  orders: [],
+  orders: [{ order_number: 'M2021', phone_number: '1234567890', customer: 'Test Customer' }],
   filteredOrders: [],
   updateOrders: () => {},
   editOrders: () => {},

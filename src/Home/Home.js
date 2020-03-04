@@ -13,9 +13,7 @@ export default class Home extends React.Component {
         {!this.context.openNav ? (
           <div className={styles['home-wrapper']} ref={this.listRef}>
             <Search />
-            <header className={styles['home-wrapper-header']}>
-              <h3> </h3>
-            </header>
+
             <div className={styles['orders-list-wrapper']}>
               {this.context.filteredOrders
                 ? this.context.filteredOrders.map(order => {

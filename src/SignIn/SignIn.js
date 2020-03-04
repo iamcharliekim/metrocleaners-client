@@ -54,10 +54,13 @@ export default class SignIn extends React.Component {
               <h2>Sign in with the login below to try Post-Up for free!</h2>
             ) : null} */}
 
-        <div className={styles['error-msg-wrapper']}>
-          {this.state.error ? <h1>{this.state.error}</h1> : <h1>Sign In</h1>}
-        </div>
-
+        <header>
+          {this.state.error ? (
+            <h1 className={styles['error']}> {this.state.error}</h1>
+          ) : (
+            <h1 className={styles['h1-success']}>Sign In</h1>
+          )}
+        </header>
         <form onSubmit={this.onSubmitHandler}>
           <fieldset>
             <label htmlFor="username">

@@ -147,6 +147,21 @@ export default class CreateOrder extends React.Component {
     }
   };
 
+  orderNumOnBlur = e => {
+    const typedOrderNumber = e.target.value;
+    const orders = this.context.orders;
+    const orderNumberIsNotUnique = this.context.orders.find(
+      order => order.order_number === typedOrderNumber
+    );
+    if (orderNumberIsNotUnique) {
+      this.setState({ error: 'Order Number already exists!  Please create a unique order number' });
+    }
+  };
+
+  orderNumOnFocus = () => {
+    this.setState({ error: null });
+  };
+
   resetState = () => {
     this.setState({
       order_number: '',
@@ -172,15 +187,21 @@ export default class CreateOrder extends React.Component {
               <div className={styles['form-row']}>
                 <label htmlFor="order_num">Order #:</label>
                 <input
+                  className={this.state.error ? styles['error-border'] : null}
                   type="text"
                   id="order_num"
                   required
                   onChange={this.orderNumberHandler}
+                  onBlur={this.orderNumOnBlur}
+                  onFocus={this.orderNumOnFocus}
                   value={this.state.order_number}
                   ref={input => {
                     this.orderInput = input;
                   }}
                 />
+                <span className={styles['form-validator']}>
+                  {this.state.error ? this.state.error : null}
+                </span>
               </div>
 
               <div className={styles['form-row']}>
@@ -214,7 +235,10 @@ export default class CreateOrder extends React.Component {
               <div className={styles['form-row']}>
                 <label htmlFor="customer_name">Customer Name:</label>
                 <Autocomplete
-                  inputProps={{ id: 'customer_name', required: true }}
+                  inputProps={{
+                    id: 'customer_name',
+                    required: true
+                  }}
                   wrapperStyle={{ width: '100%' }}
                   getItemValue={item => item.full_name}
                   autoHighlight={true}
@@ -311,6 +335,7 @@ export default class CreateOrder extends React.Component {
                     ref={input => {
                       this.readyByInput = input;
                     }}
+                    min={this.state.order_date}
                   />
                   <input
                     type="time"
@@ -319,9 +344,8 @@ export default class CreateOrder extends React.Component {
                     className={styles['time-input']}
                     onChange={this.readyByTimeHandler}
                     value={this.state.ready_by_time}
-
-                    // min="07:00"
-                    // max="19:00"
+                    min="07:00"
+                    max="19:00"
                   />
                 </div>
               </div>
@@ -351,7 +375,13 @@ export default class CreateOrder extends React.Component {
               </div>
 
               <div className={styles['btns-panel']}>
-                <button type="submit">Submit</button>
+                <button
+                  className={this.state.error ? styles['disabled'] : null}
+                  type="submit"
+                  disabled={this.state.error}
+                >
+                  Submit
+                </button>
               </div>
             </form>
           </div>
