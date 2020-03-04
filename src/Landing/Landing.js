@@ -11,6 +11,8 @@ import {
   faMoneyBill
 } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { Carousel } from 'react-responsive-carousel';
+import 'react-responsive-carousel/lib/styles/carousel.min.css';
 
 export default class Landing extends React.Component {
   static contextType = Context;
@@ -94,6 +96,91 @@ export default class Landing extends React.Component {
             <section className={styles['section-3']}>
               <div className={styles['section-3-div-wrapper']}>
                 <h1>TAKE A PEEK</h1>
+              <div className={styles['carousel-wrapper']}>
+                  <Carousel
+                    className={styles['carousel']}
+                    showArrows={true}
+                    showStatus={false}
+                    showIndicators={false}
+                    showThumbs={false}
+                    infiniteLoop={true}
+                    autoPlay={true}
+                    transitionTime={1000}
+                    width="320px"
+                    dynamicHeight={true}
+                  >
+                    <div className={styles['home-games-wrapper']}>
+                      
+                      <img
+                        src={require('./images/mc-homescreen.png')}
+                        className={styles['home-screenshot']}
+                        alt="findgames"
+                      />
+                    </div>
+
+                    <div className={styles['home-games-wrapper']}>
+                      <img
+                        src={require('./images/mc-orderform.png')}
+                        className={styles['home-screenshot']}
+                        alt="creategames"
+                      />
+                    </div>
+
+                    <div className={styles['home-games-wrapper']}>
+                      <img
+                        src={require('./images/mc-orderdetails.png')}
+                        className={styles['home-screenshot']}
+                        alt="getdetails"
+                      />
+                    </div>
+
+                    <div className={styles['home-games-wrapper']}>
+                      <img
+                        src={require('./images/mc-customers.png')}
+                        className={styles['create-screenshot']}
+                        alt="talktrash"
+                      />
+                    </div>
+                  </Carousel>
+                </div>
+      
+      
+            <div className={styles['screens-wrapper']}>
+                    <div className={styles['home-games-wrapper']}>
+                      
+                      <img
+                        src={require('./images/mc-homescreen.png')}
+                        className={styles['home-screenshot']}
+                        alt="findgames"
+                      />
+                    </div>
+
+                    <div className={styles['home-games-wrapper']}>
+                      <img
+                        src={require('./images/mc-orderform.png')}
+                        className={styles['home-screenshot']}
+                        alt="creategames"
+                      />
+                    </div>
+
+                    <div className={styles['home-games-wrapper']}>
+                      <img
+                        src={require('./images/mc-orderdetails.png')}
+                        className={styles['home-screenshot']}
+                        alt="getdetails"
+                      />
+                    </div>
+
+                    <div className={styles['home-games-wrapper']}>
+                      <img
+                        src={require('./images/mc-customers.png')}
+                        className={styles['home-screenshot']}
+                        alt="talktrash"
+                      />
+                    </div>
+            </div>
+
+
               </div>
             </section>
 

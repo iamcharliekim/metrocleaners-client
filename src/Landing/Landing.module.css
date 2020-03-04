@@ -173,8 +173,13 @@ section {
   align-items: center;
 }
 
-.screens-wrapper {
+  .screens-wrapper {
+    display: none;
+  }
+
+.carousel-wrapper {
 }
+
 
 .home-screenshot,
 .create-screenshot {
@@ -281,24 +286,20 @@ section {
     display: none;
   }
 
+  .home-screenshot {
+    width: 100%;
+  }
+
   .screens-wrapper {
     width: 100%;
     display: flex;
     justify-content: space-around;
     align-items: center;
+    max-width: 1400px;
   }
 
   .home-games-wrapper {
-    border: 2px solid white;
-    width: 30%;
-  }
-
-  .carousel-wrapper {
-    border: 2px solid white;
-  }
-
-  .home-screenshot {
-    width: 100%;
+    width: 22%;
   }
 
   .screens-wrapper-row-1 {
