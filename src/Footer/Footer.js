@@ -9,12 +9,20 @@ export default function Footer() {
           {/* <div className={styles['footer-links']}>Created by Charlie Kim</div> */}
           <div className={styles['footer-links']}>
             <span>
-              <a href="http://www.github.com/" target="_blank" rel="noopener noreferrer">
+              <a
+                href="http://www.github.com/iamcharliekim"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
                 <img src={require('../../src/githubIcon.png')} alt="github" />
               </a>
             </span>
             <span>
-              <a href="https://www.linkedin.com/" target="_blank" rel="noopener noreferrer">
+              <a
+                href="https://www.linkedin.com/in/charleswkim/"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
                 <img src={require('../../src/linkedInIcon.png')} alt="linkedin" />
               </a>
             </span>

@@ -1,10 +1,10 @@
-import moment from 'moment';
 import React from 'react';
 import Autocomplete from 'react-autocomplete';
 import Context from '../Context/Context';
 import CustomersService from '../Services/CustomersService';
 import OrdersService from '../Services/OrdersService';
 import styles from './CreateOrder.module.css';
+import moment from 'moment';
 
 export default class CreateOrder extends React.Component {
   static contextType = Context;
@@ -133,26 +133,30 @@ export default class CreateOrder extends React.Component {
             this.resetState();
             this.props.history.push('/home');
           })
-          .catch(error => {
-            // console.log(error);
+          .catch(res => {
+            this.setState({ error: res.error });
           });
       });
     } else {
       // IF CUSTOMER EXISTS: THEN postNewOrder()
-      OrdersService.postNewOrder(newOrder).then(order => {
-        this.context.updateOrders(order);
-        this.resetState();
-        this.props.history.push('/home');
-      });
+      OrdersService.postNewOrder(newOrder)
+        .then(order => {
+          this.context.updateOrders(order);
+          this.resetState();
+          this.props.history.push('/home');
+        })
+        .catch(res => {
+          this.setState({ error: res.error });
+        });
     }
   };
 
   orderNumOnBlur = e => {
     const typedOrderNumber = e.target.value;
-    const orders = this.context.orders;
     const orderNumberIsNotUnique = this.context.orders.find(
       order => order.order_number === typedOrderNumber
     );
+
     if (orderNumberIsNotUnique) {
       this.setState({ error: 'Order Number already exists!  Please create a unique order number' });
     }
@@ -182,8 +186,10 @@ export default class CreateOrder extends React.Component {
       <React.Fragment>
         {!this.context.openNav ? (
           <div className={styles['create-game-wrapper']}>
+            <header>
+              {this.state.error ? <h1 className={styles['error']}> {this.state.error}</h1> : null}
+            </header>
             <form onSubmit={this.onSubmitHandler}>
-              {/* <h1>+ New Order</h1> */}
               <div className={styles['form-row']}>
                 <label htmlFor="order_num">Order #:</label>
                 <input

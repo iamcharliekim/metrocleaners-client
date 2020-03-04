@@ -1,5 +1,5 @@
 import React from 'react';
-import { BrowserRouter, Redirect } from 'react-router-dom';
+import { BrowserRouter } from 'react-router-dom';
 import { Link, Route } from 'react-router-dom';
 import styles from './App.module.css';
 import Context from './Context/Context';
@@ -17,6 +17,7 @@ import SignIn from './SignIn/SignIn';
 import SignUp from './SignUp/SignUp';
 import moment from 'moment';
 import Landing from './Landing/Landing';
+import PrivateRoute from './PrivateRoute/PrivateRoute';
 
 export default class App extends React.Component {
   static contextType = Context;
@@ -64,11 +65,9 @@ export default class App extends React.Component {
 
                   this.setState({
                     orders,
-                    // filteredOrders: orders,
                     customers,
                     clerks
                   });
-
                   this.onSortOrders('all');
                 }
               });
@@ -76,7 +75,6 @@ export default class App extends React.Component {
           });
         }
       });
-
       this.ordersInterval = setInterval(this.checkForOrderUpdates, 5000);
     }
   }
@@ -106,20 +104,6 @@ export default class App extends React.Component {
     const clerksCopy = [...this.state.clerks];
     clerksCopy.push(clerks);
     this.setState({ clerks: clerksCopy });
-  };
-
-  persistSortOptions = () => {
-    if (this.state.allActive) {
-      this.onSortOrders('all');
-    }
-
-    if (this.state.upcomingActive) {
-      this.onSortOrders('upcoming');
-    }
-
-    if (this.state.pastActive) {
-      this.onSortOrders('past');
-    }
   };
 
   updateOrders = orders => {
@@ -560,6 +544,20 @@ export default class App extends React.Component {
   };
 
   // UTILITY FUNCTIONS ---------------------------------------------------
+  persistSortOptions = () => {
+    if (this.state.allActive) {
+      this.onSortOrders('all');
+    }
+
+    if (this.state.upcomingActive) {
+      this.onSortOrders('upcoming');
+    }
+
+    if (this.state.pastActive) {
+      this.onSortOrders('past');
+    }
+  };
+
   onOpenNav = () => {
     this.setState({ openNav: !this.state.openNav });
   };
@@ -661,15 +659,17 @@ export default class App extends React.Component {
               </div>
             ) : null}
 
-            {TokenService.hasAuthToken() ? <Redirect to="/landing" /> : <Redirect to="/sign-in" />}
-
             <Route path="/sign-up" exact component={SignUp} />
             <Route path="/sign-in" exact component={SignIn} />
+            <Route path="/demo" exact component={SignIn} />
+            <Route path="/" exact component={Landing} />
             <Route path="/landing" exact component={Landing} />
-            <Route path="/home" exact component={Home} />
-            <Route path="/new-order" exact component={CreateOrder} />
-            <Route path="/customers" exact component={Customers} />
-            <Route path="/orders/:order_id" exact component={OrderDetails} />
+
+            <PrivateRoute path={'/home'} component={Home} />
+            <PrivateRoute path={'/new-order'} component={CreateOrder} />
+            <PrivateRoute path={'/customers'} component={Customers} />
+            <PrivateRoute path={'/orders/:order_id'} exact component={OrderDetails} />
+
             <Footer />
           </div>
         </Context.Provider>

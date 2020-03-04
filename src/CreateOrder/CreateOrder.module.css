@@ -10,14 +10,21 @@
 }
 
 header {
-  padding: 0;
+  margin-top: 50px;
+  text-align: center;
+}
+
+header .error {
+  font-size: 30px;
+  color: red;
+  margin: 0;
 }
 
 h4 {
   margin-bottom: 0;
 }
 
-form {
+.create-game-wrapper form {
   font-size: 18px;
   width: 100%;
   display: flex;

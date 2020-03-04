@@ -101,7 +101,6 @@ export default class OrderItem extends React.Component {
   };
 
   render() {
-    const order = this.context.orders.find(order => order.id === this.props.order_id);
     return (
       <div className={styles['orders-card']}>
         <header className={styles['orders-card-header']}>

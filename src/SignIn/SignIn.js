@@ -2,8 +2,11 @@ import React from 'react';
 import styles from './SignIn.module.css';
 import AuthApiService from '../Services/AuthApiService';
 import TokenService from '../Services/TokenService';
+import Context from '../Context/Context';
 
 export default class SignIn extends React.Component {
+  static contextType = Context;
+
   state = {
     username: this.props.match.path === '/demo' ? 'demouser1' : '',
     password: this.props.match.path === '/demo' ? '129fij#*#F' : '',
@@ -49,48 +52,51 @@ export default class SignIn extends React.Component {
 
   render() {
     return (
-      <div className={styles['sign-in-wrapper']}>
-        {/* {this.props.match.path === '/demo' ? (
-              <h2>Sign in with the login below to try Post-Up for free!</h2>
-            ) : null} */}
+      <React.Fragment>
+        {!this.context.openNav ? (
+          <div className={styles['sign-in-wrapper']}>
+            <header>
+              {this.state.error ? (
+                <h1 className={styles['error']}> {this.state.error}</h1>
+              ) : (
+                <h1 className={styles['h1-success']}>Sign In</h1>
+              )}
+              {this.props.match.path === '/demo' ? (
+                <h2>Sign in with the login below to try MetroCleaners for free!</h2>
+              ) : null}
+            </header>
+            <form onSubmit={this.onSubmitHandler}>
+              <fieldset>
+                <label htmlFor="username">
+                  Username:
+                  <input
+                    type="text"
+                    id="username"
+                    onFocus={this.onInputFocus}
+                    onChange={this.userNameHandler}
+                    value={this.state.username}
+                  />
+                </label>
 
-        <header>
-          {this.state.error ? (
-            <h1 className={styles['error']}> {this.state.error}</h1>
-          ) : (
-            <h1 className={styles['h1-success']}>Sign In</h1>
-          )}
-        </header>
-        <form onSubmit={this.onSubmitHandler}>
-          <fieldset>
-            <label htmlFor="username">
-              Username:
-              <input
-                type="text"
-                id="username"
-                onFocus={this.onInputFocus}
-                onChange={this.userNameHandler}
-                value={this.state.username}
-              />
-            </label>
+                <label htmlFor="password">
+                  Password:
+                  <input
+                    type="password"
+                    id="password"
+                    onFocus={this.onInputFocus}
+                    onChange={this.passwordHandler}
+                    value={this.state.password}
+                  />
+                </label>
 
-            <label htmlFor="password">
-              Password:
-              <input
-                type="password"
-                id="password"
-                onFocus={this.onInputFocus}
-                onChange={this.passwordHandler}
-                value={this.state.password}
-              />
-            </label>
-
-            <div className={styles['btns-div']}>
-              <button className={styles['sign-in-btn']}>Sign In</button>
-            </div>
-          </fieldset>
-        </form>
-      </div>
+                <div className={styles['btns-div']}>
+                  <button className={styles['sign-in-btn']}>Sign In</button>
+                </div>
+              </fieldset>
+            </form>
+          </div>
+        ) : null}
+      </React.Fragment>
     );
   }
 }

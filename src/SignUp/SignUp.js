@@ -1,8 +1,11 @@
 import React from 'react';
 import styles from './SignUp.module.css';
 import AuthApiService from '../Services/AuthApiService';
+import Context from '../Context/Context';
 
 export default class SignUp extends React.Component {
+  static contextType = Context;
+
   state = {
     first_name: '',
     last_name: '',
@@ -60,67 +63,71 @@ export default class SignUp extends React.Component {
 
   render() {
     return (
-      <div className={styles['sign-up-wrapper']}>
-        <header>
-          {this.state.error ? (
-            <h1 className={styles['error']}> {this.state.error}</h1>
-          ) : (
-            <h1 className={styles['h1-success']}>Sign Up</h1>
-          )}
-        </header>
+      <React.Fragment>
+        {!this.context.openNav ? (
+          <div className={styles['sign-up-wrapper']}>
+            <header>
+              {this.state.error ? (
+                <h1 className={styles['error']}> {this.state.error}</h1>
+              ) : (
+                <h1 className={styles['h1-success']}>Sign Up</h1>
+              )}
+            </header>
 
-        <form onSubmit={this.onSubmitHandler}>
-          <fieldset>
-            <label htmlFor="firstname">
-              First Name:
-              <input
-                type="text"
-                id="firstname"
-                onChange={this.firstNameHandler}
-                value={this.state.first_name}
-                onFocus={this.onInputFocus}
-              />
-            </label>
+            <form onSubmit={this.onSubmitHandler}>
+              <fieldset>
+                <label htmlFor="firstname">
+                  First Name:
+                  <input
+                    type="text"
+                    id="firstname"
+                    onChange={this.firstNameHandler}
+                    value={this.state.first_name}
+                    onFocus={this.onInputFocus}
+                  />
+                </label>
 
-            <label htmlFor="lastname">
-              Last Name:
-              <input
-                type="text"
-                id="lastname"
-                onChange={this.lastNameHandler}
-                value={this.state.last_name}
-                onFocus={this.onInputFocus}
-              />
-            </label>
+                <label htmlFor="lastname">
+                  Last Name:
+                  <input
+                    type="text"
+                    id="lastname"
+                    onChange={this.lastNameHandler}
+                    value={this.state.last_name}
+                    onFocus={this.onInputFocus}
+                  />
+                </label>
 
-            <label htmlFor="username">
-              Username:
-              <input
-                type="text"
-                id="username"
-                onChange={this.userNameHandler}
-                value={this.state.user_name}
-                onFocus={this.onInputFocus}
-              />
-            </label>
+                <label htmlFor="username">
+                  Username:
+                  <input
+                    type="text"
+                    id="username"
+                    onChange={this.userNameHandler}
+                    value={this.state.user_name}
+                    onFocus={this.onInputFocus}
+                  />
+                </label>
 
-            <label htmlFor="password">
-              Password:
-              <input
-                type="password"
-                id="password"
-                onChange={this.passwordHandler}
-                value={this.state.password}
-                onFocus={this.onInputFocus}
-              />
-            </label>
+                <label htmlFor="password">
+                  Password:
+                  <input
+                    type="password"
+                    id="password"
+                    onChange={this.passwordHandler}
+                    value={this.state.password}
+                    onFocus={this.onInputFocus}
+                  />
+                </label>
 
-            <div className={styles['btns-div']}>
-              <button className={styles['sign-up-btn']}>Sign Up</button>
-            </div>
-          </fieldset>
-        </form>
-      </div>
+                <div className={styles['btns-div']}>
+                  <button className={styles['sign-up-btn']}>Sign Up</button>
+                </div>
+              </fieldset>
+            </form>
+          </div>
+        ) : null}
+      </React.Fragment>
     );
   }
 }

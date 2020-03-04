@@ -11,8 +11,6 @@ class Messanger extends React.Component {
     messageBody: ``
   };
 
-  componentDidMount() {}
-
   componentDidUpdate(prevProps) {
     if (this.props.state !== prevProps.state) {
       this.setState({

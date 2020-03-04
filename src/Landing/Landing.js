@@ -2,14 +2,7 @@ import React from 'react';
 import Context from '../Context/Context';
 import SignUp from '../SignUp/SignUp';
 import styles from './Landing.module.css';
-import {
-  faUser,
-  faBasketballBall,
-  faMapMarkerAlt,
-  faSms,
-  faUsers,
-  faMoneyBill
-} from '@fortawesome/free-solid-svg-icons';
+import { faSms, faUsers, faMoneyBill } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { Carousel } from 'react-responsive-carousel';
 import 'react-responsive-carousel/lib/styles/carousel.min.css';
@@ -96,7 +89,7 @@ export default class Landing extends React.Component {
             <section className={styles['section-3']}>
               <div className={styles['section-3-div-wrapper']}>
                 <h1>TAKE A PEEK</h1>
-              <div className={styles['carousel-wrapper']}>
+                <div className={styles['carousel-wrapper']}>
                   <Carousel
                     className={styles['carousel']}
                     showArrows={true}
@@ -110,7 +103,6 @@ export default class Landing extends React.Component {
                     dynamicHeight={true}
                   >
                     <div className={styles['home-games-wrapper']}>
-                      
                       <img
                         src={require('./images/mc-homescreen.png')}
                         className={styles['home-screenshot']}
@@ -143,44 +135,40 @@ export default class Landing extends React.Component {
                     </div>
                   </Carousel>
                 </div>
-      
-      
-            <div className={styles['screens-wrapper']}>
-                    <div className={styles['home-games-wrapper']}>
-                      
-                      <img
-                        src={require('./images/mc-homescreen.png')}
-                        className={styles['home-screenshot']}
-                        alt="findgames"
-                      />
-                    </div>
 
-                    <div className={styles['home-games-wrapper']}>
-                      <img
-                        src={require('./images/mc-orderform.png')}
-                        className={styles['home-screenshot']}
-                        alt="creategames"
-                      />
-                    </div>
+                <div className={styles['screens-wrapper']}>
+                  <div className={styles['home-games-wrapper']}>
+                    <img
+                      src={require('./images/mc-homescreen.png')}
+                      className={styles['home-screenshot']}
+                      alt="findgames"
+                    />
+                  </div>
 
-                    <div className={styles['home-games-wrapper']}>
-                      <img
-                        src={require('./images/mc-orderdetails.png')}
-                        className={styles['home-screenshot']}
-                        alt="getdetails"
-                      />
-                    </div>
+                  <div className={styles['home-games-wrapper']}>
+                    <img
+                      src={require('./images/mc-orderform.png')}
+                      className={styles['home-screenshot']}
+                      alt="creategames"
+                    />
+                  </div>
 
-                    <div className={styles['home-games-wrapper']}>
-                      <img
-                        src={require('./images/mc-customers.png')}
-                        className={styles['home-screenshot']}
-                        alt="talktrash"
-                      />
-                    </div>
-            </div>
+                  <div className={styles['home-games-wrapper']}>
+                    <img
+                      src={require('./images/mc-orderdetails.png')}
+                      className={styles['home-screenshot']}
+                      alt="getdetails"
+                    />
+                  </div>
 
-
+                  <div className={styles['home-games-wrapper']}>
+                    <img
+                      src={require('./images/mc-customers.png')}
+                      className={styles['home-screenshot']}
+                      alt="talktrash"
+                    />
+                  </div>
+                </div>
               </div>
             </section>
 
