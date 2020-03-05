@@ -96,6 +96,8 @@ export default class OrderItem extends React.Component {
         .local(true)
         .format('M/D/YY h:mm A');
 
+      this.context.editOrders(newOrder);
+
       this.setState({ order: newOrder, formatted_picked_up_date });
     });
   };

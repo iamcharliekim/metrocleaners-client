@@ -350,8 +350,8 @@ export default class CreateOrder extends React.Component {
                     className={styles['time-input']}
                     onChange={this.readyByTimeHandler}
                     value={this.state.ready_by_time}
-                    min="07:00"
-                    max="19:00"
+                    // min="07:00"
+                    // max="19:00"
                   />
                 </div>
               </div>

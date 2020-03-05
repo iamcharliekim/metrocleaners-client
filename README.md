@@ -1,68 +1,99 @@
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+# MetroCleaners App
 
-## Available Scripts
+[![Build Status](https://travis-ci.org/joemccann/dillinger.svg?branch=master)](https://travis-ci.org/joemccann/dillinger)
 
-In the project directory, you can run:
+### Demo: https://metrocleaners-app.now.sh/
 
-### `npm start`
+MetroCleaners App is a customer relationship management app for local drycleaning businesses that keeps track of customers and their orders while using automated SMS notifications via Twilio API to keep them in the loop.
 
-Runs the app in the development mode.<br />
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+- An order form is filled out for every drycleaning order that keeps track of each customer's order information (phone number, name, order date, ready-by date, quantity, and price)
+- In the background, a cronjob runs every minute to check to see if there are any orders that are ready for pickup and sends an automated SMS notification letting the customer know their order is ready for pick up
+- On the frontend, the app is making a GET-request to the order's API endpoint every minute to check and see if any new notifications have been sent out, and updates the UI accordingly
+- Each new customer entered into the app is stored in the customers database along with their order history, allowing the business owner to keep track of their customer base to better serve them
 
-The page will reload if you make edits.<br />
-You will also see any lint errors in the console.
+# Screenshots
 
-### `npm test`
+#### Home Screen:
 
-Launches the test runner in the interactive watch mode.<br />
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+![home screen](../metrocleaners-client/src/Landing/images/mc-homescreen.png)
 
-### `npm run build`
+#### + New Order Form:
 
-Builds the app for production to the `build` folder.<br />
-It correctly bundles React in production mode and optimizes the build for the best performance.
+![create games screen](../metrocleaners-client/src/Landing/images/mc-orderform.png)
 
-The build is minified and the filenames include the hashes.<br />
-Your app is ready to be deployed!
+#### Customer's List:
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+![comment board](../metrocleaners-client/src/Landing/images/mc-customers.png)
 
-### `npm run eject`
+# How To Use
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+1. Once you sign-up for an account, use your username and password to sign-in
+2. Once you sign-in, use the navbar to navigate to the '+ New Order' form where you will fill in all the details pertaining to each order
+3. No need to fill out a separate form for customers, as the form will check to see if the customer already exists or not in the database and if they don't, the app will automatically store the new customer's information along with the order details.
+4. When you come back to fill another order by an already existing customer, you can use the autocomplete feature to select the customer name, which will automatically populate their phone number for convenience
+5. Once an order is submitted successfully, the app will automatically send out SMS notifications on the 'Ready-By Date' of each order and the 'Notification' checkbox will automatically be checked along with a timestamp of when the notification was sent.
+6. Once the order has been picked up, check the 'Picked Up' checkbox to store the date and time of when the order was picked up.
+7. Clicking on the order # on the top-left corner of each order's card will take you to the order's detail page, which will list all releveant details and eventually an itemized receipt. There is also a text-box where you can manually send an SMS to the customer if the order has not been picked up after a period of time.
+8. To see all registered customers and their order history, navigate to 'Customers' using the navbar and use the dropdown to navigate to any of their previous order details page.
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+### Tech
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+- HTML
+- CSS
+- Javascript
+- React
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+# Post-Up Api
 
-## Learn More
+[![Build Status](https://travis-ci.org/joemccann/dillinger.svg?branch=master)](https://travis-ci.org/joemccann/dillinger)
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+### Demo: https://metrocleaners-app.now.sh/
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+This API services the MetroCleaners App. All endpoints are protected and require a JWT.
 
-### Code Splitting
+# Base-URL
 
-This section has moved here: https://facebook.github.io/create-react-app/docs/code-splitting
+https://warm-meadow-39006.herokuapp.com/api
 
-### Analyzing the Bundle Size
+# Auth Endpoints
 
-This section has moved here: https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size
+#### /auth/login
 
-### Making a Progressive Web App
+# Admins Endpoints
 
-This section has moved here: https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app
+#### /admins
 
-### Advanced Configuration
+# Customers Endpoints
 
-This section has moved here: https://facebook.github.io/create-react-app/docs/advanced-configuration
+#### /customers
 
-### Deployment
+# Clerks Endpoints
 
-This section has moved here: https://facebook.github.io/create-react-app/docs/deployment
+#### /clerks
 
-### `npm run build` fails to minify
+# Orders Endpoints
 
-This section has moved here: https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify
+#### /orders
+
+#### /orders/:id
+
+# SMS Endpoints
+
+#### /sms
+
+### Tech
+
+- NodeJS
+- Express
+- Knex
+- Morgan
+- Cors
+- Helmet
+- Twilio API
+- NodeCron
+
+### For Testing
+
+- Mocha
+- Chai
+- Supertest
