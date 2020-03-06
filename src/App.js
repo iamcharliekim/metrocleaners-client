@@ -50,8 +50,24 @@ export default class App extends React.Component {
     selectedReadyDateOptionIndex: false,
     selectedOrderDateOptionIndex: false,
     selectedSearchOptionIndex: 0,
-    selectedOptionValue: ''
+    selectedOptionValue: '',
+
+    boxChecked: [],
+    snapshot: null
   };
+
+  getSnapshotBeforeUpdate(prevProps, prevState) {
+    if (this.state.boxChecked.length > prevState.boxChecked.length) {
+      return window.scrollY;
+    }
+    return null;
+  }
+
+  componentDidUpdate(prevProps, prevState, snapshot) {
+    if (snapshot !== null) {
+      this.setState({ snapshot });
+    }
+  }
 
   componentDidMount() {
     if (TokenService.hasAuthToken()) {
@@ -88,7 +104,7 @@ export default class App extends React.Component {
       orders.forEach(newOrder => {
         let order = this.state.orders.find(o => o.id === newOrder.id);
         if (newOrder.notification_sent !== order.notification_sent) {
-          this.editOrders(newOrder);
+          this.editOrders(newOrder, true);
         }
       });
     });
@@ -116,12 +132,18 @@ export default class App extends React.Component {
     this.persistSortOptions();
   };
 
-  editOrders = editedOrder => {
+  editOrders = (editedOrder, boxIsChecked = false) => {
     const ordersCopy = [...this.state.orders];
     const index = ordersCopy.findIndex(order => order.id === editedOrder.id);
     ordersCopy[index] = editedOrder;
 
-    this.setState({ filteredOrders: ordersCopy, orders: ordersCopy });
+    const boxChecked = [...this.state.boxChecked];
+
+    if (boxIsChecked) {
+      boxChecked.push('check');
+    }
+
+    this.setState({ filteredOrders: ordersCopy, orders: ordersCopy, boxChecked, snapshot: null });
 
     this.persistSortOptions();
   };
@@ -166,7 +188,8 @@ export default class App extends React.Component {
 
     this.setState({
       filteredOrders: searchResults,
-      searchString
+      searchString,
+      snapshot: null
     });
   };
 
@@ -233,7 +256,8 @@ export default class App extends React.Component {
       openSearchByPanel: !this.state.openSearchByPanel,
       openPriceSortPanel: false,
       openReadyByDateSortPanel: false,
-      openOrderDateSortPanel: false
+      openOrderDateSortPanel: false,
+      snapshot: null
     });
   };
 
@@ -380,7 +404,8 @@ export default class App extends React.Component {
       allActive: false,
       openPriceSortPanel: false,
       openReadyByDateSortPanel: false,
-      openOrderDateSortPanel: false
+      openOrderDateSortPanel: false,
+      snapshot: null
     });
   };
 
@@ -391,7 +416,8 @@ export default class App extends React.Component {
       allActive: false,
       openPriceSortPanel: false,
       openReadyByDateSortPanel: false,
-      openOrderDateSortPanel: false
+      openOrderDateSortPanel: false,
+      snapshot: null
     });
   };
 
@@ -402,7 +428,8 @@ export default class App extends React.Component {
       allActive: true,
       openPriceSortPanel: false,
       openReadyByDateSortPanel: false,
-      openOrderDateSortPanel: false
+      openOrderDateSortPanel: false,
+      snapshot: null
     });
   };
 
@@ -472,7 +499,8 @@ export default class App extends React.Component {
           openPriceSortPanel: !prevState.openPriceSortPanel,
           openReadyByDateSortPanel: false,
           openOrderDateSortPanel: false,
-          openSearchByPanel: false
+          openSearchByPanel: false,
+          snapshot: null
         };
       });
     }
@@ -483,7 +511,8 @@ export default class App extends React.Component {
           openReadyByDateSortPanel: !prevState.openReadyByDateSortPanel,
           openPriceSortPanel: false,
           openOrderDateSortPanel: false,
-          openSearchByPanel: false
+          openSearchByPanel: false,
+          snapshot: null
         };
       });
     }
@@ -494,7 +523,8 @@ export default class App extends React.Component {
           openOrderDateSortPanel: !prevState.openOrderDateSortPanel,
           openPriceSortPanel: false,
           openReadyByDateSortPanel: false,
-          openSearchByPanel: false
+          openSearchByPanel: false,
+          snapshot: null
         };
       });
     }
@@ -559,12 +589,16 @@ export default class App extends React.Component {
   };
 
   onOpenNav = () => {
-    this.setState({ openNav: !this.state.openNav });
+    this.setState({ openNav: !this.state.openNav, snapshot: null });
   };
 
   signout = () => {
     TokenService.clearAuthToken();
     this.onOpenNav();
+  };
+
+  nullifySnapshot = () => {
+    this.setState({ snapshot: null });
   };
 
   render() {
@@ -615,7 +649,11 @@ export default class App extends React.Component {
       selectedReadyDateOptionIndex: this.state.selectedReadyDateOptionIndex,
       selectedOrderDateOptionIndex: this.state.selectedOrderDateOptionIndex,
       selectedSearchOptionIndex: this.state.selectedSearchOptionIndex,
-      selectedOptionValue: this.state.selectedOptionValue
+      selectedOptionValue: this.state.selectedOptionValue,
+
+      boxChecked: this.state.boxChecked,
+      snapshot: this.state.snapshot,
+      nullifySnapshot: this.nullifySnapshot
     };
 
     let navLinks;

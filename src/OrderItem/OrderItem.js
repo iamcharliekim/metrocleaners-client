@@ -14,8 +14,9 @@ export default class OrderItem extends React.Component {
     formattedReadyDateTime: '',
     formattedPhoneNumber: '',
     notificationSent: this.props.orderItem.notification_sent ? true : false,
-    notification_date_time: '',
-    formatted_picked_up_date: ''
+    notification_date_time: null,
+    formatted_picked_up_date: null,
+    boxChecked: this.context.boxChecked
   };
 
   componentDidMount() {
@@ -83,6 +84,10 @@ export default class OrderItem extends React.Component {
 
       this.setState({ order: this.props.orderItem, formatted_picked_up_date });
     }
+
+    if (this.context.snapshot) {
+      window.scrollTo(0, this.context.snapshot);
+    }
   }
 
   onPickedUp = () => {
@@ -92,13 +97,7 @@ export default class OrderItem extends React.Component {
     orderCopy.picked_up_date = orderCopy.picked_up ? new Date() : null;
 
     OrdersService.putUpdateOrder(orderCopy, orderCopy.id).then(newOrder => {
-      let formatted_picked_up_date = moment(orderCopy.picked_up_date)
-        .local(true)
-        .format('M/D/YY h:mm A');
-
-      this.context.editOrders(newOrder);
-
-      this.setState({ order: newOrder, formatted_picked_up_date });
+      this.context.editOrders(newOrder, true);
     });
   };
 

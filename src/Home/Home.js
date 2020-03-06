@@ -17,7 +17,13 @@ export default class Home extends React.Component {
             <div className={styles['orders-list-wrapper']}>
               {this.context.filteredOrders
                 ? this.context.filteredOrders.map(order => {
-                    return <OrderItem orderItem={order} key={order.id} />;
+                    return (
+                      <OrderItem
+                        orderItem={order}
+                        key={order.id}
+                        boxChecked={this.props.boxChecked}
+                      />
+                    );
                   })
                 : null}
             </div>

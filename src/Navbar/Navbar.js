@@ -16,6 +16,7 @@ class Navbar extends React.Component {
     if (this.context.openNav) {
       this.context.onOpenNav();
     }
+    this.context.nullifySnapshot();
   };
 
   render() {
