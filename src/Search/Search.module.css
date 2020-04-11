@@ -29,12 +29,12 @@
   /* margin-bottom: 10px; */
 }
 
-.search-games-wrapper button {
+/* .search-games-wrapper button {
   font-size: 14px;
   border: 1px solid gray;
   border-radius: 15px;
   padding: 10px;
-}
+} */
 
 .search-by-dropdown {
   position: absolute;
@@ -65,7 +65,7 @@
   justify-content: flex-start;
   z-index: 100;
   position: absolute;
-  bottom: -120px;
+  bottom: -80px;
   max-width: 600px;
 }
 

@@ -9,14 +9,15 @@
   max-width: 550px;
 }
 
-.sort-buttons-inner-wrapper {
+.sort-buttons-row-2-wrapper {
   width: 90%;
   display: flex;
   justify-content: space-around;
   align-items: center;
+  margin-top: 10px;
 }
 
-.sort-buttons-wrapper .sort-buttons-inner-wrapper .sort-button {
+.sort-buttons-row-2-wrapper button {
   font-size: 14px;
   padding: 5px;
   border: 1px solid lightgray;
@@ -26,12 +27,29 @@
   background-color: white;
 }
 
-.sort-buttons-inner-wrapper .sort-button:hover {
+.sort-buttons-row-1-wrapper {
+  width: 90%;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+}
+
+.sort-buttons-wrapper .sort-buttons-row-1-wrapper .sort-button {
+  font-size: 14px;
+  padding: 5px;
+  border: 1px solid lightgray;
+  border-radius: 0;
+  cursor: pointer;
+  color: #011627;
+  background-color: white;
+}
+
+.sort-buttons-row-1-wrapper .sort-button:hover {
   background-color: #011627;
   color: white;
 }
 
-.sort-buttons-inner-wrapper .active {
+.sort-buttons-row-1-wrapper .active {
   background-color: #011627;
   color: white;
   font-size: 14px;
@@ -42,7 +60,18 @@
   outline: none;
 }
 
-.sort-by-dropdown-wrapper {
+.sort-buttons-row-2-wrapper .active {
+  background-color: #011627;
+  color: white;
+  font-size: 14px;
+  padding: 5px;
+  border: 1px solid #011627;
+  border-radius: 0;
+  cursor: pointer;
+  outline: none;
+}
+
+.sort-buttons-row-3-wrapper {
   width: 90%;
   display: flex;
   justify-content: center;
@@ -107,6 +136,7 @@
 .sort-by-div {
   padding: 5px;
   box-shadow: 0px 1px 2px #888;
+  background-color: white;
   /* border-top: 1px solid black; */
 }
 .sort-by-div:hover {

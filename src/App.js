@@ -35,6 +35,10 @@ export default class App extends React.Component {
     upcomingActive: false,
     allActive: false,
 
+    pickedUpActive: false,
+    notifiedActive: false,
+    bothActive: false,
+
     priceActive: false,
     readyByActive: false,
     orderedActive: false,
@@ -91,6 +95,7 @@ export default class App extends React.Component {
           });
         }
       });
+
       this.ordersInterval = setInterval(this.checkForOrderUpdates, 5000);
     }
   }
@@ -267,10 +272,12 @@ export default class App extends React.Component {
     const today = new Date().getTime();
     const ordersCopy = [...this.state.orders];
     let filteredOrders;
+    const filteredOrdersCopy = [...this.state.filteredOrders];
 
     const priceActive = this.state.priceActive;
     const readyByActive = this.state.readyByActive;
     const orderedActive = this.state.orderedActive;
+
     const selectedPriceOptionIndex = this.state.selectedPriceOptionIndex;
     const selectedReadyDateOptionIndex = this.state.selectedReadyDateOptionIndex;
     const selectedOrderDateOptionIndex = this.state.selectedOrderDateOptionIndex;
@@ -294,6 +301,20 @@ export default class App extends React.Component {
           moment(order.order_date)
             .local(true)
             .valueOf() > today
+      );
+    }
+
+    if (sortBy === 'pickedUp') {
+      filteredOrders = ordersCopy.filter(order => order.picked_up === true);
+    }
+
+    if (sortBy === 'notified') {
+      filteredOrders = ordersCopy.filter(order => order.notification_sent !== null);
+    }
+
+    if (sortBy === 'both') {
+      filteredOrders = ordersCopy.filter(
+        order => order.picked_up && order.notification_sent !== null
       );
     }
 
@@ -402,6 +423,9 @@ export default class App extends React.Component {
       pastActive: true,
       upcomingActive: false,
       allActive: false,
+      pickedUpActive: false,
+      notifiedActive: false,
+      bothActive: false,
       openPriceSortPanel: false,
       openReadyByDateSortPanel: false,
       openOrderDateSortPanel: false,
@@ -414,6 +438,9 @@ export default class App extends React.Component {
       pastActive: false,
       upcomingActive: true,
       allActive: false,
+      pickedUpActive: false,
+      notifiedActive: false,
+      bothActive: false,
       openPriceSortPanel: false,
       openReadyByDateSortPanel: false,
       openOrderDateSortPanel: false,
@@ -426,6 +453,53 @@ export default class App extends React.Component {
       pastActive: false,
       upcomingActive: false,
       allActive: true,
+      pickedUpActive: false,
+      notifiedActive: false,
+      bothActive: false,
+      openPriceSortPanel: false,
+      openReadyByDateSortPanel: false,
+      openOrderDateSortPanel: false,
+      snapshot: null
+    });
+  };
+
+  sortByPickedUpBtnActive = () => {
+    this.setState({
+      pastActive: false,
+      upcomingActive: false,
+      allActive: true,
+      pickedUpActive: true,
+      notifiedActive: false,
+      openPriceSortPanel: false,
+      openReadyByDateSortPanel: false,
+      openOrderDateSortPanel: false,
+      snapshot: null
+    });
+  };
+
+  sortByNotifiedBtnActive = () => {
+    this.setState({
+      pastActive: false,
+      upcomingActive: false,
+      allActive: true,
+      pickedUpActive: false,
+      notifiedActive: true,
+      bothActive: false,
+      openPriceSortPanel: false,
+      openReadyByDateSortPanel: false,
+      openOrderDateSortPanel: false,
+      snapshot: null
+    });
+  };
+
+  sortByPickedUpAndNotifiedBtnActive = () => {
+    this.setState({
+      pastActive: false,
+      upcomingActive: false,
+      allActive: true,
+      pickedUpActive: false,
+      notifiedActive: false,
+      bothActive: true,
       openPriceSortPanel: false,
       openReadyByDateSortPanel: false,
       openOrderDateSortPanel: false,
@@ -628,6 +702,12 @@ export default class App extends React.Component {
       upcomingActive: this.state.upcomingActive,
       sortByAllBtnActive: this.sortByAllBtnActive,
       allActive: this.state.allActive,
+      sortByPickedUpBtnActive: this.sortByPickedUpBtnActive,
+      pickedUpActive: this.state.pickedUpActive,
+      sortByNotifiedBtnActive: this.sortByNotifiedBtnActive,
+      notifiedActive: this.state.notifiedActive,
+      sortByPickedUpAndNotifiedBtnActive: this.sortByPickedUpAndNotifiedBtnActive,
+      bothActive: this.state.bothActive,
 
       sortByPriceBtnActive: this.sortByPriceBtnActive,
       priceActive: this.state.priceActive,

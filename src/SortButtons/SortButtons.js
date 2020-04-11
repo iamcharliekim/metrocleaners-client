@@ -72,36 +72,70 @@ export default class SortButtons extends React.Component {
       this.context.onSortOrders('all');
       this.context.sortByAllBtnActive();
     }
+    if (sortBy === 'pickedUp') {
+      this.context.onSortOrders('pickedUp');
+      this.context.sortByPickedUpBtnActive();
+    }
+
+    if (sortBy === 'notified') {
+      this.context.onSortOrders('notified');
+      this.context.sortByNotifiedBtnActive();
+    }
+
+    if (sortBy === 'both') {
+      this.context.onSortOrders('both');
+      this.context.sortByPickedUpAndNotifiedBtnActive();
+    }
   };
 
   render() {
     return (
       <div className={styles['sort-buttons-wrapper']}>
-        <div className={styles['sort-buttons-inner-wrapper']}>
+        <div className={styles['sort-buttons-row-1-wrapper']}>
           <button
             className={this.context.pastActive ? styles['active'] : styles['sort-button']}
             onClick={() => this.onSortOrders('past')}
-            active={this.state.pastActive}
           >
             Past
           </button>
           <button
             className={this.context.upcomingActive ? styles['active'] : styles['sort-button']}
             onClick={() => this.onSortOrders('upcoming')}
-            active={this.state.upcomingActive}
           >
             Upcoming
           </button>
           <button
             className={this.context.allActive ? styles['active'] : styles['sort-button']}
             onClick={() => this.onSortOrders('all')}
-            active={this.state.allActive}
           >
             All
           </button>
         </div>
 
-        <div className={styles['sort-by-dropdown-wrapper']}>
+        <div className={styles['sort-buttons-row-2-wrapper']}>
+          <button
+            className={this.context.pickedUpActive ? styles['active'] : styles['sort-button']}
+            onClick={() => this.onSortOrders('pickedUp')}
+          >
+            Picked-Up
+          </button>
+
+          <button
+            className={this.context.notifiedActive ? styles['active'] : styles['sort-button']}
+            onClick={() => this.onSortOrders('notified')}
+          >
+            Notified
+          </button>
+
+          <button
+            className={this.context.bothActive ? styles['active'] : styles['sort-button']}
+            onClick={() => this.onSortOrders('both')}
+          >
+            Both
+          </button>
+        </div>
+
+        <div className={styles['sort-buttons-row-3-wrapper']}>
           <div
             className={styles['sort-by-dropdown']}
             onClick={() => this.context.onOpenSortDropdown('price')}

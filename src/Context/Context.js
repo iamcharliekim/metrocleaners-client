@@ -27,6 +27,15 @@ const Context = React.createContext({
   sortByAllbtnActive: () => {},
   allActive: '',
 
+  sortByPickedUpBtnActive: () => {},
+  pickedUpActive: '',
+
+  sortByNotifiedBtnActive: () => {},
+  notifiedActive: '',
+
+  sortByPickedUpAndNotifiedBtnActive: () => {},
+  bothActive: '',
+
   sortByPriceBtnActive: () => {},
   priceActive: '',
   sortByReadyDateBtnActive: () => {},
