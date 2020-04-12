@@ -32,6 +32,16 @@ const OrdersService = {
       },
       body: JSON.stringify(order)
     }).then(res => (!res.ok ? res.json().then(e => Promise.reject(e)) : res.json()));
+  },
+
+  deleteOrder(id) {
+    return fetch(`${config.API_ENDPOINT}/orders/${id}`, {
+      method: 'DELETE',
+      headers: {
+        'content-type': 'application/json',
+        authorization: `bearer ${TokenService.getAuthToken()}`
+      }
+    }).then(res => (!res.ok ? res.json().then(e => Promise.reject(e)) : res.json()));
   }
 };
 

@@ -4,8 +4,9 @@ import { Link } from 'react-router-dom';
 import Context from '../Context/Context';
 import OrdersService from '../Services/OrdersService';
 import styles from './OrderItem.module.css';
+import { withRouter } from 'react-router-dom';
 
-export default class OrderItem extends React.Component {
+class OrderItem extends React.Component {
   static contextType = Context;
 
   state = {
@@ -16,7 +17,8 @@ export default class OrderItem extends React.Component {
     notificationSent: this.props.orderItem.notification_sent ? true : false,
     notification_date_time: null,
     formatted_picked_up_date: null,
-    boxChecked: this.context.boxChecked
+    boxChecked: this.context.boxChecked,
+    error: null
   };
 
   componentDidMount() {
@@ -96,9 +98,28 @@ export default class OrderItem extends React.Component {
     orderCopy.picked_up = !orderCopy.picked_up;
     orderCopy.picked_up_date = orderCopy.picked_up ? new Date() : null;
 
-    OrdersService.putUpdateOrder(orderCopy, orderCopy.id).then(newOrder => {
-      this.context.editOrders(newOrder, true);
-    });
+    OrdersService.putUpdateOrder(orderCopy, orderCopy.id)
+      .then(newOrder => {
+        this.context.editOrders(newOrder, true);
+      })
+      .catch(res => {
+        this.setState({ error: res.error });
+      });
+  };
+
+  deleteOrder = (e, id) => {
+    e.preventDefault();
+    OrdersService.deleteOrder(id)
+      .then(res => {
+        this.context.deleteOrder(id);
+      })
+      .catch(res => {
+        this.setState({ error: res.error });
+      });
+  };
+
+  editOrder = (e, id) => {
+    this.props.history.push(`/edit-order/${id}`);
   };
 
   render() {
@@ -176,7 +197,16 @@ export default class OrderItem extends React.Component {
             <span className={styles['order-label']} />
           </div>
         </div>
+
+        <div className={styles['order-row']}>
+          <div className={styles['order-btns-row']}>
+            <button onClick={e => this.editOrder(e, this.state.order.id)}>Edit</button>
+            <button onClick={e => this.deleteOrder(e, this.state.order.id)}>Delete</button>
+          </div>
+        </div>
       </div>
     );
   }
 }
+
+export default withRouter(OrderItem);

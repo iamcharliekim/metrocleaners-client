@@ -31,6 +31,24 @@ export default class CreateOrder extends React.Component {
     this.setState({ order_time: time });
 
     this.orderInput.focus();
+
+    if (this.props.location.pathname.includes('edit-order')) {
+      const orderId = +this.props.match.params.id;
+      const orderToEdit = this.context.orders.find(order => order.id === orderId);
+
+      this.setState({
+        order_number: orderToEdit.order_number,
+        clerk: orderToEdit.clerk,
+        customer_name: orderToEdit.customer,
+        phone_number: orderToEdit.phone_number,
+        order_date: moment(orderToEdit.order_date).format('YYYY-MM-DD'),
+        order_time: moment(orderToEdit.order_date).format('HH:mm'),
+        ready_by_date: moment(orderToEdit.ready_by_date).format('YYYY-MM-DD'),
+        ready_by_time: moment(orderToEdit.ready_by_date).format('HH:mm'),
+        quantity: orderToEdit.quantity,
+        price: orderToEdit.price
+      });
+    }
   }
 
   orderNumberHandler = e => {
@@ -126,9 +144,38 @@ export default class CreateOrder extends React.Component {
         phone_number: this.state.phone_number
       };
       CustomersService.postNewCustomer(newCustomer).then(customer => {
+        // IF NEW-ORDER, POST
+        if (!this.props.location.pathname.includes('edit-order')) {
+          OrdersService.postNewOrder(newOrder)
+            .then(order => {
+              this.context.updateCustomers(customer);
+              this.context.updateOrders(order);
+              this.resetState();
+              this.props.history.push('/home');
+            })
+            .catch(res => {
+              this.setState({ error: res.error });
+            });
+        } else {
+          // IF EDITING-ORDER, PUT
+          OrdersService.putUpdateOrder(newOrder, +this.props.match.params.id)
+            .then(order => {
+              this.context.updateCustomers(customer);
+              this.context.editOrders(order);
+              this.resetState();
+              this.props.history.push('/home');
+            })
+            .catch(res => {
+              this.setState({ error: res.error });
+            });
+        }
+      });
+    } else {
+      // IF CUSTOMER EXISTS:
+      if (!this.props.location.pathname.includes('edit-order')) {
+        // IF NEW ORDER, POST
         OrdersService.postNewOrder(newOrder)
           .then(order => {
-            this.context.updateCustomers(customer);
             this.context.updateOrders(order);
             this.resetState();
             this.props.history.push('/home');
@@ -136,18 +183,18 @@ export default class CreateOrder extends React.Component {
           .catch(res => {
             this.setState({ error: res.error });
           });
-      });
-    } else {
-      // IF CUSTOMER EXISTS: THEN postNewOrder()
-      OrdersService.postNewOrder(newOrder)
-        .then(order => {
-          this.context.updateOrders(order);
-          this.resetState();
-          this.props.history.push('/home');
-        })
-        .catch(res => {
-          this.setState({ error: res.error });
-        });
+      } else {
+        // IF EDITING ORDER, PUT
+        OrdersService.putUpdateOrder(newOrder, +this.props.match.params.id)
+          .then(order => {
+            this.context.editOrders(order);
+            this.resetState();
+            this.props.history.push('/home');
+          })
+          .catch(res => {
+            this.setState({ error: res.error });
+          });
+      }
     }
   };
 
@@ -157,7 +204,7 @@ export default class CreateOrder extends React.Component {
       order => order.order_number === typedOrderNumber
     );
 
-    if (orderNumberIsNotUnique) {
+    if (orderNumberIsNotUnique && !this.props.location.pathname.includes('edit-order')) {
       this.setState({ error: 'Order Number already exists!  Please create a unique order number' });
     }
   };

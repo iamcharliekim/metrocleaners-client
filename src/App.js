@@ -13,7 +13,7 @@ import ClerksService from './Services/ClerksService';
 import CustomersService from './Services/CustomersService';
 import OrdersService from './Services/OrdersService';
 import TokenService from './Services/TokenService';
-import SignIn from './SignIn/SignIn';
+import SignIn from './SignIn/SignIn';``
 import SignUp from './SignUp/SignUp';
 import moment from 'moment';
 import Landing from './Landing/Landing';
@@ -151,6 +151,13 @@ export default class App extends React.Component {
     this.setState({ filteredOrders: ordersCopy, orders: ordersCopy, boxChecked, snapshot: null });
 
     this.persistSortOptions();
+  };
+
+  deleteOrder = id => {
+    const ordersCopy = [...this.state.orders];
+    const index = ordersCopy.findIndex(order => order.id === id);
+    ordersCopy.splice(index, 1);
+    this.setState({ orders: ordersCopy, filteredOrders: ordersCopy });
   };
 
   // SEARCH-ORDERS ---------------------------------------------------
@@ -687,6 +694,7 @@ export default class App extends React.Component {
       filteredOrders: this.state.filteredOrders,
       updateOrders: this.updateOrders,
       editOrders: this.editOrders,
+      deleteOrder: this.deleteOrder,
       checkForOrderUpdates: this.checkForOrderUpdates,
 
       clerks: this.state.clerks,
@@ -785,6 +793,7 @@ export default class App extends React.Component {
 
             <PrivateRoute path={'/home'} component={Home} />
             <PrivateRoute path={'/new-order'} component={CreateOrder} />
+            <PrivateRoute path={'/edit-order/:id'} component={CreateOrder} />
             <PrivateRoute path={'/customers'} component={Customers} />
             <PrivateRoute path={'/orders/:order_id'} exact component={OrderDetails} />
 

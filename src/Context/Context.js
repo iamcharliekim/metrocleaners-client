@@ -11,6 +11,7 @@ const Context = React.createContext({
   filteredOrders: [],
   updateOrders: () => {},
   editOrders: () => {},
+  deleteOrder: () => {},
   checkForOrderUpdates: () => {},
 
   clerks: [],

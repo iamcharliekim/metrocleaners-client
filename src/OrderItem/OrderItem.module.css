@@ -166,3 +166,10 @@ header .order-not-picked-up-btn {
   margin-left: 5px;
   font-size: 14px;
 }
+
+.order-btns-row {
+  width: 100%;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+}
