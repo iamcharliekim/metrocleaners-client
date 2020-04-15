@@ -8,7 +8,10 @@ class Customer extends React.Component {
 
   state = {
     customer: this.props.customer.customer,
-    order_id: this.props.customer.orders[0].order_number,
+    order_id:
+      this.props.customer.orders.length > 1
+        ? this.props.customer.orders[0].order_number
+        : this.props.customer.orders.order_number,
     orders: this.props.customer.orders
   };
 

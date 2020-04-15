@@ -1,23 +1,23 @@
-import moment from "moment";
-import React from "react";
-import { BrowserRouter } from "react-router-dom";
-import { Link, Route } from "react-router-dom";
-import styles from "./App.module.css";
-import Context from "./Context/Context";
-import CreateOrder from "./CreateOrder/CreateOrder";
-import Customers from "./Customers/Customers";
-import Footer from "./Footer/Footer";
-import Home from "./Home/Home";
-import Landing from "./Landing/Landing";
-import Navbar from "./Navbar/Navbar";
-import OrderDetails from "./OrderDetails/OrderDetails";
-import PrivateRoute from "./PrivateRoute/PrivateRoute";
-import ClerksService from "./Services/ClerksService";
-import CustomersService from "./Services/CustomersService";
-import OrdersService from "./Services/OrdersService";
-import TokenService from "./Services/TokenService";
-import SignIn from "./SignIn/SignIn";
-import SignUp from "./SignUp/SignUp";
+import moment from 'moment';
+import React from 'react';
+import { BrowserRouter } from 'react-router-dom';
+import { Link, Route } from 'react-router-dom';
+import styles from './App.module.css';
+import Context from './Context/Context';
+import CreateOrder from './CreateOrder/CreateOrder';
+import Customers from './Customers/Customers';
+import Footer from './Footer/Footer';
+import Home from './Home/Home';
+import Landing from './Landing/Landing';
+import Navbar from './Navbar/Navbar';
+import OrderDetails from './OrderDetails/OrderDetails';
+import PrivateRoute from './PrivateRoute/PrivateRoute';
+import ClerksService from './Services/ClerksService';
+import CustomersService from './Services/CustomersService';
+import OrdersService from './Services/OrdersService';
+import TokenService from './Services/TokenService';
+import SignIn from './SignIn/SignIn';
+import SignUp from './SignUp/SignUp';
 
 export default class App extends React.Component {
   static contextType = Context;
@@ -48,16 +48,16 @@ export default class App extends React.Component {
     openOrderDateSortPanel: false,
 
     openSearchByPanel: false,
-    searchBy: "all",
+    searchBy: 'all',
 
     selectedPriceOptionIndex: false,
     selectedReadyDateOptionIndex: false,
     selectedOrderDateOptionIndex: false,
     selectedSearchOptionIndex: 0,
-    selectedOptionValue: "",
+    selectedOptionValue: '',
 
     boxChecked: [],
-    snapshot: null,
+    snapshot: null
   };
 
   getSnapshotBeforeUpdate(prevProps, prevState) {
@@ -86,9 +86,9 @@ export default class App extends React.Component {
                   this.setState({
                     orders,
                     customers,
-                    clerks,
+                    clerks
                   });
-                  this.onSortOrders("all");
+                  this.onSortOrders('all');
                 }
               });
             }
@@ -145,14 +145,14 @@ export default class App extends React.Component {
     const boxChecked = [...this.state.boxChecked];
 
     if (boxIsChecked) {
-      boxChecked.push("check");
+      boxChecked.push('check');
     }
 
     this.setState({
       filteredOrders: ordersCopy,
       orders: ordersCopy,
       boxChecked,
-      snapshot: null,
+      snapshot: null
     });
 
     this.persistSortOptions();
@@ -176,101 +176,93 @@ export default class App extends React.Component {
     let filteredOrders, searchResults;
 
     if (pastActive) {
-      filteredOrders = this.onSortOrders("past", true);
+      filteredOrders = this.onSortOrders('past', true);
     }
 
     if (upcomingActive) {
-      filteredOrders = this.onSortOrders("upcoming", true);
+      filteredOrders = this.onSortOrders('upcoming', true);
     }
 
     if (allActive) {
-      filteredOrders = this.onSortOrders("all", true);
+      filteredOrders = this.onSortOrders('all', true);
     }
 
-    if (this.state.searchBy === "all") {
+    if (this.state.searchBy === 'all') {
       searchResults = filteredOrders.filter(order => {
         return (
-          order["order_number"]
-            .toLowerCase()
-            .includes(searchString.toLowerCase()) ||
-          order["clerk"].toLowerCase().includes(searchString.toLowerCase()) ||
-          order["customer"]
-            .toLowerCase()
-            .includes(searchString.toLowerCase()) ||
-          order["phone_number"]
-            .toLowerCase()
-            .includes(searchString.toLowerCase()) ||
-          order["price"].toLowerCase().includes(searchString.toLowerCase())
+          order['order_number'].toLowerCase().includes(searchString.toLowerCase()) ||
+          order['clerk'].toLowerCase().includes(searchString.toLowerCase()) ||
+          order['customer'].toLowerCase().includes(searchString.toLowerCase()) ||
+          order['phone_number'].toLowerCase().includes(searchString.toLowerCase()) ||
+          order['price'].toLowerCase().includes(searchString.toLowerCase())
         );
       });
     } else {
       searchResults = filteredOrders.filter(order => {
-        return order[this.state.searchBy]
-          .toLowerCase()
-          .includes(searchString.toLowerCase());
+        return order[this.state.searchBy].toLowerCase().includes(searchString.toLowerCase());
       });
     }
 
     this.setState({
       filteredOrders: searchResults,
       searchString,
-      snapshot: null,
+      snapshot: null
     });
   };
 
   // search-options active/inactive-class function
   onClickSearchByBtn = searchBy => {
-    if (searchBy === "all") {
+    if (searchBy === 'all') {
       this.setState({
-        searchBy: "all",
+        searchBy: 'all',
         selectedSearchOptionIndex: 0,
-        selectedOptionValue: "",
-        openSearchByPanel: false,
+        selectedOptionValue: '',
+        openSearchByPanel: false
       });
     }
 
-    if (searchBy === "order_number") {
+    if (searchBy === 'order_number') {
       this.setState({
-        searchBy: "order_number",
+        searchBy: 'order_number',
         selectedSearchOptionIndex: 1,
-        selectedOptionValue: "Order #",
-        openSearchByPanel: false,
+        selectedOptionValue: 'Order #',
+        openSearchByPanel: false
       });
     }
 
-    if (searchBy === "clerk") {
+    if (searchBy === 'clerk') {
       this.setState({
-        searchBy: "clerk",
+        searchBy: 'clerk',
         selectedSearchOptionIndex: 2,
-        selectedOptionValue: "Clerk",
-        openSearchByPanel: false,
+        selectedOptionValue: 'Clerk',
+        openSearchByPanel: false
       });
     }
 
-    if (searchBy === "customer") {
+    if (searchBy === 'customer') {
       this.setState({
-        searchBy: "customer",
+        searchBy: 'customer',
         selectedSearchOptionIndex: 3,
-        selectedOptionValue: "Customer",
-        openSearchByPanel: false,
+        selectedOptionValue: 'Customer',
+        openSearchByPanel: false
       });
     }
 
-    if (searchBy === "phone_number") {
+    if (searchBy === 'phone_number') {
       this.setState({
-        searchBy: "phone_number",
+        searchBy: 'phone_number',
         selectedSearchOptionIndex: 4,
-        selectedOptionValue: "Phone #",
-        openSearchByPanel: false,
+        selectedOptionValue: 'Phone #',
+        openSearchByPanel: false
       });
     }
 
-    if (searchBy === "price") {
+    if (searchBy === 'price') {
       this.setState({
-        searchBy: "price",
+        searchBy: 'price',
         selectedSearchOptionIndex: 5,
-        selectedOptionValue: "Price",
-        openSearchByPanel: false,
+        selectedOptionValue: 'Price',
+        openSearchByPanel: false
       });
     }
   };
@@ -282,7 +274,7 @@ export default class App extends React.Component {
       openPriceSortPanel: false,
       openReadyByDateSortPanel: false,
       openOrderDateSortPanel: false,
-      snapshot: null,
+      snapshot: null
     });
   };
 
@@ -298,16 +290,14 @@ export default class App extends React.Component {
     const orderedActive = this.state.orderedActive;
 
     const selectedPriceOptionIndex = this.state.selectedPriceOptionIndex;
-    const selectedReadyDateOptionIndex = this.state
-      .selectedReadyDateOptionIndex;
-    const selectedOrderDateOptionIndex = this.state
-      .selectedOrderDateOptionIndex;
+    const selectedReadyDateOptionIndex = this.state.selectedReadyDateOptionIndex;
+    const selectedOrderDateOptionIndex = this.state.selectedOrderDateOptionIndex;
 
-    if (sortBy === "all") {
+    if (sortBy === 'all') {
       filteredOrders = ordersCopy;
     }
 
-    if (sortBy === "past") {
+    if (sortBy === 'past') {
       filteredOrders = ordersCopy.filter(
         order =>
           moment(order.order_date)
@@ -316,7 +306,7 @@ export default class App extends React.Component {
       );
     }
 
-    if (sortBy === "upcoming") {
+    if (sortBy === 'upcoming') {
       filteredOrders = ordersCopy.filter(
         order =>
           moment(order.order_date)
@@ -325,17 +315,15 @@ export default class App extends React.Component {
       );
     }
 
-    if (sortBy === "pickedUp") {
+    if (sortBy === 'pickedUp') {
       filteredOrders = ordersCopy.filter(order => order.picked_up === true);
     }
 
-    if (sortBy === "notified") {
-      filteredOrders = ordersCopy.filter(
-        order => order.notification_sent !== null
-      );
+    if (sortBy === 'notified') {
+      filteredOrders = ordersCopy.filter(order => order.notification_sent !== null);
     }
 
-    if (sortBy === "both") {
+    if (sortBy === 'both') {
       filteredOrders = ordersCopy.filter(
         order => order.picked_up && order.notification_sent !== null
       );
@@ -344,9 +332,9 @@ export default class App extends React.Component {
     if (priceActive && selectedPriceOptionIndex === 0) {
       // sort by Highest Price first
       filteredOrders = filteredOrders.sort((a, b) => {
-        if (Number(a["price"]) > Number(b["price"])) {
+        if (Number(a['price']) > Number(b['price'])) {
           return -1;
-        } else if (Number(a["price"]) < Number(b["price"])) {
+        } else if (Number(a['price']) < Number(b['price'])) {
           return 1;
         } else {
           return 0;
@@ -357,9 +345,9 @@ export default class App extends React.Component {
     if (priceActive && selectedPriceOptionIndex === 1) {
       // sort by Lowest Price first
       filteredOrders = filteredOrders.sort((a, b) => {
-        if (Number(a["price"]) > Number(b["price"])) {
+        if (Number(a['price']) > Number(b['price'])) {
           return 1;
-        } else if (Number(a["price"]) < Number(b["price"])) {
+        } else if (Number(a['price']) < Number(b['price'])) {
           return -1;
         } else {
           return 0;
@@ -370,15 +358,9 @@ export default class App extends React.Component {
     if (readyByActive && selectedReadyDateOptionIndex === 0) {
       // sort by Newest ReadyByDate first
       filteredOrders = filteredOrders.sort((a, b) => {
-        if (
-          moment(a["ready_by_date"]).valueOf() >
-          moment(b["ready_by_date"]).valueOf()
-        ) {
+        if (moment(a['ready_by_date']).valueOf() > moment(b['ready_by_date']).valueOf()) {
           return -1;
-        } else if (
-          moment(a["ready_by_date"]).valueOf() <
-          moment(b["ready_by_date"]).valueOf()
-        ) {
+        } else if (moment(a['ready_by_date']).valueOf() < moment(b['ready_by_date']).valueOf()) {
           return 1;
         } else {
           return 0;
@@ -389,14 +371,9 @@ export default class App extends React.Component {
     if (readyByActive && selectedReadyDateOptionIndex === 1) {
       // sort by Oldest ReadyByDate first
       filteredOrders = filteredOrders.sort((a, b) => {
-        if (
-          new Date(a["ready_by_date"]).getTime() >
-          new Date(b["ready_by_date"]).getTime()
-        ) {
+        if (new Date(a['ready_by_date']).getTime() > new Date(b['ready_by_date']).getTime()) {
           return 1;
-        } else if (
-          new Date(a["ready_by_date"]) < new Date(b["ready_by_date"])
-        ) {
+        } else if (new Date(a['ready_by_date']) < new Date(b['ready_by_date'])) {
           return -1;
         } else {
           return 0;
@@ -407,13 +384,9 @@ export default class App extends React.Component {
     if (orderedActive && selectedOrderDateOptionIndex === 0) {
       // sort by Newest OrderDate first
       filteredOrders = filteredOrders.sort((a, b) => {
-        if (
-          moment(a["order_date"]).valueOf() > moment(b["order_date"]).valueOf()
-        ) {
+        if (moment(a['order_date']).valueOf() > moment(b['order_date']).valueOf()) {
           return -1;
-        } else if (
-          moment(a["order_date"]).valueOf() < moment(b["order_date"]).valueOf()
-        ) {
+        } else if (moment(a['order_date']).valueOf() < moment(b['order_date']).valueOf()) {
           return 1;
         } else {
           return 0;
@@ -424,12 +397,9 @@ export default class App extends React.Component {
     if (orderedActive && selectedOrderDateOptionIndex === 1) {
       // sort by Oldest OrderDate first
       filteredOrders = filteredOrders.sort((a, b) => {
-        if (
-          new Date(a["order_date"]).getTime() >
-          new Date(b["order_date"]).getTime()
-        ) {
+        if (new Date(a['order_date']).getTime() > new Date(b['order_date']).getTime()) {
           return 1;
-        } else if (new Date(a["order_date"]) < new Date(b["order_date"])) {
+        } else if (new Date(a['order_date']) < new Date(b['order_date'])) {
           return -1;
         } else {
           return 0;
@@ -437,19 +407,11 @@ export default class App extends React.Component {
       });
     }
 
-    if (
-      !this.state.priceActive &&
-      !this.state.readyByActive &&
-      !this.state.orderedActive
-    ) {
+    if (!this.state.priceActive && !this.state.readyByActive && !this.state.orderedActive) {
       filteredOrders = filteredOrders.sort((a, b) => {
-        if (
-          moment(a["order_date"]).valueOf() > moment(b["order_date"]).valueOf()
-        ) {
+        if (moment(a['order_date']).valueOf() > moment(b['order_date']).valueOf()) {
           return -1;
-        } else if (
-          moment(a["order_date"]).valueOf() < moment(b["order_date"]).valueOf()
-        ) {
+        } else if (moment(a['order_date']).valueOf() < moment(b['order_date']).valueOf()) {
           return 1;
         } else {
           return 0;
@@ -462,7 +424,7 @@ export default class App extends React.Component {
     }
 
     this.setState({
-      filteredOrders,
+      filteredOrders
     });
   };
 
@@ -478,7 +440,7 @@ export default class App extends React.Component {
       openPriceSortPanel: false,
       openReadyByDateSortPanel: false,
       openOrderDateSortPanel: false,
-      snapshot: null,
+      snapshot: null
     });
   };
 
@@ -493,7 +455,7 @@ export default class App extends React.Component {
       openPriceSortPanel: false,
       openReadyByDateSortPanel: false,
       openOrderDateSortPanel: false,
-      snapshot: null,
+      snapshot: null
     });
   };
 
@@ -508,7 +470,7 @@ export default class App extends React.Component {
       openPriceSortPanel: false,
       openReadyByDateSortPanel: false,
       openOrderDateSortPanel: false,
-      snapshot: null,
+      snapshot: null
     });
   };
 
@@ -522,7 +484,7 @@ export default class App extends React.Component {
       openPriceSortPanel: false,
       openReadyByDateSortPanel: false,
       openOrderDateSortPanel: false,
-      snapshot: null,
+      snapshot: null
     });
   };
 
@@ -537,7 +499,7 @@ export default class App extends React.Component {
       openPriceSortPanel: false,
       openReadyByDateSortPanel: false,
       openOrderDateSortPanel: false,
-      snapshot: null,
+      snapshot: null
     });
   };
 
@@ -552,7 +514,7 @@ export default class App extends React.Component {
       openPriceSortPanel: false,
       openReadyByDateSortPanel: false,
       openOrderDateSortPanel: false,
-      snapshot: null,
+      snapshot: null
     });
   };
 
@@ -563,7 +525,7 @@ export default class App extends React.Component {
     const ordersCopy = [...this.state.filteredOrders];
     let sortedOrders;
 
-    if (sortBy === "price" && sortOrder === "Highest") {
+    if (sortBy === 'price' && sortOrder === 'Highest') {
       sortedOrders = ordersCopy.sort((a, b) => {
         if (Number(a[sortBy]) > Number(b[sortBy])) {
           return -1;
@@ -575,7 +537,7 @@ export default class App extends React.Component {
       });
     }
 
-    if (sortBy === "price" && sortOrder === "Lowest") {
+    if (sortBy === 'price' && sortOrder === 'Lowest') {
       sortedOrders = ordersCopy.sort((a, b) => {
         if (Number(a[sortBy]) > Number(b[sortBy])) {
           return 1;
@@ -587,10 +549,7 @@ export default class App extends React.Component {
       });
     }
 
-    if (
-      (sortBy === "ready_by_date" || sortBy === "order_date") &&
-      sortOrder === "Newest"
-    ) {
+    if ((sortBy === 'ready_by_date' || sortBy === 'order_date') && sortOrder === 'Newest') {
       sortedOrders = ordersCopy.sort((a, b) => {
         if (moment(a[sortBy]).valueOf() > moment(b[sortBy]).valueOf()) {
           return -1;
@@ -602,10 +561,7 @@ export default class App extends React.Component {
       });
     }
 
-    if (
-      (sortBy === "ready_by_date" || sortBy === "order_date") &&
-      sortOrder === "Oldest"
-    ) {
+    if ((sortBy === 'ready_by_date' || sortBy === 'order_date') && sortOrder === 'Oldest') {
       sortedOrders = ordersCopy.sort((a, b) => {
         if (new Date(a[sortBy]).getTime() > new Date(b[sortBy]).getTime()) {
           return 1;
@@ -622,38 +578,38 @@ export default class App extends React.Component {
 
   // sort-dropdowns open/close functions
   onOpenSortDropdown = sortBy => {
-    if (sortBy === "price") {
+    if (sortBy === 'price') {
       this.setState((prevState, props) => {
         return {
           openPriceSortPanel: !prevState.openPriceSortPanel,
           openReadyByDateSortPanel: false,
           openOrderDateSortPanel: false,
           openSearchByPanel: false,
-          snapshot: null,
+          snapshot: null
         };
       });
     }
 
-    if (sortBy === "ready_by_date") {
+    if (sortBy === 'ready_by_date') {
       this.setState((prevState, props) => {
         return {
           openReadyByDateSortPanel: !prevState.openReadyByDateSortPanel,
           openPriceSortPanel: false,
           openOrderDateSortPanel: false,
           openSearchByPanel: false,
-          snapshot: null,
+          snapshot: null
         };
       });
     }
 
-    if (sortBy === "order_date") {
+    if (sortBy === 'order_date') {
       this.setState((prevState, props) => {
         return {
           openOrderDateSortPanel: !prevState.openOrderDateSortPanel,
           openPriceSortPanel: false,
           openReadyByDateSortPanel: false,
           openSearchByPanel: false,
-          snapshot: null,
+          snapshot: null
         };
       });
     }
@@ -662,7 +618,7 @@ export default class App extends React.Component {
   // sort-dropdowns active/inactive-class functions
   sortByPriceBtnActive = index => {
     this.setState({
-      searchBy: "all",
+      searchBy: 'all',
       priceActive: true,
       readyByActive: false,
       orderedActive: false,
@@ -670,13 +626,13 @@ export default class App extends React.Component {
       selectedReadyDateOptionIndex: false,
       selectedOrderDateOptionIndex: false,
       selectedSearchOptionIndex: 0,
-      selectedOptionValue: "",
+      selectedOptionValue: ''
     });
   };
 
   sortByReadyDateBtnActive = index => {
     this.setState({
-      searchBy: "all",
+      searchBy: 'all',
       priceActive: false,
       readyByActive: true,
       orderedActive: false,
@@ -684,13 +640,13 @@ export default class App extends React.Component {
       selectedReadyDateOptionIndex: index,
       selectedOrderDateOptionIndex: false,
       selectedSearchOptionIndex: 0,
-      selectedOptionValue: "",
+      selectedOptionValue: ''
     });
   };
 
   sortByOrderDateBtnActive = index => {
     this.setState({
-      searchBy: "all",
+      searchBy: 'all',
       priceActive: false,
       readyByActive: false,
       orderedActive: true,
@@ -698,22 +654,22 @@ export default class App extends React.Component {
       selectedReadyDateOptionIndex: false,
       selectedOrderDateOptionIndex: index,
       selectedSearchOptionIndex: 0,
-      selectedOptionValue: "",
+      selectedOptionValue: ''
     });
   };
 
   // UTILITY FUNCTIONS ---------------------------------------------------
   persistSortOptions = () => {
     if (this.state.allActive) {
-      this.onSortOrders("all");
+      this.onSortOrders('all');
     }
 
     if (this.state.upcomingActive) {
-      this.onSortOrders("upcoming");
+      this.onSortOrders('upcoming');
     }
 
     if (this.state.pastActive) {
-      this.onSortOrders("past");
+      this.onSortOrders('past');
     }
   };
 
@@ -762,8 +718,7 @@ export default class App extends React.Component {
       pickedUpActive: this.state.pickedUpActive,
       sortByNotifiedBtnActive: this.sortByNotifiedBtnActive,
       notifiedActive: this.state.notifiedActive,
-      sortByPickedUpAndNotifiedBtnActive: this
-        .sortByPickedUpAndNotifiedBtnActive,
+      sortByPickedUpAndNotifiedBtnActive: this.sortByPickedUpAndNotifiedBtnActive,
       bothActive: this.state.bothActive,
 
       sortByPriceBtnActive: this.sortByPriceBtnActive,
@@ -790,64 +745,34 @@ export default class App extends React.Component {
 
       boxChecked: this.state.boxChecked,
       snapshot: this.state.snapshot,
-      nullifySnapshot: this.nullifySnapshot,
+      nullifySnapshot: this.nullifySnapshot
     };
 
     let navLinks;
 
     if (!TokenService.hasAuthToken()) {
       navLinks = [
-        <Link
-          to="/sign-in"
-          key="1"
-          className={styles["nav-link"]}
-          onClick={this.onOpenNav}
-        >
+        <Link to="/sign-in" key="1" className={styles['nav-link']} onClick={this.onOpenNav}>
           Sign-In
         </Link>,
-        <Link
-          to="/sign-up"
-          key="2"
-          className={styles["nav-link"]}
-          onClick={this.onOpenNav}
-        >
+        <Link to="/sign-up" key="2" className={styles['nav-link']} onClick={this.onOpenNav}>
           Sign-Up
-        </Link>,
+        </Link>
       ];
     } else {
       navLinks = [
-        <Link
-          to="/home"
-          key="0"
-          className={styles["nav-link"]}
-          onClick={this.onOpenNav}
-        >
+        <Link to="/home" key="0" className={styles['nav-link']} onClick={this.onOpenNav}>
           Home
         </Link>,
-        <Link
-          to="/new-order"
-          key="3"
-          className={styles["nav-link"]}
-          onClick={this.onOpenNav}
-        >
+        <Link to="/new-order" key="3" className={styles['nav-link']} onClick={this.onOpenNav}>
           + New Order
         </Link>,
-        <Link
-          to="/customers"
-          key="4"
-          className={styles["nav-link"]}
-          onClick={this.onOpenNav}
-        >
+        <Link to="/customers" key="4" className={styles['nav-link']} onClick={this.onOpenNav}>
           Customers
         </Link>,
-        <Link
-          to="/sign-in"
-          key="5"
-          className={styles["nav-link"]}
-          onClick={this.signout}
-        >
+        <Link to="/sign-in" key="5" className={styles['nav-link']} onClick={this.signout}>
           Sign-Out
-        </Link>,
+        </Link>
       ];
     }
 
@@ -857,7 +782,7 @@ export default class App extends React.Component {
           <div className={styles.App}>
             <Navbar />
             {this.state.openNav ? (
-              <div className={styles["nav-links-wrapper"]}>
+              <div className={styles['nav-links-wrapper']}>
                 {navLinks.map(link => {
                   return link;
                 })}
@@ -870,15 +795,11 @@ export default class App extends React.Component {
             <Route path="/" exact component={Landing} />
             <Route path="/landing" exact component={Landing} />
 
-            <PrivateRoute path={"/home"} component={Home} />
-            <PrivateRoute path={"/new-order"} component={CreateOrder} />
-            <PrivateRoute path={"/edit-order/:id"} component={CreateOrder} />
-            <PrivateRoute path={"/customers"} component={Customers} />
-            <PrivateRoute
-              path={"/orders/:order_id"}
-              exact
-              component={OrderDetails}
-            />
+            <PrivateRoute path={'/home'} component={Home} />
+            <PrivateRoute path={'/new-order'} component={CreateOrder} />
+            <PrivateRoute path={'/edit-order/:id'} component={CreateOrder} />
+            <PrivateRoute path={'/customers'} component={Customers} />
+            <PrivateRoute path={'/orders/:order_id'} exact component={OrderDetails} />
 
             <Footer />
           </div>

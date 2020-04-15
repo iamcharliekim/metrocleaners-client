@@ -107,6 +107,8 @@ class OrderItem extends React.Component {
       });
   };
 
+  onNotificationSent = () => {};
+
   deleteOrder = (e, id) => {
     e.preventDefault();
     OrdersService.deleteOrder(id)
@@ -184,8 +186,8 @@ class OrderItem extends React.Component {
                 type="checkbox"
                 readOnly
                 className={styles['checkbox']}
-                checked={this.state.notificationSent ? true : null}
-                disabled={!this.state.notificationSent}
+                checked={this.props.orderItem.notification_sent || false}
+                disabled={!this.props.orderItem.notification_sent || false}
               />
             </div>
             <span className={styles['order-label']}>Notification </span>
@@ -200,7 +202,17 @@ class OrderItem extends React.Component {
 
         <div className={styles['order-row']}>
           <div className={styles['order-btns-row']}>
-            <button onClick={e => this.editOrder(e, this.state.order.id)}>Edit</button>
+            <button
+              onClick={e => this.editOrder(e, this.state.order.id)}
+              className={
+                this.state.order.picked_up || this.state.order.notification_sent
+                  ? styles['disabled']
+                  : null
+              }
+              disabled={this.state.order.picked_up || this.state.order.notification_sent}
+            >
+              Edit
+            </button>
             <button onClick={e => this.deleteOrder(e, this.state.order.id)}>Delete</button>
           </div>
         </div>

@@ -1,35 +1,35 @@
 .orders-card {
-  width: 80%;
-  margin-right: 0;
-  border: 1px solid lightgray;
-  padding: 10px;
-  display: flex;
-  flex-direction: column;
+  width          : 80%;
+  margin-right   : 0;
+  border         : 1px solid lightgray;
+  padding        : 10px;
+  display        : flex;
+  flex-direction : column;
   justify-content: flex-start;
-  align-items: flex-start;
-  margin-bottom: 20px;
-  box-shadow: 0px 1px 2px #888;
-  max-width: 500px;
+  align-items    : flex-start;
+  margin-bottom  : 20px;
+  box-shadow     : 0px 1px 2px #888;
+  max-width      : 500px;
 }
 
 .orders-card-header {
-  width: 100%;
-  display: flex;
-  flex-direction: column;
+  width          : 100%;
+  display        : flex;
+  flex-direction : column;
   justify-content: flex-start;
-  align-items: flex-start;
-  margin-bottom: 0;
-  margin-top: 0;
+  align-items    : flex-start;
+  margin-bottom  : 0;
+  margin-top     : 0;
 }
 
 .icon-wrapper {
-  width: 100%;
-  font-size: 25px;
-  display: flex;
+  width          : 100%;
+  font-size      : 25px;
+  display        : flex;
   justify-content: center;
-  align-items: center;
-  /* padding-top: 10px; */
-  border-top: 1px solid black;
+  align-items    : center;
+  /* padding-top : 10px; */
+  border-top     : 1px solid black;
 }
 
 .icon {
@@ -37,75 +37,75 @@
 }
 
 .order-picked-up-row {
-  width: 100%;
-  display: flex;
+  width          : 100%;
+  display        : flex;
   justify-content: space-between;
-  align-items: center;
+  align-items    : center;
 }
 
 .order-picked-up-date {
-  font-size: 14px;
+  font-size  : 14px;
   margin-left: 5px;
 }
 
 .order-details {
-  width: 100%;
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
+  width          : 100%;
+  display        : flex;
+  flex-direction : column;
+  align-items    : flex-start;
   justify-content: flex-start;
-  margin-bottom: 10px;
-  font-size: 14px;
+  margin-bottom  : 10px;
+  font-size      : 14px;
 }
 
 header .order-picked-up-btn {
-  width: 5%;
-  border: 1px solid black;
-  border-radius: 20%;
-  color: green;
+  width           : 5%;
+  border          : 1px solid black;
+  border-radius   : 20%;
+  color           : green;
   background-color: green;
 }
 
 header .order-not-picked-up-btn {
-  width: 5%;
-  border: 1px solid black;
-  border-radius: 20%;
-  color: red;
+  width           : 5%;
+  border          : 1px solid black;
+  border-radius   : 20%;
+  color           : red;
   background-color: red;
 }
 
 .orders-card .order-customer-details {
-  width: 100%;
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
+  width          : 100%;
+  display        : flex;
+  flex-direction : column;
+  align-items    : flex-start;
   justify-content: center;
-  margin-bottom: 10px;
+  margin-bottom  : 10px;
 }
 
 .orders-card .order-customer-details h4 {
-  margin-top: 0;
-  font-size: 20px;
+  margin-top   : 0;
+  font-size    : 20px;
   margin-bottom: 0px;
 }
 
 .orders-card .order-customer-details .order-link {
   text-decoration: none;
-  margin-top: 10px;
-  margin-bottom: 10px;
+  margin-top     : 10px;
+  margin-bottom  : 10px;
 }
 
 .order-row {
-  width: 100%;
-  display: flex;
-  align-items: center;
+  width          : 100%;
+  display        : flex;
+  align-items    : center;
   justify-content: flex-start;
-  margin-bottom: 10px;
+  margin-bottom  : 10px;
 }
 
 .order-label {
-  font-size: 14px;
-  margin-top: 5px;
+  font-size    : 14px;
+  margin-top   : 5px;
   margin-bottom: 5px;
 }
 
@@ -118,42 +118,41 @@ header .order-not-picked-up-btn {
 }
 
 .checkbox-wrapper {
-  border: 1px solid gray;
-  display: flex;
+  border         : 1px solid gray;
+  display        : flex;
   justify-content: center;
-  align-items: center;
-  margin-right: 10px;
+  align-items    : center;
+  margin-right   : 10px;
 }
 
-.checkbox {
-}
+.checkbox {}
 
 .order-ready-wrapper {
   margin-top: 20px;
 }
 
 .order-price {
-  font-size: 30px;
-  margin-bottom: 20px;
-  width: 100%;
-  text-align: left;
-  display: flex;
+  font-size      : 30px;
+  margin-bottom  : 20px;
+  width          : 100%;
+  text-align     : left;
+  display        : flex;
   justify-content: flex-start;
-  align-items: center;
+  align-items    : center;
 }
 
 .quantity {
-  font-size: 16px;
+  font-size  : 16px;
   margin-left: 5px;
 }
 
 .ready-by-date-wrapper {
-  width: 100%;
-  display: flex;
-  flex-direction: column;
+  width          : 100%;
+  display        : flex;
+  flex-direction : column;
   justify-content: flex-start;
-  align-items: flex-start;
-  margin-bottom: 10px;
+  align-items    : flex-start;
+  margin-bottom  : 10px;
 }
 
 .phone_number,
@@ -164,12 +163,24 @@ header .order-not-picked-up-btn {
 
 .notification-sent-date {
   margin-left: 5px;
-  font-size: 14px;
+  font-size  : 14px;
 }
 
 .order-btns-row {
-  width: 100%;
-  display: flex;
+  width          : 100%;
+  display        : flex;
   justify-content: flex-end;
-  align-items: center;
+  align-items    : center;
+}
+
+.disabled {
+  color           : gray;
+  background-color: lightgray;
+  border          : none;
+}
+
+.disabled:hover {
+  color           : gray;
+  background-color: lightgray;
+  border          : none;
 }
